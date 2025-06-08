@@ -1,11 +1,13 @@
 import Image from "next/image";
+import Hero from "../components/Hero";
+import NewProducts from "@/components/NewProducts";
+
+
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-600">
-        E-Commerce Frontend Ready 🚀
-      </h1>
+      <Hero />
     </main>
   );
 }
