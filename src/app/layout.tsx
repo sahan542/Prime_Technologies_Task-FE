@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import './globals.css'
+import './globals.css';
+
 import HeaderTop from "@/components/HeaderTop";
 import HeaderMain from "@/components/HeaderMain";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import NewProducts from "@/components/NewProducts";
+
+// 🧠 Auth Context Provider & Modals
+import { AuthModalProvider } from "@/components/context/AuthModalContext";
+import LoginModal from "@/components/modals/LoginModal";
+import SignupModal from "@/components/modals/SignupModal";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import NewProducts from "@/components/NewProducts";
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,15 +38,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <HeaderTop />
-        <HeaderMain />
-        <Navbar />
-        {children}
-        <NewProducts/>
-      </body>
+<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+  <AuthModalProvider>
+    <HeaderTop />
+    <HeaderMain />
+    <Navbar />
+    {children}
+    <NewProducts />
+    <Footer />
+    <SignupModal /> 
+    <LoginModal />   
+  </AuthModalProvider>
+</body>
     </html>
   );
 }
