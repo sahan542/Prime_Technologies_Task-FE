@@ -15,11 +15,11 @@ export default function ProductsPage() {
   const categories = ['Skin Care', 'Baby Care', 'Makeup', 'Hair Care'];
 
   useEffect(() => {
-    fetch('http://localhost:8000/products/')
+    fetch('http://localhost:8000/api/products/')
       .then(res => res.json())
       .then(data => {
         setProducts(data);
-        setFilteredProducts(data); // initially show all
+        setFilteredProducts(data); 
       })
       .catch(err => console.error('Error fetching products:', err));
   }, []);
