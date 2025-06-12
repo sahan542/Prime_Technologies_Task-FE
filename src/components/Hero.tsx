@@ -17,7 +17,7 @@ const Hero = () => {
     const slideData = [
         {
             id: 0,
-            img: "/cour-1.jpg", // Corrected image path
+            img: "/cour-1.jpg", 
             mainTitle: "WOMEN'S LATEST FASHION SALE",
             price: "$20",
         },
@@ -27,12 +27,7 @@ const Hero = () => {
             mainTitle: "WOMEN'S LATEST FASHION SALE",
             price: "$30",
         },
-        // {
-        //     id: 2,
-        //     img: "/cour-3.jpg",
-        //     mainTitle: "WOMEN'S LATEST FASHION SALE",
-        //     price: "$40",
-        // },
+
     ];
 
     return (
