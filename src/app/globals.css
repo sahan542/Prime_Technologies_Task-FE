@@ -1,16 +1,11 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -44,5 +39,62 @@ body {
   }
     .navbar__link:hover::after{
       scale: 1;
+  }
+} */
+
+
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #ffffff;
+}
+
+/* Theme for Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ededed;
+    --foreground: #ededed;
+  }
+}
+
+/* Apply general body styles */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;  /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  box-sizing: border-box;  /* Ensure consistent box sizing */
+  height: 100%;  /* Ensure the body takes the full viewport height */
+  overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
+/* Ensure that the html tag doesn't overflow */
+html {
+  height: 100%; /* Full height */
+  overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
+/* Utility classes for overflow and height management */
+@layer components {
+  .navbar__link:hover{
+    color: #ff8f96;
+    transition: all 0.4s;
+  }
+  .navbar__link::after{
+    position: absolute;
+    content: "";
+    background-color: #ff8f9c;
+    height: 3px;
+    width: 100%;
+    bottom: -5px;
+    left: 0;
+    scale: 0;
+    transform-origin: left;
+    transition: all 0.4s;
+  }
+  .navbar__link:hover::after{
+    scale: 1;
   }
 }
