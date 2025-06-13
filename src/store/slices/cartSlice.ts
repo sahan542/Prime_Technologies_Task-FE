@@ -1,5 +1,3 @@
-// src/store/cartSlice.ts
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface CartItem {
@@ -22,28 +20,37 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action: PayloadAction<CartItem>) {
+      console.log("Adding to cart:", action.payload);
+
       const existingItem = state.items.find(item => item.id === action.payload.id);
       if (existingItem) {
-        // If the item already exists, increment its quantity
+        // If item exists, increment quantity by the new quantity
         existingItem.quantity += action.payload.quantity;
       } else {
-        // If the item doesn't exist, add it to the cart
+        // Otherwise, add the new item to the cart
         state.items.push(action.payload);
       }
+
+      console.log("Updated cart:", state.items); 
     },
     removeFromCart(state, action: PayloadAction<string>) {
-      // Remove item from the cart by its id
+      // Filter out the item by its ID from the cart
       state.items = state.items.filter(item => item.id !== action.payload);
     },
     clearCart(state) {
-      // Clear all items from the cart
+      // Clear all items in the cart
       state.items = [];
+    },
+    updateQuantity(state, action: PayloadAction<{ id: string, quantity: number }>) {
+      const item = state.items.find(item => item.id === action.payload.id);
+      if (item) {
+        // Update the quantity of the item in the cart
+        item.quantity = action.payload.quantity;
+      }
     },
   },
 });
 
-// Export the actions so you can use them in your components
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, updateQuantity } = cartSlice.actions;
 
-// Export the reducer to be used in the store
 export default cartSlice.reducer;

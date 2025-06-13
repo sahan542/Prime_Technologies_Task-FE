@@ -7,12 +7,17 @@ import { HiShoppingBag } from "react-icons/hi2";
 import { IoIosHeart } from "react-icons/io";
 import SignInModal from '@/components/modals/SignInModal';
 import SignUpModal from '@/components/modals/SignupModal';
+import CartPanel from './CartPanel';
+import { useRouter } from 'next/router';
 
 const HeaderMain = () => {
   // States for managing the dropdown and modal visibility
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false); 
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);  // Track signup modal state
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const openSignInModal = () => {
@@ -28,9 +33,31 @@ const HeaderMain = () => {
   const closeSignUpModal = () => setIsSignUpModalOpen(false); // Close Sign Up modal
 
   const handleLogout = () => {
-    // Handle logout functionality here
-    console.log('Logged out');
-    setIsDropdownOpen(false); // Close dropdown on logout
+    // Step 1: Remove the authentication data from localStorage
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user'); 
+    localStorage.removeItem('loglevel');   // Assuming you store the JWT token under this key
+    console.log('Logged out');  // Log the action for debugging purposes
+
+    // Step 2: Close the dropdown (if there is any dropdown functionality)
+    setIsDropdownOpen(false);  // Assuming you have this state for dropdown control
+
+    // Step 3: Optionally, call the backend logout endpoint (optional for JWT)
+    // You can skip this if the token is stateless (like JWT).
+    fetch('http://localhost:8000/logout', { method: 'POST' })
+      .then((response) => {
+        if (response.ok) {
+          console.log('Logged out on the server');
+        } else {
+          console.error('Failed to log out on the server');
+        }
+      })
+      .catch((error) => console.error('Error logging out on the server:', error));
+
+    // Step 4: Redirect to the login page or any other page
+    const router = useRouter();
+    router.push('/login');  // Redirect to the login page after logout
   };
 
   return (
@@ -46,7 +73,7 @@ const HeaderMain = () => {
           <div className="flex items-center gap-4 text-[#7b1f4b] text-[22px] lg:hidden">
             <FaUser className="cursor-pointer hover:text-[#7b1f4b]" onClick={toggleDropdown} />
             <div className="relative">
-              <HiShoppingBag className="cursor-pointer hover:text-[#7b1f4b]" />
+              <HiShoppingBag className="cursor-pointer hover:text-[#7b1f4b]" onClick={toggleCart}/>
               <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
                 3
               </span>
@@ -70,7 +97,7 @@ const HeaderMain = () => {
         <div className="hidden lg:flex gap-5 text-[#7b1f4b] text-[22px]">
           <FaUser className="cursor-pointer hover:text-[#7b1f4b]" onClick={toggleDropdown} />
           <div className="relative">
-            <HiShoppingBag className="cursor-pointer text-[#7b1f4b]" />
+            <HiShoppingBag className="cursor-pointer text-[#7b1f4b]" onClick={toggleCart} />
             <span className="absolute -top-2 -right-2 bg-[#d4749e] text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
               3
             </span>
@@ -81,6 +108,7 @@ const HeaderMain = () => {
               3
             </span>
           </div>
+            <CartPanel isOpen={isCartOpen} toggleCart={toggleCart} />
         </div>
       </div>
 

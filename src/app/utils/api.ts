@@ -31,5 +31,19 @@ export const signInUser = async (email: string, password: string) => {
     throw new Error(data.message);
   }
 
-  return await response.json();
+  const data = await response.json();
+
+  // Assuming the backend returns an object like:
+  // { "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", "token_type": "bearer" }
+
+  const token = data.access_token;
+  if (token) {
+    // Save token in localStorage
+    localStorage.setItem('token', token);
+    localStorage.setItem('isAuthenticated', 'true');  // Optionally store authentication status
+    return data;  // Return the response data (can be used for further processing)
+  } else {
+    throw new Error('Token not received from server');
+  }
 };
+

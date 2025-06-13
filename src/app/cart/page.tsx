@@ -1,10 +1,12 @@
-'use client';  // Mark as client component
+'use client';  // Next.js specific for client-side rendering
 
-import { useDispatch, useSelector } from 'react-redux'; 
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { addToCart, removeFromCart, clearCart, updateQuantity } from '@/store/slices/cartSlice';
 import { useRouter } from 'next/navigation';
-import { addToCart, removeFromCart, clearCart } from '@/store/cartSlice';
-import { RootState } from '@/store/store'; 
-import { useAuth } from '@/context/AuthContext'; 
+import { useAuth } from '@/context/AuthContext';
+import SignInModal from '../../components/modals/SignInModal'; 
 
 interface CartItem {
   id: string;
@@ -14,30 +16,41 @@ interface CartItem {
 }
 
 export default function CartPage() {
-  const { isAuthenticated } = useAuth(); 
-  const dispatch = useDispatch(); 
-  const router = useRouter(); 
-  const cartItems = useSelector((state: RootState) => state.cart.items); 
+  const { isAuthenticated } = useAuth();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
 
-  // Redirect to signin page if not authenticated
-  if (!isAuthenticated) {
-    router.push('/signin');
-    return <div>Redirecting...</div>;
-  }
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
-  // Dispatch add item to cart action
+  // Function to handle adding an item to the cart
   const handleAddToCart = (item: CartItem) => {
     dispatch(addToCart(item));
   };
 
-  // Dispatch remove item from cart action
+  // Function to handle removing an item from the cart
   const handleRemoveFromCart = (id: string) => {
     dispatch(removeFromCart(id));
   };
 
-  // Dispatch clear cart action
+  // Function to handle clearing the cart
   const handleClearCart = () => {
     dispatch(clearCart());
+  };
+
+  // Function to update the quantity of an item in the cart
+  const handleUpdateQuantity = (id: string, quantity: number) => {
+    if (quantity <= 0) return; // Prevent negative quantities
+    dispatch(updateQuantity({ id, quantity }));
+  };
+
+  // Open the SignIn modal if the user is not authenticated
+  const handleCartAction = () => {
+    if (!isAuthenticated) {
+      setIsModalOpen(true);  // Show the modal if not authenticated
+    } else {
+      router.push('/checkout');  // Navigate to checkout if authenticated
+    }
   };
 
   return (
@@ -45,8 +58,8 @@ export default function CartPage() {
       <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
 
       {/* Button to clear the entire cart */}
-      <button 
-        onClick={handleClearCart} 
+      <button
+        onClick={handleClearCart}
         className="bg-red-600 text-white px-6 py-2 rounded mb-6"
       >
         Clear Cart
@@ -54,16 +67,16 @@ export default function CartPage() {
 
       {/* Display message if cart is empty */}
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p className='text-black'>Your cart is empty.</p>
       ) : (
         <div className="space-y-4">
           {/* Render each item in the cart */}
           {cartItems.map((item: CartItem) => (
             <div key={item.id} className="flex justify-between items-center border-b pb-4 mb-4">
               <div className="flex-1">
-                <h3 className="font-semibold text-lg">{item.name}</h3>
-                <p>Price: ${item.price}</p>
-                <p>Quantity: {item.quantity}</p>
+                <h3 className="font-semibold text-lg text-black">{item.name}</h3>
+                <p className='text-black'>Price: ${item.price}</p>
+                <p className='text-black'>Quantity: {item.quantity}</p>
               </div>
               <div className="flex items-center gap-2">
                 <button
@@ -72,12 +85,21 @@ export default function CartPage() {
                 >
                   Remove
                 </button>
-                <button
-                  onClick={() => handleAddToCart(item)}
-                  className="bg-blue-600 text-white px-4 py-2 rounded"
-                >
-                  Add One More
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
+                    className="bg-yellow-600 text-white px-4 py-2 rounded"
+                  >
+                    –
+                  </button>
+                  <span>{item.quantity}</span>
+                  <button
+                    onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
+                    className="bg-yellow-600 text-white px-4 py-2 rounded"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -87,14 +109,17 @@ export default function CartPage() {
       {/* Display cart totals */}
       <div className="mt-6">
         <div className="flex justify-between items-center font-semibold">
-          <span>Total Items:</span>
-          <span>{cartItems.length}</span>
+          <span className='text-black'>Total Items:</span>
+          <span className='text-black'>{cartItems.length}</span>
         </div>
         <div className="flex justify-between items-center font-semibold mt-2">
-          <span>Total Price:</span>
-          <span>${cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</span>
+          <span className='text-black'>Total Price:</span>
+          <span className='text-black'>${cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</span>
         </div>
       </div>
+
+      {/* Show SignInModal if not authenticated */}
+      <SignInModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
     </div>
   );
 }
