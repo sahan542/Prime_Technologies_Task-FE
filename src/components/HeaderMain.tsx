@@ -8,7 +8,12 @@ import { IoIosHeart } from "react-icons/io";
 import SignInModal from '@/components/modals/SignInModal';
 import SignUpModal from '@/components/modals/SignupModal';
 import CartPanel from './CartPanel';
-import { useRouter } from 'next/router';
+import { useAppDispatch } from '@/store/hooks'; // adjust path if different
+import { fetchProducts } from '@/store/actions';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { selectCartCount } from '@/store/slices/cartSlice';
+
 
 const HeaderMain = () => {
   // States for managing the dropdown and modal visibility
@@ -16,6 +21,12 @@ const HeaderMain = () => {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false); 
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);  // Track signup modal state
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const cartItemCount = useSelector(selectCartCount);
+
+
 
   const toggleCart = () => setIsCartOpen(!isCartOpen);
 
@@ -60,6 +71,13 @@ const HeaderMain = () => {
     router.push('/login');  // Redirect to the login page after logout
   };
 
+const handleSearch = () => {
+  if (searchTerm.trim()) {
+    // Push to /products page with search query
+    router.push(`/products?search=${encodeURIComponent(searchTerm)}`);
+  }
+};
+
   return (
     <div className="border-b border-gray-200 py-4 bg-white px-4 sm:px-6 lg:px-[60px]">
       <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-4">
@@ -81,27 +99,36 @@ const HeaderMain = () => {
           </div>
         </div>
 
-        {/* Search bar */}
-        <div className="w-full sm:w-[280px] md:w-[60%] relative">
-          <input
-            className="border border-[#7b1f4b] p-2 pr-10 px-4 rounded-xl w-full text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-[#7b1f4b]"
-            type="text"
-            placeholder="Enter any product name..."
-          />
-          <div className="absolute right-0 top-0 h-full w-10 bg-[#7b1f4b] flex items-center justify-center rounded-r-xl">
-            <CiSearch className="text-white" size={20} />
-          </div>
-        </div>
+      {/* Search bar */}
+      <div className="w-full sm:w-[280px] md:w-[60%] relative">
+        <input
+          className="border border-[#7b1f4b] p-2 pr-10 px-4 rounded-xl w-full text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-[#7b1f4b]"
+          type="text"
+          placeholder="Enter any product name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+        />
+        <button
+          className="absolute right-0 top-0 h-full w-10 bg-[#7b1f4b] flex items-center justify-center rounded-r-xl"
+          onClick={handleSearch}
+        >
+          <CiSearch className="text-white" size={20} />
+        </button>
+      </div>
 
         {/* Icons (desktop only) aligned right */}
         <div className="hidden lg:flex gap-5 text-[#7b1f4b] text-[22px]">
           <FaUser className="cursor-pointer hover:text-[#7b1f4b]" onClick={toggleDropdown} />
           <div className="relative">
             <HiShoppingBag className="cursor-pointer text-[#7b1f4b]" onClick={toggleCart} />
-            <span className="absolute -top-2 -right-2 bg-[#d4749e] text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
-              3
-            </span>
+            {cartItemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-[#d4749e] text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
+                {cartItemCount}
+              </span>
+            )}
           </div>
+
           <div className="relative">
             <IoIosHeart className="cursor-pointer hover:text-[#7b1f4b]" />
             <span className="absolute -top-2 -right-2 bg-[#d4749e] text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full">

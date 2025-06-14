@@ -23,13 +23,14 @@ export default function SignInModal({ isOpen, closeModal }: SignInModalProps) {
 
     try {
       // Send API request to sign in
-      const data = await signInUser(username, password);  // Assuming API returns token and user data
+      const data = await signInUser(username, password);
+      console.log("user signin data : ",data); // Assuming API returns token and user data
 
       // Store the token in localStorage
       if (data && data.access_token) {
         localStorage.setItem('token', data.access_token);  // Save the token in localStorage
         localStorage.setItem('isAuthenticated', 'true');  // Set authentication status to true
-        localStorage.setItem('user', JSON.stringify({ email: username, name: data.name }));  // Optionally store user info
+        localStorage.setItem('user', JSON.stringify({ email: username, name: data.name, userID: data.id}));  // Optionally store user info
 
         // Call the signIn function from context (if needed)
         signIn(data.access_token, { email: username, name: data.name });  // Pass the token and user data to context

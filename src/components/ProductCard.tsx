@@ -1,31 +1,8 @@
-// import Image from 'next/image';
-// import React from 'react'
-
-//     interface propsType {
-//         img: String;
-//         title: String;
-//         desc: String;
-//         rating: number;
-//         price: String;
-//     }
-// const ProductCard = ({ img, title, desc, rating, price}) => {
-
-//   return (
-//     <div className='px-4 border border-gray-200 rounded-xl max-w-[400px]'>
-//         <div>
-//             <Image className='w-full h-auto' src={img}width={200} height={200} alt={title}  />
-//         </div>
-//     </div>
-//   )
-// }
-
-// export default ProductCard
-
 'use client';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaStar, FaRegStar } from "react-icons/fa";
+import { FaStar, FaRegStar } from 'react-icons/fa';
 
 interface PropsType {
   img: string;
@@ -33,16 +10,14 @@ interface PropsType {
   desc: string;
   rating: number;
   price: string;
-  slug: string; // ✅ Add slug for dynamic routing
+  slug: string;
 }
 
 const ProductCard: React.FC<PropsType> = ({ img, title, desc, rating, price, slug }) => {
   const generateRating = (rating: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      stars.push(
-        i <= rating ? <FaStar key={i} /> : <FaRegStar key={i} />
-      );
+      stars.push(i <= rating ? <FaStar key={i} /> : <FaRegStar key={i} />);
     }
     return <div className="flex gap-1 text-[20px] text-[#FF9529]">{stars}</div>;
   };
@@ -57,9 +32,7 @@ const ProductCard: React.FC<PropsType> = ({ img, title, desc, rating, price, slu
         <h3 className="text-black font-semibold text-lg mt-2">{title}</h3>
         <p className="text-gray-600 text-sm">{desc}</p>
 
-        <div className="mt-1">
-          {generateRating(rating)}
-        </div>
+        <div className="mt-1">{generateRating(rating)}</div>
 
         <div className="font-bold flex gap-4 text-black mt-1">
           ${price}
@@ -78,5 +51,3 @@ const ProductCard: React.FC<PropsType> = ({ img, title, desc, rating, price, slu
 };
 
 export default ProductCard;
-
-
