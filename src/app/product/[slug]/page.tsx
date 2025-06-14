@@ -59,10 +59,10 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
   };
 
   return (
-    <div className="p-10 bg-white text-black max-w-[1200px] mx-auto">
+<div className="p-16 bg-white text-black max-w-[1200px] mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Product Image */}
-        <div className="relative border rounded-lg overflow-hidden group">
+        <div className="relative border-[2px] border-[#7b1f4b] rounded-lg overflow-hidden group">
           <img
             src={product.img}
             alt={product.title}

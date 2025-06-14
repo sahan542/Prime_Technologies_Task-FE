@@ -45,7 +45,7 @@ export default function ProductPage() {
     arr.includes(val) ? arr.filter((v) => v !== val) : [...arr, val];
 
   return (
-    <div className="flex gap-6 p-4 text-black">
+    <div className="flex gap-4 p-6 text-black ">
       <aside className="w-1/6 space-y-4">
         <CategoryFilter
           categories={['moisturizers', 'Hair Care', 'Makeup']}
@@ -70,9 +70,10 @@ export default function ProductPage() {
           }
         />
       </aside>
-      <main className="w-3/4">
-        <ProductList products={items} />
-      </main>
+        <main className="w-3/4 mx-auto flex justify-center items-center">
+          <ProductList products={items} />
+        </main>
+
     </div>
   );
 }

@@ -13,6 +13,8 @@ import { fetchProducts } from '@/store/actions';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { selectCartCount } from '@/store/slices/cartSlice';
+import Link from 'next/link';
+import { BsFire } from "react-icons/bs";
 
 
 const HeaderMain = () => {
@@ -54,8 +56,6 @@ const HeaderMain = () => {
     // Step 2: Close the dropdown (if there is any dropdown functionality)
     setIsDropdownOpen(false);  // Assuming you have this state for dropdown control
 
-    // Step 3: Optionally, call the backend logout endpoint (optional for JWT)
-    // You can skip this if the token is stateless (like JWT).
     fetch('http://localhost:8000/logout', { method: 'POST' })
       .then((response) => {
         if (response.ok) {
@@ -66,7 +66,6 @@ const HeaderMain = () => {
       })
       .catch((error) => console.error('Error logging out on the server:', error));
 
-    // Step 4: Redirect to the login page or any other page
     const router = useRouter();
     router.push('/login');  // Redirect to the login page after logout
   };
@@ -85,17 +84,35 @@ const handleSearch = () => {
         {/* Top Row: Logo + Icons (on mobile/tablet) */}
         <div className="w-full flex items-center justify-between lg:justify-start lg:w-auto gap-4">
           {/* Logo */}
-          <img src="/brizz bella.png" alt="Logo" className="w-[150px] sm:w-[180px]" />
+<img
+  src="/brizz bella.png"
+  alt="Logo"
+  className="w-[127.5px] sm:w-[180px]"
+/>
+<div className="flex items-center gap-4">
+  {/* Always show Shop All */}
+<Link
+  href="/products"
+  className="text-[#7b1f4b] hover:underline text-lg sm:text-lg block sm:inline"
+>
+  <span className="block sm:inline w-full">Shop All</span>
+</Link>
+
+</div>
+
+
+
 
           {/* Icons (visible only below lg) */}
           <div className="flex items-center gap-4 text-[#7b1f4b] text-[22px] lg:hidden">
-            <FaUser className="cursor-pointer hover:text-[#7b1f4b]" onClick={toggleDropdown} />
+            <IoIosHeart className="cursor-pointer hover:text-[#7b1f4b]" />
             <div className="relative">
               <HiShoppingBag className="cursor-pointer hover:text-[#7b1f4b]" onClick={toggleCart}/>
               <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
                 3
               </span>
             </div>
+            <FaUser className="cursor-pointer hover:text-[#7b1f4b]" onClick={toggleDropdown} />
           </div>
         </div>
 
