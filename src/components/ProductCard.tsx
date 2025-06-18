@@ -1,8 +1,7 @@
-'use client';
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaStar, FaRegStar, FaShoppingCart, FaRegHeart } from "react-icons/fa";
+import { FaStar, FaRegStar } from "react-icons/fa";
 import { IoIosHeart } from "react-icons/io";
 import { HiShoppingBag } from "react-icons/hi2";
 
@@ -13,6 +12,8 @@ interface PropsType {
   rating: number;
   price: string;
   slug: string;
+  onAddToCart: () => void; // Function for adding to cart
+  onAddToWishlist: () => void; // Function for adding to wishlist
 }
 
 const ProductCard: React.FC<PropsType> = ({
@@ -22,6 +23,8 @@ const ProductCard: React.FC<PropsType> = ({
   rating,
   price,
   slug,
+  onAddToCart,
+  onAddToWishlist,
 }) => {
   const generateRating = (rating: number) => {
     const stars = [];
@@ -61,31 +64,30 @@ const ProductCard: React.FC<PropsType> = ({
               ${parseInt(price) + 50}.00
             </del>
           </div>
-
-          {/* Product Info for Modal/Popup (Optional) */}
-          {/* <div className="space-y-2 py-2">
-            <h2 className="text-black font-medium">{title}</h2>
-            <p className="text-gray-500 max-w-[150px]">{desc}</p>
-          </div> */}
         </div>
 
-      {/* Cart and Wishlist Icons */}
+        {/* Cart and Wishlist Icons */}
         <div className="flex flex-col">
           {/* Cart Icon */}
-          <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg cursor-pointer">
+          <div className="absolute top-4 right-4 opacity-0 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+            <div
+              onClick={onAddToCart} // Trigger the Add to Cart function
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg cursor-pointer"
+            >
               <HiShoppingBag className="text-2xl text-[#7b1f4b]" />
             </div>
           </div>
 
           {/* Wishlist Icon */}
-          <div className="absolute top-16 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg cursor-pointer">
+          <div className="absolute top-16 right-4 opacity-0 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+            <div
+              onClick={onAddToWishlist} // Trigger the Add to Wishlist function
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg cursor-pointer"
+            >
               <IoIosHeart className="text-2xl text-[#7b1f4b]" />
             </div>
           </div>
         </div>
-
       </div>
     </Link>
   );

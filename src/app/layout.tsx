@@ -17,6 +17,10 @@ import SignInModal from "@/components/modals/SignInModal";
 import SignupModal from "@/components/modals/SignupModal";
 import ProductCarousel from "@/components/carousel/ProductCarousel";
 import { skincareProducts } from "@/data/sampleProducts";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Hero from "@/components/Hero";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,13 +61,14 @@ export default function RootLayout({
               <Navbar />
               {children}
               <NewProducts />
-              <ProductCarousel title="Skin Care" products={skincareProducts} />
-              <ProductCarousel title="Nature's Secrets" products={skincareProducts} />
+              <ProductCarousel title="SKIN CARE" products={skincareProducts} />
+              <ProductCarousel title="MOISTURIZORS" products={skincareProducts} />
+              <ProductCarousel title="SERUMS" products={skincareProducts} />
 
 
               <Footer />
-              <SignupModal isOpen={isSignUpOpen} closeModal={closeSignUpModal} />
-              <SignInModal isOpen={isSignInOpen} closeModal={closeSignInModal} />
+              <SignupModal isOpen={isSignUpOpen} closeModal={closeSignUpModal} openSignInModal={openSignInModal}/>
+              <SignInModal isOpen={isSignInOpen} closeModal={closeSignInModal}  openSignUpModal={openSignUpModal}/>
             </AuthModalProvider>
           </AuthProvider>
         </Provider>

@@ -1,4 +1,3 @@
-// src/components/Cart/ProductCard.tsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../store/slices/cartSlice';
@@ -13,13 +12,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch<AppDispatch>();
   const [quantity, setQuantity] = useState(1);
 
+  // Handle adding to the cart
   const handleAddToCart = () => {
-    dispatch(addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      quantity,
-    }));
+    dispatch(
+      addToCart({
+        id: product.id,
+        product_id: Number(product.id),
+        name: product.name,
+        price: product.price,
+        quantity,
+        img: product.image,  // include image property
+        slug: product.slug,  // include slug property
+      })
+    );
   };
 
   return (

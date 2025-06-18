@@ -57,6 +57,11 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
     },
+
+    // ✅ NEW reducer: Load items from localStorage (used at app start)
+    setCartFromStorage: (state, action: PayloadAction<CartItem[]>) => {
+      state.items = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -78,11 +83,12 @@ export const {
   updateItem,
   removeFromCart,
   clearCart,
+  setCartFromStorage, // ✅ Export new action
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
 
-// ✅ Selectors
+// Selectors
 export const selectCartItems = (state: RootState) => state.cart.items;
 
 export const selectCartTotal = (state: RootState) =>

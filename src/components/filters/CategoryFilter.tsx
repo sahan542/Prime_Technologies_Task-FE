@@ -17,7 +17,7 @@ export default function CategoryFilter({
       <ul className="space-y-1">
         {categories.map((cat: string) => (
           <li key={cat}>
-            <label className="flex items-center gap-2">
+            <label className="flex items-center gap-2 text-[14px]">
               <input
                 type="checkbox"
                 checked={selected.includes(cat)}

@@ -38,29 +38,33 @@ export default function CartPage() {
     }
   }, [isAuthenticated]);
 
-  const fetchCartItems = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8000/cart/1`);
-      const items = response.data.items;
-      console.log("response console :",response);
+const fetchCartItems = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8000/cart/1`);
+    const items = response.data.items;
+    console.log('response console:', response);
 
-      dispatch(clearCart()); // Clear previous state before syncing
+    dispatch(clearCart()); // Clear previous state before syncing
 
-      items.forEach((item: any) => {
-        dispatch(
-          addToCart({
-            id: item.product_id.toString(),
-            name: item.name || 'Product',
-            price: item.price || 0,
-            quantity: item.quantity,
-            img: item.img || '', // include image
-          })
-        );
-      });
-    } catch (error) {
-      console.error('Error fetching cart items:', error);
-    }
-  };
+    items.forEach((item: any) => {
+      // Dispatch the cart item with the required properties
+      dispatch(
+        addToCart({
+          id: item.product_id.toString(), // product_id is required, and you should use this
+          name: item.name || 'Product',
+          price: item.price || 0,
+          quantity: item.quantity,
+          img: item.img || '', // include image
+          product_id: item.product_id, // Include the missing product_id
+          slug: item.slug || '', // Include the missing slug (assuming the backend provides it)
+        })
+      );
+    });
+  } catch (error) {
+    console.error('Error fetching cart items:', error);
+  }
+};
+
 
   const handleRemoveFromCart = (id: string) => {
     dispatch(removeFromCart(id));

@@ -45,17 +45,17 @@ export default function ProductPage() {
     arr.includes(val) ? arr.filter((v) => v !== val) : [...arr, val];
 
   return (
-    <div className="flex gap-4 p-6 text-black ">
-      <aside className="w-1/6 space-y-4">
+    <div className="flex flex-col md:flex-row gap-4 p-6 text-black">
+      <aside className="w-full md:w-1/6 space-y-4">
         <CategoryFilter
-          categories={['moisturizers', 'Hair Care', 'Makeup']}
+          categories={['SKIN CARE', 'CLENSERS', 'MOISTURIZORS', 'SERUMS', 'TONERS', 'SUNSCREENS', 'EYE & LIP CARE']}
           selected={filters.category}
           onChange={(val: string) =>
             handleFilterChange('category', toggleArrayValue(filters.category, val))
           }
         />
         <BrandFilter
-          brands={["Nature's Secrets", 'Cetaphil', 'Aveeno']}
+          brands={["Nature's Secrets", 'Prevense', 'Intense', 'British Co', 'Sisili']}
           selected={filters.brand}
           onChange={(val: string) =>
             handleFilterChange('brand', toggleArrayValue(filters.brand, val))
@@ -70,10 +70,9 @@ export default function ProductPage() {
           }
         />
       </aside>
-        <main className="w-3/4 mx-auto flex justify-center items-center">
-          <ProductList products={items} />
-        </main>
-
+      <main className="w-full md:w-3/4 mx-auto flex justify-center items-center">
+        <ProductList products={items} />
+      </main>
     </div>
   );
 }

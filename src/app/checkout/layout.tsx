@@ -25,11 +25,8 @@ export default function CheckoutLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <HeaderTop />
-        <HeaderMain />
-        <Navbar />
+
         {children}
-        <Footer />
       </body>
     </html>
   );

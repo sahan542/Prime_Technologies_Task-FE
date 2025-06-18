@@ -6,6 +6,7 @@ export interface Product {
   price: number;
   image: string;  // Assuming products have an image URL
   availability: 'inStock' | 'outOfStock' | 'backorder';  // Example of availability field
-  description: string[];  // Array of product descriptions
+  description: string[];
+  slug: string;   // Array of product descriptions
   // Add any other fields related to the product that you need
 }
