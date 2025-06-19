@@ -38,17 +38,16 @@ export default function WishlistPage() {
   };
 
   const moveToCart = (item: any) => {
-  // Remove from wishlist
-  const updatedWishlist = wishlistItems.filter((i) => i.id !== item.id);
-  setWishlistItems(updatedWishlist);
-  localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+    // Remove from wishlist
+    const updatedWishlist = wishlistItems.filter((i) => i.id !== item.id);
+    setWishlistItems(updatedWishlist);
+    localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
 
-  // Add to cart
-  const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-  const updatedCart = [...existingCart, item];
-  localStorage.setItem('cart', JSON.stringify(updatedCart));
-};
-
+    // Add to cart
+    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const updatedCart = [...existingCart, item];
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-600">Error: {error}</div>;
@@ -60,7 +59,7 @@ export default function WishlistPage() {
       {wishlistItems.length === 0 ? (
         <p className="flex items-center justify-center">Your wishlist is empty.</p>
       ) : (
-        <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
           {wishlistItems.map((item: any) => (
             <div
               key={item.id}
@@ -95,7 +94,7 @@ export default function WishlistPage() {
                   onClick={() => console.log('Add to cart logic here')}
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg cursor-pointer"
                 >
-                  <HiShoppingBag className="text-2xl text-[#7b1f4b]" onClick={() => moveToCart(item)}/>
+                  <HiShoppingBag className="text-2xl text-[#7b1f4b]" onClick={() => moveToCart(item)} />
                 </div>
                 <div
                   onClick={() => removeFromWishlist(item.id)}

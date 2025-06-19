@@ -9,8 +9,10 @@ import { addToCart } from '../../../store/slices/cartSlice'; // Assuming addToWi
 import { CartItem } from '@/types/cart';
 import type { AppDispatch } from '@/store/store';
 import { addToWishlist } from '@/store/slices/wishlistSlice';
+import ReviewQASection from './ReviewQASection';
 
 interface Product {
+  id: number; 
   slug: string;
   title: string;
   description: string;
@@ -151,6 +153,8 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
               ))}
             </ul>
           </div>
+        <ReviewQASection product_id={product.id}/>
+
         </div>
       </div>
     </div>

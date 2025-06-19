@@ -16,9 +16,16 @@ interface WishlistState {
 }
 
 // Initial state
+// const initialState: WishlistState = {
+//   items: JSON.parse(localStorage.getItem('wishlist') || '[]'), // Load initial state from localStorage
+//   status: 'idle',
+// };
+
 const initialState: WishlistState = {
-  items: JSON.parse(localStorage.getItem('wishlist') || '[]'), // Load initial state from localStorage
-  status: 'idle',
+  items: typeof window !== "undefined"
+    ? JSON.parse(localStorage.getItem("wishlist") || "[]")
+    : [],
+  status: "idle",
 };
 
 // Async thunk to sync wishlist item to backend
