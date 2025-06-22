@@ -9,6 +9,7 @@ import ProductList from '@/components/ProductList';
 import CategoryFilter from '@/components/filters/CategoryFilter';
 import BrandFilter from '@/components/filters/BrandFilter';
 import PriceRangeFilter from '@/components/filters/PriceRangeFilter';
+import productsReducer from "@/redux/reducers/productsSlice"; // Adjust path if needed
 
 export default function ProductPage() {
   const dispatch: AppDispatch = useDispatch();
@@ -23,6 +24,7 @@ export default function ProductPage() {
     max_price: 10000,
     search: '', // new key
   });
+  
 
   // Keep filters in sync with search URL param
   useEffect(() => {

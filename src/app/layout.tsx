@@ -5,10 +5,11 @@ import { metadata } from './config/metadata';
 import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
 import { Provider } from 'react-redux';  // Import the Provider from react-redux
-import { store } from '@/store/store';
+// import { store } from '@/store/store';
 import HeaderTop from "@/components/HeaderTop";
 import HeaderMain from "@/components/HeaderMain";
 import Navbar from "@/components/nav/Navbar";
+import Navbars from "@/components/shared/Ui/Navbar/Navbar";
 import Footer from "@/components/Footer";
 import NewProducts from "@/components/NewProducts";
 import { AuthModalProvider } from "@/components/context/AuthModalContext";
@@ -19,7 +20,9 @@ import ProductCarousel from "@/components/carousel/ProductCarousel";
 import { skincareProducts } from "@/data/sampleProducts";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Hero from "@/components/Hero";
+// import { persistor } from "@/redux/store";
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '@/redux/store';
 
 
 const geistSans = Geist({
@@ -54,10 +57,13 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Provider store={store}>  {/* Wrap your app with the Redux Provider */}
+          <PersistGate loading={null} persistor={persistor}>
+
           <AuthProvider>
             <AuthModalProvider>
               <HeaderTop />
-              <HeaderMain />
+              {/* <HeaderMain /> */}
+              <Navbars/>
               <Navbar />
               {children}
               <NewProducts />
@@ -71,6 +77,7 @@ export default function RootLayout({
               <SignInModal isOpen={isSignInOpen} closeModal={closeSignInModal}  openSignUpModal={openSignUpModal}/>
             </AuthModalProvider>
           </AuthProvider>
+          </PersistGate>
         </Provider>
       </body>
     </html>
