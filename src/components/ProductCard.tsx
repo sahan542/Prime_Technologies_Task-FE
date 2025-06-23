@@ -101,8 +101,21 @@ const ProductCard: React.FC<PropsType> = ({
             name: title,
             price: price,
             quantity: 1,
-            img: img,
             slug: slug,
+            description: singleProduct.description,
+            image: singleProduct.img,
+            images: singleProduct.images ?? [],
+            category: singleProduct.category,
+            stock: singleProduct.stock ?? 0,
+            tags: singleProduct.tags ?? [],
+            totalReviews: singleProduct.totalReviews ?? 0,
+            averageRatings: singleProduct.averageRatings ?? 0,
+            salesCount: singleProduct.soldRecently ?? 0,
+            isDeleted: false,
+            createdAt: singleProduct.createdAt ?? new Date().toISOString(),
+            updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
+            discount: singleProduct.discount ?? 0,
+            __v: 0,
           };
 
           dispatch(addToWishlist(wishlistItem)); 

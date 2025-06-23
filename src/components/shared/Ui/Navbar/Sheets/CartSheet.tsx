@@ -166,20 +166,6 @@ export default function CartSheet() {
                     </div>
                   ) : (
                     <div className="py-6">
-                      {/* {cartItems.map((item, index) => (
-                        <div key={item.product._id}>
-                          <div className="">
-                            <CartMobileCard
-                              item={item}
-                              onCartQuantityUpdate={handleUpdateQuantity}
-                              onCartRemove={removeItem}
-                            />
-                          </div>
-                          {index < cartItems.length - 1 && (
-                            <hr className="my-4 border border-primary/10" />
-                          )}
-                        </div>
-                      ))} */}
                       {cartItems.map((item, index) => {
                         const productId = item?.product?.id ?? `fallback-${index}`;
                         return (
@@ -192,7 +178,7 @@ export default function CartSheet() {
                                   onCartRemove={removeItem}
                                 />
                                 {index < cartItems.length - 1 && (
-                                  <hr className="my-4 border border-primary/10" />
+                                  <hr className="my-4 border-1 border-[#7b1f4b]/60" />
                                 )}
                               </>
                             ) : (
@@ -211,7 +197,7 @@ export default function CartSheet() {
 
               <div className="mt-8">
                 <Card className="mb-4">
-                  <CardContent className="p-6 space-y-4">
+                  <CardContent className="p-6 space-y-4 ">
                     <div className="flex justify-between">
                       <span className="font-medium text-lg text-black">Subtotal:</span>
                       <span className="font-semibold text-black">

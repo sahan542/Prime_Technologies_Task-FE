@@ -68,6 +68,7 @@ export default function RootLayout({
               {children}
               <NewProducts />
               <ProductCarousel title="SKIN CARE" products={skincareProducts} />
+
               <ProductCarousel title="MOISTURIZORS" products={skincareProducts} />
               <ProductCarousel title="SERUMS" products={skincareProducts} />
 
