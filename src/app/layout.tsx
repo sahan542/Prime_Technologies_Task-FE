@@ -66,10 +66,10 @@ export default function RootLayout({
               <Navbar />
               {children}
                <NewProducts />
-              {/* <ProductCarousel title="SKIN CARE" products={skincareProducts} />
+              {/* <ProductCarousel title="SKIN CARE" products={skincareProducts} /> 
 
               <ProductCarousel title="MOISTURIZORS" products={skincareProducts} />
-              <ProductCarousel title="SERUMS" products={skincareProducts} />  */}
+              <ProductCarousel title="SERUMS" products={skincareProducts} />   */}
 
 
               <Footer />

@@ -91,7 +91,7 @@ const productsSlice = createSlice({
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload as string;
+        state.error = action.error.message || 'Failed to fetch products';
       });
   },
 });
