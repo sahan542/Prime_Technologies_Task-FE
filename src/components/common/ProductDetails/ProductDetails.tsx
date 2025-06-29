@@ -40,7 +40,7 @@ export default function ProductDetails({
 
   const handleAddToCart = () => {
     const alreadyCart = cartItems.some(
-      (item) => item.product._id === singleProduct.data._id
+      (item) => item.product.id === singleProduct.data._id
     );
 
     if (alreadyCart) {
@@ -61,7 +61,7 @@ export default function ProductDetails({
   };
 
   const alreadyInWishlist = wishlistItems.some(
-    (item) => item._id === singleProduct.data._id
+    (item) => item.id === singleProduct.data._id
   );
 
   // handle add to wishlist

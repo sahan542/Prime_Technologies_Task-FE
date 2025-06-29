@@ -13,7 +13,6 @@ export async function POST(req: NextRequest) {
     { status: 200 }
   );
 
-  // ✅ Set cookie via response
   response.cookies.set(authKey, accessToken, {
     httpOnly: true,
     secure: true,

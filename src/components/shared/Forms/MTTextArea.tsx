@@ -27,7 +27,7 @@ const MTTextArea = ({
         render={({ field }) => (
           <Textarea
             {...field}
-            className={`${className}`}
+            className={`${className} text-black`}
             placeholder={placeholder}
             rows={rows}
           />

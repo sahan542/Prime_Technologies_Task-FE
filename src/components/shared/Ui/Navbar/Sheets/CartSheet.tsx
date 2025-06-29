@@ -68,11 +68,17 @@ export default function CartSheet() {
     productId: string,
     newQuantity: number
   ) => {
+      console.log("hello from cart Sheet up");
     if (newQuantity < 1) {
       toast.error("You have to put at least 1 quantity!");
-    } else if (newQuantity > currStock) {
-      toast.error("Out of stock!");
+      console.log("newQuantity < 1");
+    // } else if (newQuantity > currStock) {
+    //   console.log("newQuantity > currStock");
+
+    //   toast.error("Out of stock!");
     } else {
+      console.log("else");
+      console.log("product ID : ",productId);
       dispatch(updateQuantity({ productId, quantity: newQuantity }));
     }
   };

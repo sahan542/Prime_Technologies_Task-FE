@@ -18,8 +18,8 @@ const WishlistCard = ({
 }: TWishlistCardProps) => {
   return (
     <div
-      className="grid grid-cols-12 gap-2 items-center cursor-pointer"
-      onClick={() => onCardClick(product.slug)}
+      className="grid grid-cols-12 gap-2 items-center cursor-pointer bg-white border border-gray-200 shadow-md rounded-md"
+      // onClick={() => onCardClick(product.slug)}
     >
       <div className="col-span-3">
         <Image
@@ -27,20 +27,21 @@ const WishlistCard = ({
           alt={product.name.slice(0, 6)}
           width={100}
           height={100}
-          className="rounded-md object-cover"
+          className="rounded-3xl object-cover"
+
         />
       </div>
 
       <div className="col-span-9 space-y-2">
         <div className="flex justify-between gap-2">
-          <h3 className="text-sm line-clamp-2">{product.name}</h3>
+          <h2 className=" text-black">{product.name}</h2>
           <Button
             variant="ghost"
             size="icon"
             className="text-red-500 hover:text-red-600"
             onClick={(e) => {
               e.stopPropagation();
-              onWishlistRemove(product._id);
+              onWishlistRemove(product.id);
             }}
           >
             <Trash2 className="h-4 w-4" />
@@ -48,9 +49,9 @@ const WishlistCard = ({
         </div>
 
         <div className="flex justify-between items-center">
-          <span className="text-primary font-medium text-sm">
-            ৳ {product.price.toFixed(0)}{" "}
-            <del className="text-gray-300 ml-[2px] text-base">
+          <span className=" font-medium text-sm text-black">
+            Rs {product.price.toFixed(0)}{" "}
+            <del className="text-black ml-[2px] text-base">
               {product.price + 50}{" "}
             </del>
           </span>
@@ -60,7 +61,7 @@ const WishlistCard = ({
               e.stopPropagation();
               onAddProductToCart(product);
             }}
-            className="cursor-pointer"
+            className="cursor-pointer text-white bg-[#7b1f4b] rounded-md mr-[10px] mb-[10px]"
             aria-label="Add to cart"
             size="sm"
           >

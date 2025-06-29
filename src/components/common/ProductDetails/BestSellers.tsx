@@ -26,7 +26,7 @@ const BestSellers = () => {
         ) : (
           <div className="divide-y divide-gray-200">
             {products.data.data.slice(0, 5).map((product: TProduct) => (
-              <BestSellerCard key={product._id} product={product} />
+              <BestSellerCard key={product.id} product={product} />
             ))}
           </div>
         )}

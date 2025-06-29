@@ -23,7 +23,7 @@ export function ProductCard({ product }: { product: TProduct }) {
 
   const handleAddToCart = () => {
     const alreadyCart = cartItems.some(
-      (item) => item.product._id === product._id
+      (item) => item.product.slug === product.slug
     );
 
     if (alreadyCart) {
@@ -38,7 +38,7 @@ export function ProductCard({ product }: { product: TProduct }) {
   };
 
   const alreadyInWishlist = wishlistItems.some(
-    (item) => item._id === product._id
+    (item) => item.id === product.id
   );
 
   // handle add to wishlist
@@ -54,7 +54,7 @@ export function ProductCard({ product }: { product: TProduct }) {
 
   // handle remove from wishlist
   const handleRemoveFromWishlist = () => {
-    dispatch(removeFromWishlist(product._id));
+    dispatch(removeFromWishlist(product.id));
     toast.success("Remove from wishlist success");
   };
 

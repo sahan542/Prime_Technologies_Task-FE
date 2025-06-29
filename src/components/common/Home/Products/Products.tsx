@@ -42,7 +42,7 @@ const Products = ({
             {productsData.data.data.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                 {productsData.data.data.slice(0, 6).map((product: TProduct) => (
-                  <ProductCard key={product._id} product={product} />
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             ) : (

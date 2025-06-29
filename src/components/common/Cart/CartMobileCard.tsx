@@ -23,7 +23,7 @@ const CartMobileCard = ({
       <div className="col-span-3">
         <Image
           src={item.product.image || "/placeholder.svg"}
-          alt={item.product.name.slice(0, 6)}
+          alt={item.product.name}
           width={100}
           height={100}
           className="rounded-md object-cover"

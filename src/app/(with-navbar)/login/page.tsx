@@ -36,7 +36,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   const handleLogin = async (values: LoginPayload) => {
-    console.log(values);
+    console.log("values: ",values);
     setIsLoading(true);
     try {
       const res = await loginUser(values);

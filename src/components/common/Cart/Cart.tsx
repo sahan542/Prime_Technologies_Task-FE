@@ -39,11 +39,7 @@ export default function Cart() {
     shippingOption === "inside"
       ? insideDhakaShippingCost
       : outsideDhakaShippingCost;
-  // const freeShippingThreshold = 2000;
-  // const remainingForFreeShipping = Math.max(
-  //   0,
-  //   freeShippingThreshold - subtotal
-  // );
+
   const total = subtotal + shippingCost;
 
   const handleUpdateQuantity = (
@@ -80,16 +76,16 @@ export default function Cart() {
           <div className="flex items-center justify-center mb-8">
             <div className="flex items-center space-x-1 lg:space-x-4">
               <div className="flex items-center">
-                <div className="h-8 w-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-medium">
+                <div className="h-8 w-8 bg-[#7b1f4b] text-white rounded-full flex items-center justify-center text-sm font-medium">
                   1
                 </div>
-                <span className="ml-2 text-sm font-medium text-primary">
+                <span className="ml-2 text-sm font-xl text-[#7b1f4b]">
                   Cart
                 </span>
               </div>
               <div className="h-px w-6 md:w-10 lg:w-16 bg-gray-300"></div>
               <div className="flex items-center">
-                <div className="h-8 w-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-medium">
+                <div className="h-8 w-8 bg-[#d4749e] text-white rounded-full flex items-center justify-center text-sm font-medium">
                   2
                 </div>
                 <span className="ml-2 text-sm font-medium text-gray-500">
@@ -98,7 +94,7 @@ export default function Cart() {
               </div>
               <div className="h-px w-6 md:w-10 lg:w-16 bg-gray-300"></div>
               <div className="flex items-center">
-                <div className="h-8 w-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-medium">
+                <div className="h-8 w-8 bg-[#d4749e] text-white rounded-full flex items-center justify-center text-sm font-medium">
                   3
                 </div>
                 <span className="ml-2 text-sm font-medium text-gray-500">
@@ -111,16 +107,16 @@ export default function Cart() {
       </div>
 
       {/* Main Content */}
-      <div className="w-full py-12 lg:pb-20">
+      <div className="w-full py-12 lg:pb-20 ">
         <div className="grid grid-cols-12 lg:gap-12">
           <div className="col-span-12 lg:col-span-8">
             <div className="">
               {cartItems.length === 0 ? (
                 <div className="h-full text-center py-12">
-                  <h4 className="text-lg lg:text-xl font-medium mb-4">
+                  <h4 className="text-lg lg:text-xl font-medium mb-4 text-black">
                     Your cart is empty!
                   </h4>
-                  <Button asChild>
+                  <Button asChild className="bg-[#7b1f4b]"> 
                     <Link href="/products">Continue Shopping</Link>
                   </Button>
                 </div>
@@ -151,40 +147,7 @@ export default function Cart() {
                     </div>
                   ))}
 
-                  {/* Free shipping progress */}
-                  {/* {remainingForFreeShipping > 0 && (
-                    <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm text-green-700">
-                          You are ৳ {remainingForFreeShipping.toFixed(2)} away
-                          from free shipping.
-                        </span>
-                        <Link
-                          href="/"
-                          className="text-sm text-green-700 underline font-medium"
-                        >
-                          Continue Shopping
-                        </Link>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-green-500 h-2 rounded-full transition-all duration-300"
-                          style={{
-                            width: `${Math.min(
-                              100,
-                              (subtotal / freeShippingThreshold) * 100
-                            )}%`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  )} */}
-
-                  {/* <div className="mt-6 flex justify-center">
-                    <Button variant="outline" className="px-8">
-                      Update cart
-                    </Button>
-                  </div> */}
+                  
                 </div>
               )}
             </div>
@@ -194,12 +157,12 @@ export default function Cart() {
             <Card className="">
               <CardContent className="p-6 space-y-4">
                 <div className="flex justify-between">
-                  <span className="font-medium text-lg">Subtotal:</span>
-                  <span className="font-semibold">৳ {subtotal.toFixed(2)}</span>
+                  <span className="font-medium text-lg text-black">Subtotal:</span>
+                  <span className="font-semibold text-black">Rs {subtotal.toFixed(2)}</span>
                 </div>
 
                 <div>
-                  <p className="font-medium mb-3">Shipping</p>
+                  <p className="font-medium mb-3 text-black">Shipping</p>
                   <RadioGroup
                     value={shippingOption}
                     onValueChange={setShippingOption}
@@ -207,45 +170,45 @@ export default function Cart() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="outside" id="outside" />
-                        <Label htmlFor="outside">
-                          Outside Dhaka City (3-5 Days):
+                        <Label htmlFor="outside" className="text-black">
+                          Outside Colombo City (3-5 Days):
                         </Label>
                       </div>
-                      <span className="font-medium">
-                        ৳ {outsideDhakaShippingCost}
+                      <span className="font-medium text-black">
+                        Rs {outsideDhakaShippingCost}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="inside" id="inside" />
-                        <Label htmlFor="inside">
-                          Inside Dhaka city (2-3 Days):
+                        <Label htmlFor="inside" className="text-black">
+                          Inside Colombo city (2-3 Days):
                         </Label>
                       </div>
-                      <span className="font-medium">
-                        ৳ {insideDhakaShippingCost}
+                      <span className="font-medium text-black" >
+                        Rs {insideDhakaShippingCost}
                       </span>
                     </div>
                   </RadioGroup>
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="text-sm text-[#7b1f4b] mt-2">
                     Shipping options will be updated during checkout.
                   </p>
                 </div>
 
-                <hr className="border border-primary/20" />
+                <hr className="border border-gray-500/20" />
 
                 <div className="flex justify-between items-center text-lg font-bold">
-                  <span className="text-xl">Total</span>
-                  <span>৳ {total.toFixed(2)}</span>
+                  <span className="text-xl text-black">Total</span>
+                  <span className="text-black">Rs {total.toFixed(2)}</span>
                 </div>
 
                 <Button
-                  className="w-full py-5"
+                  className="w-full py-5 bg-[#7b1f4b]"
                   asChild
                   disabled={cartItems.length === 0}
                   onClick={handleCheckout}
                 >
-                  <Link href="/checkout">
+                  <Link href="/checkout" className="text-black">
                     <Lock className="h-4 w-4 mr-2" />
                     Proceed to checkout
                   </Link>

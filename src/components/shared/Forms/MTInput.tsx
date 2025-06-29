@@ -28,7 +28,7 @@ const MTInput = ({
           <Input
             {...field}
             type={type}
-            className={`h-11 ${className}`}
+            className={`h-11 ${className} text-black `} // Updated border color and size
             placeholder={placeholder ? placeholder : ""}
           />
         )}
@@ -43,3 +43,5 @@ const MTInput = ({
 };
 
 export default MTInput;
+
+

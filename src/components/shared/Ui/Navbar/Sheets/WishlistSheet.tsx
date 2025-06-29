@@ -21,6 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import WishlistCard from "./WishListCard";
+import { Item } from "@radix-ui/react-radio-group";
 
 export default function WishlistSheet() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,27 +34,25 @@ export default function WishlistSheet() {
 
   const removeItem = (productId: string) => {
     dispatch(removeFromWishlist(productId));
+    console.log("in the remove wishlist : ",productId);
   };
 
   const addProductToCart = (product: TProduct) => {
+    console.log("executes add product to cart ");
+    console.log("executes add product to cart :  ",product);
+
     const alreadyCart = cartItems.some(
-      (item) => item.product.id === product.id
+      (item) => item.product.slug === product.slug
     );
+    console.log("already cart : ",alreadyCart);
 
     if (alreadyCart) {
       toast.error("Already you have added in cart!");
-    } else if (product.stock === 0) {
-      toast.error("Out of stock!");
     } else {
+      console.log("hello: ");
       dispatch(addToCart({ product, quantity: 1 }));
       dispatch(removeFromWishlist(product.id));
-
       toast.success("Add to cart success");
-
-      // if (wishlists.length === 1) { // there has a problem of as the dispatch did not clear this render.
-      //   router.push("/cart");
-      //   setIsOpen(false);
-      // }
     }
   };
 
@@ -105,7 +104,7 @@ export default function WishlistSheet() {
                   ) : (
                     <div className="py-6">
                       {wishlists.map((product, index) => (
-                        <div key={product.id}>
+                        <div key={product.id} className="">
                           <div className="">
                             <WishlistCard
                               product={product}

@@ -5,7 +5,6 @@ import { metadata } from './config/metadata';
 import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
 import { Provider } from 'react-redux';  // Import the Provider from react-redux
-// import { store } from '@/store/store';
 import HeaderTop from "@/components/HeaderTop";
 import HeaderMain from "@/components/HeaderMain";
 import Navbar from "@/components/nav/Navbar";
@@ -66,11 +65,11 @@ export default function RootLayout({
               <Navbars/>
               <Navbar />
               {children}
-              <NewProducts />
-              <ProductCarousel title="SKIN CARE" products={skincareProducts} />
+               <NewProducts />
+              {/* <ProductCarousel title="SKIN CARE" products={skincareProducts} />
 
               <ProductCarousel title="MOISTURIZORS" products={skincareProducts} />
-              <ProductCarousel title="SERUMS" products={skincareProducts} />
+              <ProductCarousel title="SERUMS" products={skincareProducts} />  */}
 
 
               <Footer />

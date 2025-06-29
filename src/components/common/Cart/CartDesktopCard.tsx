@@ -26,7 +26,7 @@ const CartDesktopCard = ({
           variant="ghost"
           size="icon"
           className="text-red-500 hover:text-red-600"
-          onClick={() => onCartRemove(item.product._id)}
+          onClick={() => onCartRemove(item.product.id)}
         >
           <Trash2 className="h-4 w-4" />
         </Button>
@@ -55,7 +55,7 @@ const CartDesktopCard = ({
             } else {
               onCartQuantityUpdate(
                 item.product.stock,
-                item.product._id,
+                item.product.id,
                 item.quantity - 1
               );
             }
@@ -76,7 +76,7 @@ const CartDesktopCard = ({
             } else {
               onCartQuantityUpdate(
                 item.product.stock,
-                item.product._id,
+                item.product.id,
                 item.quantity + 1
               );
             }
