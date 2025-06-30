@@ -229,16 +229,16 @@ export default function OrderConfirmation({ orderId }: { orderId: string }) {
                 <CardContent className="space-y-4">
                   <div className="flex justify-between">
                     <span>Subtotal:</span>
-                    <span>৳ {subtotal.toFixed(2)}</span>
+                    <span>Rs {subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Shipping:</span>
-                    <span>৳ {shipping.toFixed(2)}</span>
+                    <span>Rs {shipping.toFixed(2)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-semibold text-lg">
                     <span>Total:</span>
-                    <span>৳ {total.toFixed(2)}</span>
+                    <span>Rs {total.toFixed(2)}</span>
                   </div>
                 </CardContent>
               </Card>

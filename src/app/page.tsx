@@ -9,7 +9,7 @@ import { Banner } from "@/components/common/Home/Banner/Banner";
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-start bg-gray-100 overflow-x-hidden">
-      <Hero />
+      {/* <Hero /> */}
       <Banner />
     </main>
   );

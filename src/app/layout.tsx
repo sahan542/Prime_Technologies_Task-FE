@@ -22,6 +22,9 @@ import "slick-carousel/slick/slick-theme.css";
 // import { persistor } from "@/redux/store";
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '@/redux/store';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 const geistSans = Geist({
@@ -75,6 +78,8 @@ export default function RootLayout({
               <Footer />
               <SignupModal isOpen={isSignUpOpen} closeModal={closeSignUpModal} openSignInModal={openSignInModal}/>
               <SignInModal isOpen={isSignInOpen} closeModal={closeSignInModal}  openSignUpModal={openSignUpModal}/>
+              <ToastContainer position="top-right" autoClose={3000} />
+
             </AuthModalProvider>
           </AuthProvider>
           </PersistGate>

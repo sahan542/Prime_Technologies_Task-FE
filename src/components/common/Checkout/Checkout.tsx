@@ -25,24 +25,24 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 const userBillingAddressSchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
-  fullAddress: z.string().min(1, "Full address is required"),
-  phoneNo: z
+  full_name: z.string().min(1, "Full name is required"),
+  full_address: z.string().min(1, "Full address is required"),
+  phone_no: z
     .string()
     .min(11, "Number must be at least 11 digits")
     .max(14, "Number can't exceed 14 digits"),
   email: z.string().email("Enter a valid email"),
   country: z.string().default("Bangladesh"), // or `.optional()` if not required
-  orderNotes: z.string().optional(), // allow empty or undefined notes
+  order_notes: z.string().optional(), // allow empty or undefined notes
 });
 
 const userBillingAddress = {
-  fullName: "",
-  fullAddress: "",
-  phoneNo: "",
+  full_name: "",
+  full_address: "",
+  phone_no: "",
   email: "",
   country: "Srilanka",
-  orderNotes: "",
+  order_notes: "",
 };
 
 export default function Checkout() {
@@ -65,10 +65,19 @@ export default function Checkout() {
     0
   );
 
-  const orderItems = cartItems.map((item) => ({
-    product: item.product.id,
+  // const items = cartItems.map((item) => ({
+  //   product_id: item.product.id,
+  //   quantity: item.quantity,
+  // }));
+  const items = cartItems.map((item) => {
+  const rawId = item.product?.id;
+
+  return {
+    product_id: typeof rawId === "string" ? parseInt(rawId) : rawId,
     quantity: item.quantity,
-  }));
+  };
+});
+
 
   const shippingCost =
     shippingOption === "inside"
@@ -81,23 +90,22 @@ export default function Checkout() {
 
     const orderData = {
       ...values,
-      insideDhaka: shippingOption === "inside" ? true : false,
-      orderItems,
-      totalPrice: total,
-      paymentMethod: "CASH-ON-DELIVERY",
+      inside_dhaka: shippingOption === "inside" ? true : false,
+      items,
+      total_price: total,
+      shipping_method: "colombo",
+      shipping_cost: 0,
+      service_fee: 0,
+      payment_method: "CASH-ON-DELIVERY",
+      user_id: 1
     };
 
     // send to db
     try {
       const res = await addOrder(orderData).unwrap();
-
-      if (res.success) {
-        toast.success(res.message);
-      }
-
+      toast.success(res.message || "Order placed successfully!");
       dispatch(clearCart());
-
-      router.push(`/checkout/confirmation?orderId=${res.data._id}`);
+      router.push(`/checkout/confirmation?orderId=${res.order_id}`);
       setIsLoading(false);
     } catch (error: any) {
       toast.error(
@@ -158,17 +166,17 @@ export default function Checkout() {
 
                 <div className="space-y-6">
                   <div className="grid gap-1">
-                    <label htmlFor="fullName" className="text-sm font-medium text-black">
+                    <label htmlFor="full_name" className="text-sm font-medium text-black">
                       Full Name{" "}
                       <span className="text-red-500 font-medium">*</span>
                     </label>
 
-                    <MTInput name="fullName" type="text" placeholder="" className="border-[#7b1f4b]" />
+                    <MTInput name="full_name" type="text" placeholder="" className="border-[#7b1f4b]" />
                   </div>
 
                   <div className="grid gap-1">
                     <label
-                      htmlFor="fullAddress"
+                      htmlFor="full_address"
                       className="text-sm font-medium text-black"
                     >
                       Full Address{" "}
@@ -176,19 +184,19 @@ export default function Checkout() {
                     </label>
 
                     <MTInput
-                      name="fullAddress"
+                      name="full_address"
                       type="text"
                       placeholder="City, area, house number and street name etc" className="border-[#7b1f4b]"
                     />
                   </div>
 
                   <div className="grid gap-1">
-                    <label htmlFor="phoneNo" className="text-sm font-medium text-black" >
+                    <label htmlFor="phone_no" className="text-sm font-medium text-black" >
                       Phone No{" "}
                       <span className="text-red-500 font-medium">*</span>
                     </label>
 
-                    <MTInput name="phoneNo" type="tel" placeholder="" className="border-[#7b1f4b]"/>
+                    <MTInput name="phone_no" type="tel" placeholder="" className="border-[#7b1f4b]"/>
                   </div>
 
                   <div className="grid gap-1">
@@ -216,13 +224,13 @@ export default function Checkout() {
                   </h3>
 
                   <div className="grid gap-1">
-                    <label htmlFor="orderNotes" className="text-sm font-medium text-black">
+                    <label htmlFor="order_notes" className="text-sm font-medium text-black">
                       Order notes (optional)
                     </label>
 
                     <MTTextArea
                       placeholder="Notes about your order, e.g. special notes for delivery"
-                      name="orderNotes"
+                      name="order_notes"
                       rows={10}
                       className="min-h-[120px] border-[#7b1f4b]"
                     />
@@ -242,7 +250,7 @@ export default function Checkout() {
                       <h4 className="text-lg lg:text-xl font-medium mb-4 text-black">
                         Your cart is empty!
                       </h4>
-                      <Button asChild>
+                      <Button className="btn-primary">
                         <Link href="/products">Continue Shopping</Link>
                       </Button>
                     </div>
