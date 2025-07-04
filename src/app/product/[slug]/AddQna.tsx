@@ -24,14 +24,17 @@ const AddQna: React.FC<AddQnaProps> = ({ product_id }) => {
     };
 
     try {
+      console.log("inside try block");
       const response = await fetch('http://localhost:8000/api/qna/ask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,  // Pass the token in the headers
+          'Authorization': `Bearer ${token}`,  
         },
         body: JSON.stringify(payload),
       });
+      console.log("response inside try: ",response);
+
 
       if (response.ok) {
         toast.success("Added question successfully!");
@@ -50,7 +53,7 @@ const AddQna: React.FC<AddQnaProps> = ({ product_id }) => {
   };
 
   return (
-    <div className="add-qna">
+    <div className="add-qna mb-3">
       <h3>Ask a Question</h3>
       <form onSubmit={handleSubmit}>
         <textarea

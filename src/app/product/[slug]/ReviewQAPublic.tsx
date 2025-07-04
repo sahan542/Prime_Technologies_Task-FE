@@ -8,7 +8,7 @@ import SigninModal from '@/components/modals/SignInModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import AllReviews from './allReviews';
-
+import AllQna from './allQna';
 type TabType = 'review' | 'qna';
 
 interface ReviewQASectionProps {
@@ -52,7 +52,7 @@ const ReviewQAPublic: React.FC<ReviewQASectionProps> = ({ product_id }) => {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 ">
     <div className="flex mb-4 w-full gap-1">
     <button
         onClick={() => handleTabClick('review')}
@@ -72,18 +72,15 @@ const ReviewQAPublic: React.FC<ReviewQASectionProps> = ({ product_id }) => {
 
       {/* Panel for Review and Q&A */}
       {isPanelOpen && (
-        <div className="border-t-2 border-gray-300 mt-4 p-4 bg-white rounded-lg shadow-lg">
+        <div className="border-t-2 border-gray-300 mt-4 p-4 rounded-lg shadow-lg">
           {activeTab === 'review' && isReviewPanelOpen && (
-            <div className="w-full h-[60px]"> 
-              {/* <AddReview product_id={product_id} />   */}
+            <div className="w-full h-auto"> 
                 <AllReviews product_id={product_id} />
             </div>
           )}
           {activeTab === 'qna' && isQnaPanelOpen && (
-            <div className="w-full"> {/* Full width container for Q&A */}
-              {/* <AddQna product_id={product_id} />  */}
-                {/* <allQna /> */}
-
+            <div className="w-full h-auto"> 
+                <AllQna product_id={product_id}/>
             </div>
           )}
         </div>

@@ -40,7 +40,7 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
       });
 
       if (response.ok) {
-        toast.success("Add to cart success");
+        toast.success("review added successful!");
         console.log('Review submitted successfully');
         setReview('');
         setRating(0);  // Reset the rating
@@ -58,7 +58,7 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
   };
 
   return (
-    <div className="add-review">
+    <div className="add-review mb-5">
       <h3>Add a Review</h3>
 
       {/* Star Rating */}

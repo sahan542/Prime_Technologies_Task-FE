@@ -388,9 +388,6 @@ const mappedProduct = {
               ))}
             </ul>
           </div>
-          { token && (
-            <ReviewQASection product_id={product.id} />
-          )}
         </div>
       </div>
       <div className="">
