@@ -165,7 +165,7 @@ import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../redux/reducers/cartSlice"; // Assuming addToWishlist is implemented in the slice
 import { CartItem } from "@/types/cart";
 import type { AppDispatch } from "@/store/store";
@@ -175,6 +175,8 @@ import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { MyLoader } from "@/components/shared/Ui/MyLoader";
 import { useGetSingleProductQuery } from "@/redux/api/productApi";
+import { RootState } from "@/redux/store";
+import ReviewQAPublic from "./ReviewQAPublic";
 
 interface Product {
   id: number;
@@ -198,6 +200,8 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const token = useSelector((state: RootState) => state.auth.token);
+  console.log("Access Token from Redux 203:", token);
 
     useEffect(() => {
     const fetchProduct = async () => {
@@ -302,13 +306,15 @@ const mappedProduct = {
       slug: product.slug, 
     };
     dispatch(addToWishlist(wishlistItem)); 
+    toast.success("Add to wishlist success");
+
   };
 
   return (
     <div className="p-16 bg-white text-black max-w-[1200px] mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Product Image */}
-        <div className="relative border-[2px] border-[#7b1f4b] rounded-lg overflow-hidden group">
+        <div className="relative border-[2px] border-[#7b1f4b] rounded-lg overflow-hidden group shadow-lg shadow-[#7b1f4b]/40">
           <img
             src={product.img}
             alt={product.title}
@@ -324,7 +330,7 @@ const mappedProduct = {
             Category: {product.category}
           </p>
           <p className="text-sm mb-3">
-            🔥 {product.soldRecently} items sold recently
+            🔥 {product.soldRecently || 32} items sold recently
           </p>
 
           <div className="mb-3">
@@ -382,8 +388,13 @@ const mappedProduct = {
               ))}
             </ul>
           </div>
-          <ReviewQASection product_id={product.id} />
+          { token && (
+            <ReviewQASection product_id={product.id} />
+          )}
         </div>
+      </div>
+      <div className="">
+          <ReviewQAPublic product_id={product.id}/>
       </div>
     </div>
   );

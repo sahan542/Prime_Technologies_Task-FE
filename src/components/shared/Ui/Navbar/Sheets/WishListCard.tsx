@@ -49,8 +49,8 @@ const WishlistCard = ({
         </div>
 
         <div className="flex justify-between items-center">
-          <span className=" font-medium text-sm text-black">
-            Rs {product.price.toFixed(0)}{" "}
+          <span className="font-medium text-sm text-black">
+            Rs {Number.isFinite(product.price) ? product.price.toFixed(0) : "0"}
             <del className="text-black ml-[2px] text-base">
               {product.price + 50}{" "}
             </del>

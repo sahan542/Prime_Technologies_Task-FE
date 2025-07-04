@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import SigninModal from '@/components/modals/SignInModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import AllReviews from './allReviews';
 
 type TabType = 'review' | 'qna';
 
@@ -14,7 +15,7 @@ interface ReviewQASectionProps {
   product_id: number; 
 }
 
-const ReviewQASection: React.FC<ReviewQASectionProps> = ({ product_id }) => {
+const ReviewQAPublic: React.FC<ReviewQASectionProps> = ({ product_id }) => {
   const { isAuthenticated, openSignup } = useAuth();
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('review');
@@ -52,32 +53,37 @@ const ReviewQASection: React.FC<ReviewQASectionProps> = ({ product_id }) => {
 
   return (
     <div className="mt-6">
-      <div className="flex space-x-4 mb-4">
-        <button
-          onClick={() => handleTabClick('review')}
-          className="bg-[#7b1f4b] text-white px-6 py-2 rounded hover:bg-[#d4749e] mb-3 sm:mb-0"
-        >
-          Review
-        </button>
-        <button
-          onClick={() => handleTabClick('qna')}
-          className="bg-[#7b1f4b] text-white px-6 py-2 rounded hover:bg-[#d4749e] mb-3 sm:mb-0"
-        >
-          Q&A
-        </button>
-      </div>
+    <div className="flex mb-4 w-full gap-1">
+    <button
+        onClick={() => handleTabClick('review')}
+        className="bg-[#7b1f4b] text-white px-6 py-2 rounded hover:bg-[#d4749e] w-1/2 mb-3 sm:mb-0"
+    >
+        Review
+    </button>
+    <button
+        onClick={() => handleTabClick('qna')}
+        className="bg-[#7b1f4b] text-white px-6 py-2 rounded hover:bg-[#d4749e] w-1/2 mb-3 sm:mb-0"
+    >
+        Q&A
+    </button>
+    </div>
+
+
 
       {/* Panel for Review and Q&A */}
       {isPanelOpen && (
         <div className="border-t-2 border-gray-300 mt-4 p-4 bg-white rounded-lg shadow-lg">
           {activeTab === 'review' && isReviewPanelOpen && (
-            <div className="w-full"> 
-              <AddReview product_id={product_id} />  
+            <div className="w-full h-[60px]"> 
+              {/* <AddReview product_id={product_id} />   */}
+                <AllReviews product_id={product_id} />
             </div>
           )}
           {activeTab === 'qna' && isQnaPanelOpen && (
             <div className="w-full"> {/* Full width container for Q&A */}
-              <AddQna product_id={product_id} />  {/* Display Add Q&A component */}
+              {/* <AddQna product_id={product_id} />  */}
+                {/* <allQna /> */}
+
             </div>
           )}
         </div>
@@ -95,4 +101,4 @@ const ReviewQASection: React.FC<ReviewQASectionProps> = ({ product_id }) => {
   );
 };
 
-export default ReviewQASection;
+export default ReviewQAPublic;

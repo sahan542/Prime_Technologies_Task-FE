@@ -28,6 +28,10 @@ import { MobileMenu } from "./MobileMenu";
 import CartSheet from "./Sheets/CartSheet";
 import WishlistSheet from "./Sheets/WishlistSheet";
 import { Input } from "antd";
+import SignInModal from "@/components/modals/SignInModal";
+import SignupModal from "@/components/modals/SignupModal";
+import { toast } from "react-toastify";
+
 
 const categoriesDemo = [
 
@@ -45,6 +49,9 @@ const Navbar = () => {
   const productsButtonRef = React.useRef<HTMLDivElement>(null);
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const subMenuTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+  const [isSignInModalOpen, setIsSignInModalOpen] = React.useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = React.useState(false); // Track signup modal state
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -54,6 +61,18 @@ const Navbar = () => {
   const user = useAppSelector(useCurrentUser);
 
   const isAdmin = user?.role === "admin";
+
+      const openSignInModal = () => {
+      setIsSignInModalOpen(true);
+      setIsDropdownOpen(false);
+    };
+    const closeSignInModal = () => setIsSignInModalOpen(false);
+  
+    const openSignUpModal = () => {
+      setIsSignUpModalOpen(true);
+      setIsDropdownOpen(false); 
+    };
+    const closeSignUpModal = () => setIsSignUpModalOpen(false); 
 
   React.useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -108,7 +127,7 @@ const Navbar = () => {
     });
     dispatch(logout());
     removeUser();
-
+    toast.success("Logout Successful!");
     router.push("/");
   };
 
@@ -157,54 +176,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:ml-6 lg:flex h-full">
-            <ActiveLink href="/" exact>
-              Home
-            </ActiveLink>
 
-            {/* Products Dropdown */}
-            <div
-              ref={productsButtonRef}
-              className="relative h-full"
-              onMouseEnter={handleMenuEnter}
-              onMouseLeave={handleMenuLeave}
-            >
-              <div className="flex items-center h-full">
-                <ActiveLink
-                  href="/products"
-                  className="flex items-center h-full"
-                >
-                  Products
-                  <ChevronDown
-                    className={cn(
-                      "ml-1 h-4 w-4 transition-transform duration-300",
-                      isProductsHovered && "rotate-180"
-                    )}
-                  />
-                </ActiveLink>
-              </div>
-
-              {/* Mega Menu */}
-              {isProductsHovered && (
-                <div
-                  ref={megaMenuRef}
-                  className={cn(
-                    "absolute left-0 z-10 mt-0 w-64 bg-[#5550A0] shadow-lg rounded-b-md border border-[#6660B0]",
-                    "transition-all duration-300 ease-in-out",
-                    isClosing
-                      ? "opacity-0 translate-y-1"
-                      : "opacity-100 translate-y-0"
-                  )}
-                >
-
-                </div>
-              )}
-            </div>
-
-            <ActiveLink href="/contact">Contact Us</ActiveLink>
-
-            <ActiveLink href="/about">About Us</ActiveLink>
-          </div>
 
           <div className="flex gap-4">
 
@@ -225,17 +197,19 @@ const Navbar = () => {
                     Logout
                   </Button>
                 ) : (
-                  <Link href="/login">
-                    <Button className="cursor-pointer bg-white text-[#5550A0] hover:bg-white/90">
+                    <Button className="cursor-pointer bg-orange-600 text-white hover:bg-white hover:text-orange-600" onClick={openSignInModal}>
                       Login
                     </Button>
-                  </Link>
                 )}
               </div>
             </div>
           </div>
         </div>
       </div>
+        {/* SignIn Modal */}
+        <SignInModal isOpen={isSignInModalOpen} closeModal={closeSignInModal} openSignUpModal={openSignUpModal}/>
+        {/* SignUp Modal */}
+        <SignupModal isOpen={isSignUpModalOpen} closeModal={closeSignUpModal} openSignInModal={openSignInModal}/>
     </header>
   );
 };

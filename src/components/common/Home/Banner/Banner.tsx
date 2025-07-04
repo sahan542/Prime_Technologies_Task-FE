@@ -13,23 +13,23 @@ import { useCallback, useEffect, useState } from "react";
 const banners = [
   {
     id: 1,
-    src: IMAGES.home.Banner1,
+    src: IMAGES.home.Banner2,
     alt: "Banner 1",
   },
-  // {
-  //   id: 2,
-  //   src: IMAGES.home.Banner2,
-  //   alt: "Banner 2",
-  // },
   {
     id: 3,
-    src: IMAGES.home.Banner3,
+    src: IMAGES.home.Banner1,
     alt: "Banner 3",
   },
   {
     id: 4,
     src: IMAGES.home.Banner4,
     alt: "Banner 4",
+  },
+    {
+    id: 5,
+    src: IMAGES.home.Banner3,
+    alt: "Banner 3",
   },
 ];
 
@@ -151,7 +151,7 @@ export function Banner() {
                 index === currentSlide ? "block" : "hidden"
               }`}
             >
-              <div className="relative aspect-[16/9] w-full sm:aspect-[16/9]">
+              <div className="relative aspect-[16/9] w-full sm:aspect-[16/5]">
                 <Image
                   src={banner.src || "/placeholder.svg"}
                   alt={banner.alt}
@@ -172,14 +172,14 @@ export function Banner() {
             <div className="flex flex-col justify-center items-center gap-4 md:gap-8 lg:gap-10 w-full h-full text-white text-center">
               <div className="flex flex-col gap-1 md:gap-4">
                 <h6 className="md:text-2xl lg:text-3xl font-medium">
-                  Today’s Exclusive Flash Deals
+                   Today’s Glamorous Beauty Picks
                 </h6>
                 <h2 className="text-xl md:text-4xl lg:text-6xl font-semibold">
-                  AT THE BEST MARKET RATES!
+                  YOUR BEAUTY ESSENTIALS, ON SALE!
                 </h2>
               </div>
               <Link href={`/products`}>
-                <Button className="md:px-8 md:py-5 rounded-xs">
+                <Button className=" btn-primary md:px-8 md:py-5 rounded-xs">
                   Explore Now
                 </Button>
               </Link>

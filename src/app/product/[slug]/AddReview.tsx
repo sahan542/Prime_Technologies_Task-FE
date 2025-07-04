@@ -1,4 +1,8 @@
+import { RootState } from '@/redux/store';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { toast } from "react-toastify";
+
 
 interface AddReviewProps {
   product_id: number;  // Accept product_id as a prop
@@ -9,12 +13,15 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
   const [rating, setRating] = useState(0);  // Rating state to store selected stars
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const token = useSelector((state: RootState) => state.auth.token);
+  console.log("add review from Redux:", token);
+
   // Function to handle the submission of the review
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const token = localStorage.getItem('token');
+
 
     const payload = {
       rating: rating, 
@@ -33,13 +40,17 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
       });
 
       if (response.ok) {
+        toast.success("Add to cart success");
         console.log('Review submitted successfully');
         setReview('');
         setRating(0);  // Reset the rating
       } else {
+        toast.error("Error submitting review!");
         console.error('Error submitting review:', response.statusText);
       }
     } catch (error) {
+      toast.error("Error submitting review!");
+      
       console.error('Error submitting review:', error);
     } finally {
       setIsSubmitting(false);

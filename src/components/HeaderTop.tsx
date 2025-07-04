@@ -68,7 +68,7 @@ const rotatingMessages = [
   }, []);
 
   return (
-<div className='border-b border-gray-200 bg-gradient-to-r from-[#f4dce6] to-white'>
+<div className='border-b border-gray-200 bg-gradient-to-r from-[#f4dce6] to-white hidden md:block'>
   <div className='container mx-auto py-3 px-[60px]'>
     <div className='flex flex-wrap justify-between items-center gap-2'>
 

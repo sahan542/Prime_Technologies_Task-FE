@@ -65,26 +65,26 @@ const ProductCard: React.FC<PropsType> = ({
         else if (singleProduct.sold_recently === 0) {
           toast.error("Out of stock!");
         } else {
-    const mappedProduct = {
-      id: singleProduct.id ?? `fallback-id-${singleProduct.slug}`,
-      name: singleProduct.title,
-      slug: singleProduct.slug,
-      description: singleProduct.description,
-      image: singleProduct.img,
-      images: singleProduct.images ?? [],
-      category: singleProduct.category,
-      price: singleProduct.price,
-      stock: singleProduct.stock ?? 0,
-      tags: singleProduct.tags ?? [],
-      totalReviews: singleProduct.totalReviews ?? 0,
-      averageRatings: singleProduct.averageRatings ?? 0,
-      salesCount: singleProduct.soldRecently ?? 0,
-      isDeleted: false,
-      createdAt: singleProduct.createdAt ?? new Date().toISOString(),
-      updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
-      discount: singleProduct.discount ?? 0,
-      __v: 0,
-    };
+        const mappedProduct = {
+          id: singleProduct.id ?? `fallback-id-${singleProduct.slug}`,
+          name: singleProduct.title,
+          slug: singleProduct.slug,
+          description: singleProduct.description,
+          image: singleProduct.img,
+          images: singleProduct.images ?? [],
+          category: singleProduct.category,
+          price: singleProduct.price,
+          stock: singleProduct.stock ?? 0,
+          tags: singleProduct.tags ?? [],
+          totalReviews: singleProduct.totalReviews ?? 0,
+          averageRatings: singleProduct.averageRatings ?? 0,
+          salesCount: singleProduct.soldRecently ?? 0,
+          isDeleted: false,
+          createdAt: singleProduct.createdAt ?? new Date().toISOString(),
+          updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
+          discount: singleProduct.discount ?? 0,
+          __v: 0,
+        };
     
         dispatch(addToCart({ product: mappedProduct, quantity: 1 }));
     
@@ -119,6 +119,8 @@ const ProductCard: React.FC<PropsType> = ({
           };
 
           dispatch(addToWishlist(wishlistItem)); 
+          toast.success("Add to wishlist success");
+
         };
 
   

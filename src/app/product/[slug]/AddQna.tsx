@@ -1,4 +1,7 @@
+import { RootState } from '@/redux/store';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 interface AddQnaProps {
   product_id: number; 
@@ -7,12 +10,13 @@ interface AddQnaProps {
 const AddQna: React.FC<AddQnaProps> = ({ product_id }) => {
   const [question, setQuestion] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const token = useSelector((state: RootState) => state.auth.token);
+  console.log("add ques from Redux:", token);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const token = localStorage.getItem('token'); 
 
     const payload = {
       question: question,
@@ -30,12 +34,15 @@ const AddQna: React.FC<AddQnaProps> = ({ product_id }) => {
       });
 
       if (response.ok) {
+        toast.success("Added question successfully!");
         console.log('Question submitted successfully');
         setQuestion('');
       } else {
+        toast.error("Error submitting question!");
         console.error('Error submitting question:', response.statusText);
       }
     } catch (error) {
+        toast.error("Error submitting question!");
       console.error('Error submitting question:', error);
     } finally {
       setIsSubmitting(false);
