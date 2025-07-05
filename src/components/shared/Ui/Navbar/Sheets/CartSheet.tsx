@@ -29,21 +29,20 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import SignInModal from "@/components/modals/SignInModal";
 
 export default function CartSheet() {
   const [isOpen, setIsOpen] = useState(false);
-
   const [shippingOption, setShippingOption] = useState("outside");
-
   const router = useRouter();
-
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false); 
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
-//removed this three sahan
-  // const subtotal = cartItems.reduce(
-  //   (sum, item) => sum + item.product.price * item.quantity,
-  //   0
-  // );
+  const token = useSelector((state: RootState) => state.auth.token);
+  console.log("checkout token 75:", token);
+
 
   console.log("cart items - cartsheet page : ",cartItems);
 
@@ -56,11 +55,6 @@ export default function CartSheet() {
     shippingOption === "inside"
       ? insideDhakaShippingCost
       : outsideDhakaShippingCost;
-  // const freeShippingThreshold = 2000;
-  // const remainingForFreeShipping = Math.max(
-  //   0,
-  //   freeShippingThreshold - subtotal
-  // );
   const total = subtotal + shippingCost;
 
   const handleUpdateQuantity = (
@@ -72,10 +66,7 @@ export default function CartSheet() {
     if (newQuantity < 1) {
       toast.error("You have to put at least 1 quantity!");
       console.log("newQuantity < 1");
-    // } else if (newQuantity > currStock) {
-    //   console.log("newQuantity > currStock");
 
-    //   toast.error("Out of stock!");
     } else {
       console.log("else");
       console.log("product ID : ",productId);
@@ -84,16 +75,15 @@ export default function CartSheet() {
   };
 
   const removeItem = (productId: string) => {
-    // setCartItems((items) => items.filter((item) => item.id !== id));
     dispatch(removeFromCart(productId));
   };
 
-  // handle checkout
   const handleCheckout = () => {
-    setIsOpen(false);
-    dispatch(updateShippingOption(shippingOption));
-
-    router.push("/checkout");
+    if (token) {
+      router.push("/checkout");
+    } else {
+      setIsSignInModalOpen(true);
+    }
   };
 
   return (
@@ -268,7 +258,6 @@ export default function CartSheet() {
                       className="w-full btn-primary"
                       onClick={() => {
                         setIsOpen(false);
-                        // Navigate to cart page
                         router.push("/cart");
                       }}
                       disabled={cartItems.length === 0}
@@ -282,6 +271,12 @@ export default function CartSheet() {
           </div>
         </div>
       </SheetContent>
+      {isSignInModalOpen && (
+        <SignInModal
+          isOpen={isSignInModalOpen}
+          closeModal={() => setIsSignInModalOpen(false)}
+        />
+      )}
     </Sheet>
   );
 }

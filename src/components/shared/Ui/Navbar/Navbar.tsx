@@ -146,22 +146,18 @@ const Navbar = () => {
               </SheetTrigger>
               <SheetContent
                 side="left"
-                className="w-[300px] sm:w-[350px] bg-secondary"
+                className="w-[300px] sm:w-[350px] bg-white"
               >
                 <SheetHeader>
                   <SheetTitle>
-                    <div className="pt-4 flex items-center justify-center text-white ">
+                    <div className="pt-4 flex items-center justify-center text-white">
                       <Link href="/" className="font-bold text-xl">
-                        MobileShop
+                        <img src="/brizz bella.png" alt="Logo" className="w-[160px] sm:w-[180px]" />
                       </Link>
                     </div>
                   </SheetTitle>
                   <SheetDescription className="hidden"></SheetDescription>
                 </SheetHeader>
-                {/* <MobileMenu
-                  categories={categoriesList}
-                  setIsMobileMenuOpen={setIsMobileMenuOpen}
-                /> */}
               </SheetContent>
             </Sheet>
 

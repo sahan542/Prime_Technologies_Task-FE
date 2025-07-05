@@ -1,5 +1,6 @@
 "use client";
 
+import SignInModal from "@/components/modals/SignInModal";
 import MTForm from "@/components/shared/Forms/MTForm";
 import MTInput from "@/components/shared/Forms/MTInput";
 import MTTextArea from "@/components/shared/Forms/MTTextArea";
@@ -12,17 +13,21 @@ import {
   insideDhakaShippingCost,
   outsideDhakaShippingCost,
 } from "@/constants/productKey";
+import { useAuth } from "@/context/AuthContext";
 import { useAddOrderMutation } from "@/redux/api/orderApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { clearCart } from "@/redux/reducers/cartSlice";
+import { RootState } from "@/redux/store";
 import { Lock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { z } from "zod";
+
 
 const userBillingAddressSchema = z.object({
   full_name: z.string().min(1, "Full name is required"),
@@ -32,8 +37,8 @@ const userBillingAddressSchema = z.object({
     .min(11, "Number must be at least 11 digits")
     .max(14, "Number can't exceed 14 digits"),
   email: z.string().email("Enter a valid email"),
-  country: z.string().default("Bangladesh"), // or `.optional()` if not required
-  order_notes: z.string().optional(), // allow empty or undefined notes
+  country: z.string().default("Bangladesh"), 
+  order_notes: z.string().optional(), 
 });
 
 const userBillingAddress = {
@@ -48,8 +53,11 @@ const userBillingAddress = {
 export default function Checkout() {
   const [isLoading, setIsLoading] = useState(false);
   const shipOption = useAppSelector((state) => state.cart.shippingOption);
-
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const { isAuthenticated, openSignup } = useAuth();
   const [shippingOption, setShippingOption] = useState(shipOption || "outside");
+  const token = useSelector((state: RootState) => state.auth.token);
+  console.log("checkout token 60:", token);
 
   const cartItems = useAppSelector((state) => state.cart.items);
 
@@ -59,18 +67,28 @@ export default function Checkout() {
 
   // redux rtk api
   const [addOrder] = useAddOrderMutation();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  
+  // Close the modal manually
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
+  // Open sign-up modal (as needed)
+  const openSignUpModal = () => {
+    openSignup();
+  };
+  
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
 
-  // const items = cartItems.map((item) => ({
-  //   product_id: item.product.id,
-  //   quantity: item.quantity,
-  // }));
   const items = cartItems.map((item) => {
   const rawId = item.product?.id;
+
 
   return {
     product_id: typeof rawId === "string" ? parseInt(rawId) : rawId,
@@ -102,11 +120,20 @@ export default function Checkout() {
 
     // send to db
     try {
-      const res = await addOrder(orderData).unwrap();
-      toast.success(res.message || "Order placed successfully!");
-      dispatch(clearCart());
-      router.push(`/checkout/confirmation?orderId=${res.order_id}`);
-      setIsLoading(false);
+      if(token){
+        console.log("hello inside the try if 124");
+        const res = await addOrder(orderData).unwrap();
+        toast.success(res.message || "Order placed successfully!");
+        dispatch(clearCart());
+        router.push(`/`);
+        setIsLoading(false);
+      }else{
+        console.log("hello inside the try 130");
+        toast.error("Please login to checkout!");
+        setIsLoading(false);
+        setIsSignInModalOpen(true);
+      }
+
     } catch (error: any) {
       toast.error(
         error?.data?.errorSources[0].message || "Something went wrong!"
@@ -116,6 +143,8 @@ export default function Checkout() {
   };
 
   return (
+    <>
+
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="border-b border-primary/10">
@@ -393,8 +422,16 @@ export default function Checkout() {
               </Card>
             </div>
           </div>
+                {isSignInModalOpen && (
+                  <SignInModal
+                    isOpen={isSignInModalOpen}
+                    closeModal={() => setIsSignInModalOpen(false)}
+                  />
+                )}
         </MTForm>
       </div>
     </div>
+    </>
+
   );
 }
