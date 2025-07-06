@@ -10,6 +10,7 @@ import CategoryFilter from '@/components/filters/CategoryFilter';
 import BrandFilter from '@/components/filters/BrandFilter';
 import PriceRangeFilter from '@/components/filters/PriceRangeFilter';
 import productsReducer from "@/redux/reducers/productsSlice"; 
+import NewProducts from '@/components/NewProducts';
 
 export default function ProductPage() {
   const dispatch: AppDispatch = useDispatch();
@@ -47,7 +48,8 @@ export default function ProductPage() {
     arr.includes(val) ? arr.filter((v) => v !== val) : [...arr, val];
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 p-6 text-black">
+    <>
+        <div className="flex flex-col md:flex-row gap-4 p-6 text-black">
       <aside className="w-full md:w-1/6 space-y-4 bg-[#f4dce6]/40">
         <CategoryFilter
           categories={['SKIN CARE', 'CLENSERS', 'MOISTURIZORS', 'SERUMS', 'TONERS', 'SUNSCREENS', 'EYE & LIP CARE']}
@@ -76,5 +78,9 @@ export default function ProductPage() {
         <ProductList products={items} />
       </main>
     </div>
+          <NewProducts />
+
+    </>
+
   );
 }

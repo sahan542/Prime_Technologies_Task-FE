@@ -69,13 +69,12 @@ export default function RootLayout({
               <Navbars/>
               <Navbar />
               {children}
-               <NewProducts />
+
               {/* <ProductCarousel title="SKIN CARE" products={skincareProducts} /> 
 
               <ProductCarousel title="MOISTURIZORS" products={skincareProducts} />
               <ProductCarousel title="SERUMS" products={skincareProducts} />   */}
 
-            <FeatureHighlights />
 
               <Footer />
               <SignupModal isOpen={isSignUpOpen} closeModal={closeSignUpModal} openSignInModal={openSignInModal}/>

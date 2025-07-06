@@ -203,7 +203,7 @@ export default function Cart() {
                 </div>
 
                 <Button
-                  className="w-full py-5 bg-[#7b1f4b]"
+                  className="w-full py-5 bg-[#7b1f4b] hover:bg-[#7b1f4b]"
                   asChild
                   disabled={cartItems.length === 0}
                   onClick={handleCheckout}

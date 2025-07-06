@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaStar, FaRegStar } from "react-icons/fa";
+import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import { IoIosHeart } from "react-icons/io";
 import { HiShoppingBag } from "react-icons/hi2";
 import { toast } from "react-toastify";
@@ -32,13 +32,26 @@ const ProductCard: React.FC<PropsType> = ({
   onAddToCart,
   onAddToWishlist,
 }) => {
-  const generateRating = (rating: number) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(i <= rating ? <FaStar key={i} /> : <FaRegStar key={i} />);
+const generateRating = (rating: number) => {
+  const stars = [];
+
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+  const totalFilled = hasHalfStar ? fullStars + 1 : fullStars;
+
+  for (let i = 1; i <= 5; i++) {
+    if (i <= fullStars) {
+      stars.push(<FaStar key={i} />);
+    } else if (i === fullStars + 1 && hasHalfStar) {
+      stars.push(<FaStarHalfAlt key={i} />);
+    } else {
+      stars.push(<FaRegStar key={i} />);
     }
-    return <div className="flex gap-1 text-[20px] text-[#FF9529]">{stars}</div>;
-  };
+  }
+
+  return <div className="flex gap-1 text-[20px] text-[#FF9529]">{stars}</div>;
+};
+
         const dispatch = useAppDispatch();
         const { data: singleProduct, isLoading: isSingleProductLoading } =
           useGetSingleProductQuery(slug);
@@ -153,7 +166,7 @@ const ProductCard: React.FC<PropsType> = ({
           <p className="text-gray-600 text-xs sm:text-sm">{desc}</p>
 
           {/* Rating */}
-          <div className="mt-1">{generateRating(rating)}</div>
+          <div className="mt-1">{generateRating(singleProduct.average_ratings ?? 0)}</div>
 
           {/* Price */}
           <div className="font-bold flex gap-2 sm:gap-4 text-black mt-1 text-sm sm:text-base">
