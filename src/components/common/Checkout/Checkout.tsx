@@ -1,6 +1,7 @@
 "use client";
 
 import SignInModal from "@/components/modals/SignInModal";
+import SignupModal from "@/components/modals/SignupModal";
 import MTForm from "@/components/shared/Forms/MTForm";
 import MTInput from "@/components/shared/Forms/MTInput";
 import MTTextArea from "@/components/shared/Forms/MTTextArea";
@@ -54,6 +55,7 @@ export default function Checkout() {
   const [isLoading, setIsLoading] = useState(false);
   const shipOption = useAppSelector((state) => state.cart.shippingOption);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const { isAuthenticated, openSignup } = useAuth();
   const [shippingOption, setShippingOption] = useState(shipOption || "outside");
   const token = useSelector((state: RootState) => state.auth.token);
@@ -75,7 +77,6 @@ export default function Checkout() {
     setIsModalVisible(false);
   };
 
-  // Open sign-up modal (as needed)
   const openSignUpModal = () => {
     openSignup();
   };
@@ -426,6 +427,12 @@ export default function Checkout() {
                   <SignInModal
                     isOpen={isSignInModalOpen}
                     closeModal={() => setIsSignInModalOpen(false)}
+                  />
+                )}
+                {isSignUpModalOpen && (
+                  <SignupModal
+                    isOpen={isSignUpModalOpen}
+                    closeModal={() => setIsSignUpModalOpen(false)}
                   />
                 )}
         </MTForm>

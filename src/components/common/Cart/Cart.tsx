@@ -71,7 +71,7 @@ export default function Cart() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="border-b border-primary/10">
+      <div className="border-b border-primary/10 ">
         <div className="w-full max-w-4xl mx-auto py-4 mt-6">
           <div className="flex items-center justify-center mb-8">
             <div className="flex items-center space-x-1 lg:space-x-4">

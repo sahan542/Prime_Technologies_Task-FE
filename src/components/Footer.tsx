@@ -2,9 +2,18 @@
 import React from "react";
 import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaWhatsapp, FaTiktok } from "react-icons/fa";
+import PrivacyPolicyModal from "./modals/PrivacyPolicyModal";
+import TermsConditionsModal from "./modals/TermsConditionsModal";
+import ReturnPolicyModal from "./modals/ReturnPolicyModal";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
+    const [isPrivacyOpen, setIsPrivacyOpen] = React.useState(false);
+    const [isTermsOpen, setIsTermsOpen] = React.useState(false);
+    const [isReturnOpen, setIsReturnOpen] = React.useState(false);
   return (
+    <>
+
     <footer className=" text-black mt-16 border-t border-gray-200 bg-[#f4dce6]">
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-5 gap-8 ">
         {/* Google Review Box */}
@@ -139,15 +148,27 @@ const Footer = () => {
       <div className="bg-[#7b1f4b] text-white text-sm py-4 px-4 flex flex-col md:flex-row justify-between items-center">
         <p>© 2025 Briss_Bella. All Rights Reserved.</p>
         <div className="flex space-x-4 mt-2 md:mt-0">
-          <Link href="#" className="underline">
-            Terms Of Use
-          </Link>
-          <Link href="#" className="underline">
+          <button
+            type="button"
+            className="underline text-white"
+            onClick={() => setIsTermsOpen(true)}
+          >
+            Terms of use
+          </button>
+          <button
+            type="button"
+            className="underline text-white"
+            onClick={() => setIsPrivacyOpen(true)}
+          >
             Privacy Policy
-          </Link>
-          <Link href="#" className="underline">
+          </button>
+          <button
+            type="button"
+            className="underline text-white"
+            onClick={() => setIsReturnOpen(true)}
+          >
             Return Policy
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -160,7 +181,12 @@ const Footer = () => {
       >
         <FaWhatsapp className="text-2xl" />
       </a>
+
     </footer>
+  <PrivacyPolicyModal isOpen={isPrivacyOpen} closeModal={() => setIsPrivacyOpen(false)} />
+  <TermsConditionsModal isOpen={isTermsOpen} closeModal={() => setIsTermsOpen(false)} />
+  <ReturnPolicyModal isOpen={isReturnOpen} closeModal={() => setIsReturnOpen(false)} />
+    </>
   );
 };
 

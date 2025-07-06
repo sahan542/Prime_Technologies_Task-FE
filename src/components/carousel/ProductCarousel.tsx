@@ -1,8 +1,9 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axios from "axios";
 
-// Type for each product in the carousel
 interface Product {
   id: string;
   title: string;
@@ -12,15 +13,13 @@ interface Product {
 
 interface ProductCarouselProps {
   title: string;
-  products: Product[]; // Optional for fallback static data
+  products?: Product[];
 }
 
-const ProductCarousel: React.FC<ProductCarouselProps> = ({ title, products }) => {
+const ProductCarousel: React.FC<ProductCarouselProps> = ({ title, products = [] }) => {
   const [fetchedProducts, setFetchedProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // Use useRef to reference the carousel container div
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
   const fetchProductsByCategory = async () => {
@@ -31,10 +30,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ title, products }) =>
       setFetchedProducts(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error("Error details:", error.response?.data || error.message);
-        setError("Failed to fetch products: " + (error.response?.data || error.message));
-      } else {
-        console.error("Unknown error:", error);
+        console.error("Error:", error.response?.data || error.message);
         setError("Failed to fetch products.");
       }
     } finally {
@@ -44,58 +40,64 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ title, products }) =>
 
   useEffect(() => {
     fetchProductsByCategory();
-  }, [title]); // Fetch when the title/category changes
+  }, [title]);
 
-  // Handle left and right scroll
-  const scrollCarousel = (direction: string) => {
+  const scrollCarousel = (direction: "left" | "right") => {
     if (carouselRef.current) {
-      const scrollAmount = direction === "left" ? -200 : 200;
+      const scrollAmount = direction === "left" ? -300 : 300;
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-
-  if (fetchedProducts.length === 0) return <div>No products found in this category.</div>;
+  if (loading) return <div className="text-center">Loading...</div>;
+  if (error) return <div className="text-center text-red-600">{error}</div>;
+  if (fetchedProducts.length === 0) return <div className="text-center">No products found.</div>;
 
   return (
-    <div className="my-8 mx-6">
-      <h2 className="text-2xl font-semibold mb-4 text-[#7b1f4b]">{title}</h2>
-      <div className="relative">
-        {/* Left Arrow */}
-        <button
-          onClick={() => scrollCarousel("left")}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#d4749e] p-2 rounded-full shadow-md"
-        >
-          <FaArrowLeft />
-        </button>
+    <div className="my-8 mx-4 relative">
+      <h2 className="text-lg font-bold text-[#7b1f4b] mb-4">{title}</h2>
 
-        {/* Product Carousel */}
-        <div
-          ref={carouselRef}  // Using useRef here
-          className="flex overflow-x-auto space-x-4 pb-4 gap-6 no-scrollbar"
-        >
-          {fetchedProducts.map((product) => (
-            <div key={product.id} className="min-w-[200px] border-[2px] border-[#7b1f4b] rounded-[10px]">
-              <img
-                src={product.image}
-                alt={product.title}
-                className="w-full h-48 object-cover rounded-md"
-              />
-              <h5 className="text-base sm:text-lg md:text-xl mt-2 text-[#7b1f4b] flex items-center justify-center">{product.title}</h5>
-              <p className="font-bold text-black flex items-center justify-center">Rs. {product.price}</p>
-            </div>
-          ))}
-        </div>
+      {/* Scroll Buttons */}
+      <button
+        onClick={() => scrollCarousel("left")}
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#d4749e] text-white p-2 rounded-full shadow-md"
+      >
+        <FaArrowLeft />
+      </button>
 
-        {/* Right Arrow */}
-        <button
-          onClick={() => scrollCarousel("right")}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#d4749e] p-2 rounded-full shadow-md"
-        >
-          <FaArrowRight />
-        </button>
+      <button
+        onClick={() => scrollCarousel("right")}
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#d4749e] text-white p-2 rounded-full shadow-md"
+      >
+        <FaArrowRight />
+      </button>
+
+      {/* Carousel */}
+      <div
+        ref={carouselRef}
+        className="flex overflow-x-auto gap-4 no-scrollbar px-10"
+      >
+{fetchedProducts.map((product) => (
+  <div
+    key={product.id}
+    className="min-w-[100px] max-w-[180px] flex-shrink-0 border-2 border-[#7b1f4b] rounded-xl bg-white shadow-lg transition hover:shadow-xl rounded-full"
+  >
+    <div className="rounded-t-xl overflow-hidden">
+      <img
+        src={product.img}
+        alt={product.title}
+        className="w-full h-40 object-cover"
+      />
+    </div>
+    <div className="p-3">
+      <h5 className="text-[#7b1f4b] font-semibold text-center text-base mb-1">
+        {product.title}
+      </h5>
+      <p className="text-black font-bold text-center">Rs. {product.price}</p>
+    </div>
+  </div>
+))}
+
       </div>
     </div>
   );

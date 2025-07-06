@@ -31,6 +31,12 @@ import { Input } from "antd";
 import SignInModal from "@/components/modals/SignInModal";
 import SignupModal from "@/components/modals/SignupModal";
 import { toast } from "react-toastify";
+import { clearCart } from "@/redux/reducers/cartSlice";
+import { clearWishlist } from "@/redux/reducers/wishlistSlice";
+import PrivacyPolicyModal from "@/components/modals/PrivacyPolicyModal";
+import TermsConditionsModal from "@/components/modals/TermsConditionsModal";
+import ReturnPolicyModal from "@/components/modals/ReturnPolicyModal";
+import { CiSearch } from "react-icons/ci";
 
 
 const categoriesDemo = [
@@ -51,7 +57,12 @@ const Navbar = () => {
   const subMenuTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const [isSignInModalOpen, setIsSignInModalOpen] = React.useState(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = React.useState(false); // Track signup modal state
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = React.useState(false); 
+  const [isPrivacyOpen, setIsPrivacyOpen] = React.useState(false);
+  const [isTermsOpen, setIsTermsOpen] = React.useState(false);
+  const [isReturnOpen, setIsReturnOpen] = React.useState(false);
+  const [searchTerm, setSearchTerm] = React.useState('');
+  
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -100,14 +111,7 @@ const Navbar = () => {
     }, 300);
   };
 
-  // Handle submenu opening
-  const handleCategoryEnter = (categoryId: string) => {
-    if (subMenuTimeoutRef.current) {
-      clearTimeout(subMenuTimeoutRef.current);
-    }
-    setIsSubMenuClosing(false);
-    setHoveredCategory(categoryId);
-  };
+ 
 
   // Handle submenu closing with delay for smooth transition
   const handleCategoryLeave = () => {
@@ -121,11 +125,22 @@ const Navbar = () => {
     }, 300);
   };
 
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      router.push(`/products?search=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
   const handleLogout = async () => {
     await axios.post("/api/auth/remove-cookies", {
       accessToken: authKey,
     });
     dispatch(logout());
+      dispatch(clearCart());      // Clears cart state
+    dispatch(clearWishlist());  // Clears wishlist state
+
+    localStorage.removeItem("persist:moTeCart");
+    localStorage.removeItem("persist:moTeWishlist");
     removeUser();
     toast.success("Logout Successful!");
     router.push("/");
@@ -149,12 +164,59 @@ const Navbar = () => {
                 className="w-[300px] sm:w-[350px] bg-white"
               >
                 <SheetHeader>
-                  <SheetTitle>
-                    <div className="pt-4 flex items-center justify-center text-white">
-                      <Link href="/" className="font-bold text-xl">
-                        <img src="/brizz bella.png" alt="Logo" className="w-[160px] sm:w-[180px]" />
-                      </Link>
-                    </div>
+                <SheetTitle>
+    <div className="pt-4 flex flex-col items-center text-white">
+      <Link href="/" className="font-bold text-xl mb-2">
+        <img src="/brizz bella.png" alt="Logo" className="w-[160px] sm:w-[180px]" />
+      </Link>
+
+      <div className="flex flex-col gap-4 mt-4 w-full items-center ">
+
+<div className="w-full max-w-sm">
+  <div className="flex rounded-2xl overflow-hidden border border-[#7b1f4b] bg-[#d4749e]">
+    <input
+      type="text"
+      className="flex-1 px-4 py-2 text-gray-600 placeholder:text-gray-400 bg-white focus:outline-none"
+      placeholder="Enter product name..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+    />
+    <button
+      className="w-12 bg-[#f4dce6] flex items-center justify-center"
+      onClick={handleSearch}
+    >
+      <CiSearch className="text-[#7b1f4b]" size={20} />
+    </button>
+  </div>
+</div>
+
+        <Link href="/products" className="btn-primary text-white hover:underline text-sm mt-12">
+          All Products
+        </Link>
+        <Button  className="btn-primary text-white hover:underline text-sm" 
+            onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsPrivacyOpen(true);
+                }}>
+          Privacy & Policy
+        </Button>
+        <Button  className="btn-primary text-white hover:underline text-sm" 
+           onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsTermsOpen(true);
+               }}>
+          Terms and Conditions
+        </Button>
+        <Button  className="btn-primary text-white hover:underline text-sm" 
+            onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsReturnOpen(true);
+            }}>
+          Return Policy
+        </Button>
+      </div>
+    </div>
                   </SheetTitle>
                   <SheetDescription className="hidden"></SheetDescription>
                 </SheetHeader>
@@ -165,13 +227,38 @@ const Navbar = () => {
               <Link href="/" className="font-bold text-xl">
                 <img src="/brizz2bella.png" alt="Logo" className="w-[127.5px] sm:w-[180px]" />
               </Link>
-                <Link href="/products" className="text-[#7b1f4b] hover:underline text-lg sm:text-lg block sm:inline">
-                  <span className="block sm:inline w-full text-white">Shop All</span>
-                </Link>
+              <Link
+                href="/products"
+                className="hidden sm:block text-[#7b1f4b] hover:underline text-lg"
+              >
+                <span className="text-white">Shop All</span>
+              </Link>
+
             </div>
           </div>
 
           {/* Desktop Navigation */}
+
+<div className="hidden sm:block w-full max-w-md">
+    <div className="flex rounded-2xl overflow-hidden border border-[#7b1f4b] bg-[#d4749e]">
+    <input
+      type="text"
+      className="flex-1 px-4 py-2 text-gray-600 placeholder:text-gray-400 bg-white focus:outline-none"
+      placeholder="Enter any product name..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+    />
+    <button
+      className="w-10 bg-[#f4dce6] flex items-center justify-center"
+      onClick={handleSearch}
+    >
+      <CiSearch className="text-[#7b1f4b]" size={20} />
+    </button>
+  </div>
+</div>
+
+
 
 
           <div className="flex gap-4">
@@ -202,10 +289,12 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-        {/* SignIn Modal */}
         <SignInModal isOpen={isSignInModalOpen} closeModal={closeSignInModal} openSignUpModal={openSignUpModal}/>
-        {/* SignUp Modal */}
         <SignupModal isOpen={isSignUpModalOpen} closeModal={closeSignUpModal} openSignInModal={openSignInModal}/>
+        <PrivacyPolicyModal isOpen={isPrivacyOpen} closeModal={() => setIsPrivacyOpen(false)} />
+        <TermsConditionsModal isOpen={isTermsOpen} closeModal={() => setIsTermsOpen(false)} />
+        <ReturnPolicyModal isOpen={isReturnOpen} closeModal={() => setIsReturnOpen(false)} />
+    
     </header>
   );
 };

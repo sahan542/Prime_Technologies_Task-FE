@@ -24,6 +24,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '@/redux/store';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FeatureHighlights from "@/components/FeatureHighlights";
 
 
 
@@ -74,6 +75,7 @@ export default function RootLayout({
               <ProductCarousel title="MOISTURIZORS" products={skincareProducts} />
               <ProductCarousel title="SERUMS" products={skincareProducts} />   */}
 
+            <FeatureHighlights />
 
               <Footer />
               <SignupModal isOpen={isSignUpOpen} closeModal={closeSignUpModal} openSignInModal={openSignInModal}/>
