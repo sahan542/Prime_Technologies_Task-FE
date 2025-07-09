@@ -9,6 +9,7 @@ import { RootState } from "@/redux/store";
 interface Review {
   id: number;
   username: string;
+  user_name: string; 
   rating: number;
   comment: string;
   date: string;
@@ -90,7 +91,7 @@ reviews.map((review) => (
     className="border border-gray-300 p-4 rounded-2xl shadow-lg shadow-[#7b1f4b]/30"
   >
     <div className="flex justify-between items-center">
-      <h3 className="">{review.user_name}</h3>
+      <h3 className="">{review.username}</h3>
       <span className="text-yellow-500">
         {"⭐".repeat(review.rating)}
       </span>
