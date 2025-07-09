@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
-import AddReview from "./AddReview";
+// import AddReview from "./AddReview";
 import { IoClose } from "react-icons/io5";
 import AddQna from "./AddQna";
 import { useSelector } from "react-redux";
@@ -10,9 +10,12 @@ import { RootState } from "@/redux/store";
 interface Qna {
   id: number;
   username: string;
+  user_email: string;  // Add this property if it's part of your API response
   rating: number;
   comment: string;
   date: string;
+  question: string;  // Add this property if it's part of the API response
+  answer: string;    // Add this property if it's part of the API response
 }
 
 interface AllqnaProps {
