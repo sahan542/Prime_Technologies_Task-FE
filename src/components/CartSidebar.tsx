@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useCart } from '@/store/hooks/useCart';
+import { useCart } from '@/store/hooks';  // Now it should work
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Badge } from '@/components/ui/badge';
