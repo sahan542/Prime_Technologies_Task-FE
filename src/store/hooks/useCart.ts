@@ -1,24 +1,54 @@
 // src/store/hooks/useCart.ts
 
-import { useAppSelector, useAppDispatch } from '@/store/hooks';  // Import the hooks from your hooks.ts file
-import { RootState } from '@/store/store';
-import { addToCart, removeFromCart, updateQuantity } from '@/store/slices/cartSlice';  // Import the actions
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
+import { addToCart, removeFromCart, updateQuantity, clearCart, updateShippingOption } from "@/store/reducers/cartSlice";
 
 export const useCart = () => {
-  const cart = useAppSelector((state: RootState) => state.cart); // Access the cart state
+  // Accessing the state from Redux store
+  const cart = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
-  const addItemToCart = (item: any) => {
-    dispatch(addToCart(item));  // Dispatch addToCart action
+  const addItem = (item) => {
+    dispatch(addToCart(item));
   };
 
-  const removeItemFromCart = (itemId: string) => {
-    dispatch(removeFromCart(itemId));  // Dispatch removeFromCart action
+  const removeItem = (productId) => {
+    dispatch(removeFromCart(productId));
   };
 
-  const updateItemQuantity = (id: string, quantity: number) => {
-    dispatch(updateQuantity({ id, quantity }));  // Dispatch updateQuantity action
+  const incrementQuantity = (productId) => {
+    const item = cart.items.find((item) => item.product.id === productId);
+    if (item) {
+      dispatch(updateQuantity({ productId, quantity: item.quantity + 1 }));
+    }
   };
 
-  return { cart, addItemToCart, removeItemFromCart, updateItemQuantity };
+  const decrementQuantity = (productId) => {
+    const item = cart.items.find((item) => item.product.id === productId);
+    if (item && item.quantity > 1) {
+      dispatch(updateQuantity({ productId, quantity: item.quantity - 1 }));
+    }
+  };
+
+  const setShippingOption = (option) => {
+    dispatch(updateShippingOption(option));
+  };
+
+  const clearCartItems = () => {
+    dispatch(clearCart());
+  };
+
+  return {
+    items: cart.items,
+    count: cart.items.length,
+    total: cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0),
+    isEmpty: cart.items.length === 0,
+    isLoading: false,  // Assume no loading state for simplicity, modify if needed
+    addItem,
+    removeItem,
+    incrementQuantity,
+    decrementQuantity,
+    setShippingOption,
+    clearCartItems,
+  };
 };
