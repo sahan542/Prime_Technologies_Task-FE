@@ -6,17 +6,17 @@ import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
 import { Provider } from 'react-redux';  // Import the Provider from react-redux
 import HeaderTop from "@/components/HeaderTop";
-import HeaderMain from "@/components/HeaderMain";
+// import HeaderMain from "@/components/HeaderMain";
 import Navbar from "@/components/nav/Navbar";
 import Navbars from "@/components/shared/Ui/Navbar/Navbar";
 import Footer from "@/components/Footer";
-import NewProducts from "@/components/NewProducts";
+// import NewProducts from "@/components/NewProducts";
 import { AuthModalProvider } from "@/components/context/AuthModalContext";
 import { AuthProvider } from "@/context/AuthContext";
 import SignInModal from "@/components/modals/SignInModal";
 import SignupModal from "@/components/modals/SignupModal";
-import ProductCarousel from "@/components/carousel/ProductCarousel";
-import { skincareProducts } from "@/data/sampleProducts";
+// import ProductCarousel from "@/components/carousel/ProductCarousel";
+// import { skincareProducts } from "@/data/sampleProducts";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import { persistor } from "@/redux/store";
@@ -24,7 +24,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '@/redux/store';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FeatureHighlights from "@/components/FeatureHighlights";
+// import FeatureHighlights from "@/components/FeatureHighlights";
 
 
 

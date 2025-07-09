@@ -1,9 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+interface UserInfo {
+  email: string;
+  name: string;
+  role: string;
+  // Add other fields as needed
+}
 
 // Define the UserState interface
 interface UserState {
   token: string | null;
-  userInfo: any;  // Customize based on your user profile structure
+  userInfo: UserInfo | null;  
   status: 'idle' | 'loading' | 'error';
 }
 

@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import { use } from "react";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+// import Link from "next/link";
+import { useSelector } from "react-redux";
 import { addToCart } from "../../../redux/reducers/cartSlice"; 
-import { CartItem } from "@/types/cart";
-import type { AppDispatch } from "@/store/store";
+// import { CartItem } from "@/types/cart";
+// import type { AppDispatch } from "@/store/store";
 import { addToWishlist } from "@/store/slices/wishlistSlice";
-import ReviewQASection from "./ReviewQASection";
+// import ReviewQASection from "./ReviewQASection";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { MyLoader } from "@/components/shared/Ui/MyLoader";

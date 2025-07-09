@@ -6,7 +6,7 @@ import { createContext, useState, useContext, ReactNode } from 'react';
 interface User {
   email: string;
   name?: string;  // You can extend this as needed
-  [key: string]: any;  // Add more fields if needed (e.g., role, permissions)
+  [key: string]: unknown;  // Add more fields if needed (e.g., role, permissions)
 }
 
 // Define the AuthContext type

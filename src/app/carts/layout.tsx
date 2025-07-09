@@ -2,8 +2,8 @@
 
 import React from "react";
 import { Provider } from "react-redux"; 
-import Navbar from "@/components/nav/Navbar"; 
-import Footer from "@/components/Footer"; 
+// import Navbar from "@/components/nav/Navbar"; 
+// import Footer from "@/components/Footer"; 
 import { store } from "@/redux/store"; 
 
 export default function CartLayout({ children }: { children: React.ReactNode }) {

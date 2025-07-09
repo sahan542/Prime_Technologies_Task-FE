@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Hero from "../components/Hero";
+// import Image from "next/image";
+// import Hero from "../components/Hero";
 import NewProducts from "@/components/NewProducts";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

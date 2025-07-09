@@ -1,4 +1,4 @@
-import { TProduct } from "./index"; // adjust if your TProduct is defined elsewhere
+// import { TProduct } from "./index"; // adjust if your TProduct is defined elsewhere
 
 export const mockCartItem = {
   product: {
