@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import AddReview from './AddReview';
 import AddQna from './AddQna';
 import { useAuth } from '@/context/AuthContext';

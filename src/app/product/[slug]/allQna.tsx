@@ -19,7 +19,7 @@ interface AllqnaProps {
   product_id: number;
 }
 
-const allQna: React.FC<AllqnaProps> = ({ product_id }) => {
+const AllQna: React.FC<AllqnaProps> = ({ product_id }) => {
 
       const [qnaSets, setQnaSets] = useState<Qna[]>([]);
       const [showAdd, setShowAdd] = useState(false); 
@@ -120,4 +120,4 @@ const allQna: React.FC<AllqnaProps> = ({ product_id }) => {
 )
 }
 
-export default allQna
+export default AllQna
