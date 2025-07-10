@@ -11,8 +11,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
-  insideDhakaShippingCost,
-  outsideDhakaShippingCost,
+  insideColomboShippingCost,
+  outsideColomboShippingCost,
 } from "@/constants/productKey";
 import { useAuth } from "@/context/AuthContext";
 import { useAddOrderMutation } from "@/redux/api/orderApi";
@@ -100,8 +100,8 @@ export default function Checkout() {
 
   const shippingCost =
     shippingOption === "inside"
-      ? insideDhakaShippingCost
-      : outsideDhakaShippingCost;
+      ? insideColomboShippingCost
+      : outsideColomboShippingCost;
   const total = subtotal + shippingCost;
 
   const handleSubmit = async (values: FieldValues) => {
@@ -346,7 +346,7 @@ export default function Checkout() {
                             </Label>
                           </div>
                           <span className="font-semibold text-black">
-                            Rs {outsideDhakaShippingCost}
+                            Rs {outsideColomboShippingCost}
                           </span>
                         </div>
                         <div className="flex items-center justify-between">
@@ -363,7 +363,7 @@ export default function Checkout() {
                             </Label>
                           </div>
                           <span className="font-semibold text-black">
-                            Rs {insideDhakaShippingCost}
+                            Rs {insideColomboShippingCost}
                           </span>
                         </div>
                       </RadioGroup>

@@ -2,7 +2,6 @@ import authReducer from "@/redux/reducers/authSlice";
 import cartReducer from "@/redux/reducers/cartSlice";
 import wishlistReducer from "@/redux/reducers/wishlistSlice";
 import { configureStore } from "@reduxjs/toolkit";
-import productsReducer from "@/store/slices/productsSlice";
 import {
   FLUSH,
   PAUSE,
@@ -43,7 +42,7 @@ export const store = configureStore({
     auth: persistedAuthReducer,
     cart: persistedCartReducer,
     wishlist: persistedWishlistReducer,
-    products: productsReducer
+    // products: productsReducer
   },
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares({

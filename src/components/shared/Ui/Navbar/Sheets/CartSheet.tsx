@@ -17,8 +17,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-  insideDhakaShippingCost,
-  outsideDhakaShippingCost,
+  insideColomboShippingCost,
+  outsideColomboShippingCost,
 } from "@/constants/productKey";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
@@ -53,8 +53,8 @@ export default function CartSheet() {
 
   const shippingCost =
     shippingOption === "inside"
-      ? insideDhakaShippingCost
-      : outsideDhakaShippingCost;
+      ? insideColomboShippingCost
+      : outsideColomboShippingCost;
   const total = subtotal + shippingCost;
 
   const handleUpdateQuantity = (
@@ -215,7 +215,7 @@ export default function CartSheet() {
                             </Label>
                           </div>
                           <span className="font-medium text-black">
-                            Rs {outsideDhakaShippingCost}
+                            Rs {outsideColomboShippingCost}
                           </span>
                         </div>
                         <div className="flex items-center justify-between">
@@ -226,7 +226,7 @@ export default function CartSheet() {
                             </Label>
                           </div>
                           <span className="font-medium text-black">
-                            Rs {insideDhakaShippingCost}
+                            Rs {insideColomboShippingCost}
                           </span>
                         </div>
                       </RadioGroup>

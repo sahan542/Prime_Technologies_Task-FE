@@ -1,9 +1,8 @@
-
-
 import ProductCard from './ProductCard';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '@/store/slices/cartSlice';
-import { addToWishlist } from '@/store/slices/wishlistSlice';
+import { addToCart } from '@/redux/reducers/cartSlice';
+import { addToWishlist } from "@/redux/reducers/wishlistSlice";
+
 
 interface Product {
   id: number;

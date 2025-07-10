@@ -1,2 +1,2 @@
-export const insideDhakaShippingCost = 70;
-export const outsideDhakaShippingCost = 120;
+export const insideColomboShippingCost = 70;
+export const outsideColomboShippingCost = 120;

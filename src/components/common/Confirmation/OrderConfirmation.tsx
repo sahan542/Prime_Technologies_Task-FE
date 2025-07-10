@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
-  insideDhakaShippingCost,
-  outsideDhakaShippingCost,
+  insideColomboShippingCost,
+  outsideColomboShippingCost,
 } from "@/constants/productKey";
 import { useGetSingleOrderQuery } from "@/redux/api/orderApi";
 import { TProduct } from "@/types";
@@ -45,8 +45,8 @@ export default function OrderConfirmation({ orderId }: { orderId: string }) {
   );
 
   const shipping = order?.data?.insideDhaka
-    ? insideDhakaShippingCost
-    : outsideDhakaShippingCost;
+    ? insideColomboShippingCost
+    : outsideColomboShippingCost;
 
   const total = subtotal + shipping;
 

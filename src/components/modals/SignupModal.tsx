@@ -16,7 +16,7 @@ import { decodedToken } from "@/utils/jwt";
 interface SignUpModalProps {
   isOpen: boolean;
   closeModal: () => void;
-  openSignInModal: () => void; // Pass the function to open the SignIn modal
+  openSignInModal: () => void; 
 }
 
 const userSignUpSchema = z.object({

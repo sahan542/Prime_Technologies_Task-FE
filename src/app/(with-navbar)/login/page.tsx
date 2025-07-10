@@ -1,6 +1,5 @@
 "use client";
 
-// import GoogleAuthWrapper from "@/components/common/Login/GoogleAuthWrapper";
 import MTForm from "@/components/shared/Forms/MTForm";
 import MTInput from "@/components/shared/Forms/MTInput";
 import Container from "@/components/shared/Ui/Container";
@@ -15,7 +14,6 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-// import { FieldValues } from "react-hook-form";
 import { IoMdLock } from "react-icons/io";
 import { MdMail } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -49,7 +47,6 @@ export default function LoginPage() {
         dispatch(setUser({ user, token: res.access_token }));
 
         storeUserInfo({ accessToken: res.access_token });
-        // 🎯 Set HttpOnly cookie from client via API
         await axios.post("/api/auth/set-cookies", {
           accessToken: res.access_token,
         });
@@ -146,7 +143,6 @@ export default function LoginPage() {
             <hr className="w-full border-gray-300" />
           </div>
 
-          {/* <GoogleAuthWrapper /> */}
 
           <p className="text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}

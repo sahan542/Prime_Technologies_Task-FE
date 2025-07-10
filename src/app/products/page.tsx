@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
 import type { RootState, AppDispatch } from '@/store/store';
-import { fetchProducts } from '@/store/slices/productsSlice';
+import { fetchProducts } from '@/redux/reducers/productsSlice';
 import ProductList from '@/components/ProductList';
 import CategoryFilter from '@/components/filters/CategoryFilter';
 import BrandFilter from '@/components/filters/BrandFilter';
 import PriceRangeFilter from '@/components/filters/PriceRangeFilter';
-import productsReducer from "@/redux/reducers/productsSlice"; 
 import NewProducts from '@/components/NewProducts';
 
 export default function ProductPage() {

@@ -17,10 +17,10 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: true,
   eslint: {
-    ignoreDuringBuilds: true, // Ignore ESLint errors during production builds
+    ignoreDuringBuilds: true, 
   },
   typescript: {
-    ignoreBuildErrors: true, // Ignores TypeScript type errors during the production build
+    ignoreBuildErrors: true,  
   },
 };
 
