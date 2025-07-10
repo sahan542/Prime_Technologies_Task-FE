@@ -10,7 +10,6 @@
 /* Theme for Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
     --foreground: #ededed;
   }
 }
@@ -106,7 +105,6 @@ html {
   box-shadow: 0 0 0 2px rgba(72, 187, 120, 0.5); /* focus:ring */
 }
 
-/* global.css */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
