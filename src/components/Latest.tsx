@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Banner1 from "../../public/images/home/banner/banner1.jpg";
 import Banner2 from "../../public/images/home/banner/banner2.jpg";
 import Banner3 from "../../public/images/home/banner/banner3.jpg";
-import Banner4 from "../../public/images/home/banner/banner4.jpg";
+import Link from 'next/link';
+import { Button } from 'antd';
 
 const Latest = () => {
   return (
@@ -16,30 +17,28 @@ const Latest = () => {
             alt="PlayStation 5"
             width={600}
             height={400}
-            className="rounded-lg w-full"
+            className="rounded-lg w-full transition duration-300 hover:shadow-[0_10px_25px_rgba(123,31,75,0.6)]"
           />
-          <div className="absolute bottom-4 left-4 text-white text-lg font-semibold">
-            PlayStation 5
-            <p className="text-sm">Black and White version of the PS5 coming out on sale.</p>
-            <a href="#" className="text-blue-500 mt-2 block">Shop Now</a>
-          </div>
+<div className="absolute bottom-4 left-4 text-white text-lg font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+  💧 Radiant Glow, Naturally Yours
+  <p className="text-sm">Gentle care for healthy glowing skin.</p>
+</div>
+
         </div>
 
         {/* Right Panel */}
         <div className="lg:col-span-1">
-          {/* Upper section with a full-width image */}
           <div className="mb-4 relative">
             <Image
               src={Banner2}
               alt="Perfume"
               width={600}
               height={400}
-              className="rounded-lg w-full"
+            className="rounded-lg w-full transition duration-300 hover:shadow-[0_10px_25px_rgba(123,31,75,0.6)]"
             />
-            <div className="absolute bottom-4 left-4 text-white text-lg font-semibold">
-              Perfume Sahan
-              <p className="text-sm">GUCCI INTENSE OUD EDP.</p>
-              <a href="#" className="text-blue-500 mt-2 block">Shop Now</a>
+<div className="absolute bottom-4 left-4 text-white text-lg font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+              🌿 Pure Ingredients, Visible Results              
+              <p className="text-sm">Nourish deeply with nature’s finest touch.</p>
             </div>
           </div>
 
@@ -50,13 +49,12 @@ const Latest = () => {
                 src={Banner3}
                 alt="Perfume"
                 width={300}
-                height={250} // Set height to 250px for consistency
-                className="rounded-lg w-full"
+                height={250} 
+            className="rounded-lg w-full transition duration-300 hover:shadow-[0_10px_25px_rgba(123,31,75,0.6)]"
               />
-              <div className="absolute bottom-4 left-4 text-white text-sm sm:text-base md:text-lg font-semibold">
-                Perfume
-                <p className="text-xs sm:text-sm">GUCCI INTENSE OUD EDP.</p>
-                <a href="#" className="text-blue-500 mt-2 block">Shop Now</a>
+<div className="absolute bottom-4 left-4 text-white text-lg font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                ✨ Beauty That Breathes
+                <p className="text-xs sm:text-sm">Hydrate, restore, and glow every day.</p>
               </div>
             </div>
           </div>

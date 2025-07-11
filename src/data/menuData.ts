@@ -16,22 +16,10 @@ export const menuData: Record<string, MenuItem> = {
       { label: "Eye & Lip Care", href: "/skin-care/eye-lip-care" },
     ],
     images: [
-      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1749847983/Vanilla-1_kmbj2y.webp",
-      "/assets/skin1.jpg",
-      "/assets/skin2.jpg",
+      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1749412893/29fcbf4c-ca13-40e7-a607-1ea6e9e3898c.__CR0_0_1464_600_PT0_SX1464_V1____rnrnc5.jpg"
     ],
   },
-  "MOISTURIZORS": {
-    title: "Moisturizers",
-    categories: [
-      { label: "Creams", href: "/moisturizers/creams" },
-      { label: "Lotions", href: "/moisturizers/lotions" },
-      { label: "Hydrating Gel", href: "/moisturizers/hydrating-gel" },
-    ],
-    images: [
-      "/cour-1.jpg"
-    ],
-  },
+
   "CLEANSERS": {
     title: "Cleansers",
     categories: [
@@ -41,8 +29,7 @@ export const menuData: Record<string, MenuItem> = {
       { label: "Micellar Water", href: "/cleansers/micellar-water" },
     ],
     images: [
-      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1749847983/Vanilla-1_kmbj2y.webp",
-      "/assets/cleanser1.jpg",
+      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1749847983/Vanilla-1_kmbj2y.webp"
     ],
   },
   "SERUMS": {
@@ -54,9 +41,7 @@ export const menuData: Record<string, MenuItem> = {
       { label: "Retinol Serum", href: "/serums/retinol" },
     ],
     images: [
-      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1749847983/Vanilla-1_kmbj2y.webp",
-      "/assets/serum1.jpg",
-    ],
+      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1752270233/13_dbui6q.webp"    ],
   },
   "TONERS": {
     title: "Toners",
@@ -66,8 +51,7 @@ export const menuData: Record<string, MenuItem> = {
       { label: "Astringent Toner", href: "/toners/astringent" },
     ],
     images: [
-      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1749847983/Vanilla-1_kmbj2y.webp",
-      "/assets/toner1.jpg",
+      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1752270232/header-image-2_d9nald.avif"
     ],
   },
   "SUNSCREENS": {
@@ -78,10 +62,20 @@ export const menuData: Record<string, MenuItem> = {
       { label: "Tinted Sunscreen", href: "/sunscreens/tinted" },
     ],
     images: [
-      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1749847983/Vanilla-1_kmbj2y.webp",
-      "/assets/sunscreen1.jpg",
+      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1752268974/pngtree-elegant-beauty-products-collection-featuring-brand-of-image_16006557_wnebgu.jpg"    ],
+  },
+    "MOISTURIZORS": {
+    title: "Moisturizers",
+    categories: [
+      { label: "Creams", href: "/moisturizers/creams" },
+      { label: "Lotions", href: "/moisturizers/lotions" },
+      { label: "Hydrating Gel", href: "/moisturizers/hydrating-gel" },
+    ],
+    images: [
+      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1752268974/cour-3.jpg_ncjcj1.webp"
     ],
   },
+
   "EYE & LIP CARE": {
     title: "Eye & Lip Care",
     categories: [
@@ -90,9 +84,7 @@ export const menuData: Record<string, MenuItem> = {
       { label: "Eye Serum", href: "/eye-lip-care/eye-serum" },
     ],
     images: [
-      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1749847983/Vanilla-1_kmbj2y.webp",
-      "/assets/eye-lip-care1.jpg",
-    ],
+      "https://res.cloudinary.com/dtzx6gxfh/image/upload/v1752268974/1_Desktop_2130x900_7e8d6460-b1dc-4cff-a63e-81b3a35b4760_jyalfw.webp"    ],
   },
 };
 

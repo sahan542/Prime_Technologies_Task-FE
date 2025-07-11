@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import { useSelector } from "react-redux";
-import { addToCart } from "../../../redux/reducers/cartSlice"; 
+import { addToCart } from "../../../redux/reducers/cartSlice";
 import { addToWishlist } from "@/redux/reducers/wishlistSlice";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -28,8 +28,11 @@ interface Product {
   benefits: string[];
 }
 
-export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
-
+export default function ProductPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const dispatch = useAppDispatch();
   const { slug } = use(params);
 
@@ -39,10 +42,10 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
   const token = useSelector((state: RootState) => state.auth.token);
   console.log("Access Token from Redux 203:", token);
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchProduct = async () => {
       const res = await fetch(`http://localhost:8000/api/products/${slug}`);
-      console.log("hello : ",res);
+      console.log("hello : ", res);
       if (res.ok) {
         const data: Product = await res.json();
         setProduct(data);
@@ -54,18 +57,18 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
 
     fetchProduct();
   }, [slug]);
-  
-    const { data: singleProduct, isLoading: isSingleProductLoading } =
-      useGetSingleProductQuery(slug);
-  
-    const cartItems = useAppSelector((state) =>
-      state.cart.items.filter(item => item?.product?.id)
-    );
-    const wishlistItems = useAppSelector((state) => state.wishlist.items);
-  
-    if (isSingleProductLoading) {
-      return <MyLoader />;
-    }
+
+  const { data: singleProduct, isLoading: isSingleProductLoading } =
+    useGetSingleProductQuery(slug);
+
+  const cartItems = useAppSelector((state) =>
+    state.cart.items.filter((item) => item?.product?.id)
+  );
+  const wishlistItems = useAppSelector((state) => state.wishlist.items);
+
+  if (isSingleProductLoading) {
+    return <MyLoader />;
+  }
   if (loading) return <div>Loading...</div>;
 
   if (!product) return notFound();
@@ -80,64 +83,73 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
 
   console.log("singleProduct:", singleProduct);
 
-
   const handleAddToCart = () => {
     const alreadyCart = cartItems.some(
       (item) => item.product && item.product.id === singleProduct.id
     );
 
-
     if (alreadyCart) {
       toast.error("Already you have added in cart!");
     }
     //replace sold_recently to stock sahan
-     else if (singleProduct.sold_recently === 0) {
+    else if (singleProduct.sold_recently === 0) {
       toast.error("Out of stock!");
     } else {
-const mappedProduct = {
-  id: singleProduct.id ?? `fallback-id-${singleProduct.slug}`,
-  name: singleProduct.title,
-  slug: singleProduct.slug,
-  description: singleProduct.description,
-  image: singleProduct.img,
-  images: singleProduct.images ?? [],
-  category: singleProduct.category,
-  price: singleProduct.price,
-  stock: singleProduct.stock ?? 0,
-  tags: singleProduct.tags ?? [],
-  totalReviews: singleProduct.totalReviews ?? 0,
-  averageRatings: singleProduct.averageRatings ?? 0,
-  salesCount: singleProduct.soldRecently ?? 0,
-  isDeleted: false,
-  createdAt: singleProduct.createdAt ?? new Date().toISOString(),
-  updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
-  discount: singleProduct.discount ?? 0,
-  __v: 0,
-};
+      const mappedProduct = {
+        id: singleProduct.id ?? `fallback-id-${singleProduct.slug}`,
+        name: singleProduct.title,
+        slug: singleProduct.slug,
+        description: singleProduct.description,
+        image: singleProduct.img,
+        images: singleProduct.images ?? [],
+        category: singleProduct.category,
+        price: singleProduct.price,
+        stock: singleProduct.stock ?? 0,
+        tags: singleProduct.tags ?? [],
+        totalReviews: singleProduct.totalReviews ?? 0,
+        averageRatings: singleProduct.averageRatings ?? 0,
+        salesCount: singleProduct.soldRecently ?? 0,
+        isDeleted: false,
+        createdAt: singleProduct.createdAt ?? new Date().toISOString(),
+        updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
+        discount: singleProduct.discount ?? 0,
+        __v: 0,
+      };
 
-    dispatch(addToCart({ product: mappedProduct, quantity: quantity }));
-
+      dispatch(addToCart({ product: mappedProduct, quantity: quantity }));
 
       toast.success("Add to cart success");
     }
   };
 
-
   // Add to Wishlist
-  const handleAddToWishlist = () => {
-    const wishlistItem = {
-      product_id: Number(product.slug),
-      id: product.slug,
-      name: product.title,
-      price: product.price,
-      quantity: 1, 
-      img: product.img,
-      slug: product.slug, 
-    };
-    dispatch(addToWishlist(wishlistItem)); 
-    toast.success("Add to wishlist success");
-
+const handleAddToWishlist = () => {
+  const mappedProduct = {
+    id: singleProduct.id ?? `fallback-id-${singleProduct.slug}`,
+    name: singleProduct.title,
+    slug: singleProduct.slug,
+    description: singleProduct.description,
+    image: singleProduct.img,
+    images: singleProduct.images ?? [],
+    category: singleProduct.category,
+    price: singleProduct.price,
+    stock: singleProduct.stock ?? 0,
+    tags: singleProduct.tags ?? [],
+    totalReviews: singleProduct.totalReviews ?? 0,
+    averageRatings: singleProduct.averageRatings ?? 0,
+    salesCount: singleProduct.soldRecently ?? 0,
+    isDeleted: false,
+    createdAt: singleProduct.createdAt ?? new Date().toISOString(),
+    updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
+    discount: singleProduct.discount ?? 0,
+    __v: 0,
   };
+
+  dispatch(addToWishlist(mappedProduct)); // ✅ remove wrapping with { product: ... }
+  toast.success("Add to wishlist success");
+};
+
+
 
   return (
     <>
@@ -221,12 +233,10 @@ const mappedProduct = {
           </div>
         </div>
         <div className="">
-            <ReviewQAPublic product_id={product.id}/>
+          <ReviewQAPublic product_id={product.id} />
         </div>
       </div>
       <NewProducts />
-      
     </>
-
   );
 }

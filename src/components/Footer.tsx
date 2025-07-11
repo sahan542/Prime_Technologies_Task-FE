@@ -35,7 +35,6 @@ const Footer = () => {
           </Link>
         </div>
 
-        {/* Categories */}
         <div>
           <h4 className="font-semibold mb-3 text-[#7b1f4b]">Categories</h4>
           <ul className="space-y-1 text-sm text-black">
@@ -75,7 +74,7 @@ const Footer = () => {
 
         {/* User Links & Contact */}
         <div>
-          <h4 className="font-semibold mb-3 text-[#7b1f4b]">Beautymart</h4>
+          <h4 className="font-semibold mb-3 text-[#7b1f4b]">BrizzBella</h4>
           <ul className="space-y-1 text-sm text-black mb-6">
             <li>
               <Link href="#">My Account</Link>

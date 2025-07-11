@@ -105,14 +105,12 @@ export default function WishlistSheet() {
                     <div className="py-6">
                       {wishlists.map((product, index) => (
                         <div key={product.id} className="">
-                          <div className="">
                             <WishlistCard
                               product={product}
                               onWishlistRemove={removeItem}
                               onAddProductToCart={addProductToCart}
                               onCardClick={handleCardClick}
                             />
-                          </div>
                           {index < wishlists.length - 1 && (
                             <hr className="my-4 border border-primary/10" />
                           )}

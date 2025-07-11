@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
-import type { RootState, AppDispatch } from '@/store/store';
+import type { RootState, AppDispatch } from '@/redux/store';
 import { fetchProducts } from '@/redux/reducers/productsSlice';
 import ProductList from '@/components/ProductList';
 import CategoryFilter from '@/components/filters/CategoryFilter';
@@ -13,7 +13,7 @@ import NewProducts from '@/components/NewProducts';
 
 export default function ProductPage() {
   const dispatch: AppDispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.products.items);
+  const items = useSelector((state: RootState) => state.products?.items || []);
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('search') || '';
 
@@ -22,16 +22,13 @@ export default function ProductPage() {
     brand: [] as string[],
     min_price: 0,
     max_price: 10000,
-    search: '', // new key
+    search: '', 
   });
   
-
-  // Keep filters in sync with search URL param
   useEffect(() => {
     setFilters((prev) => ({ ...prev, search: searchQuery }));
   }, [searchQuery]);
 
-  // Fetch whenever filters change
   useEffect(() => {
     dispatch(fetchProducts(filters));
   }, [filters]);

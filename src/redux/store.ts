@@ -1,6 +1,7 @@
 import authReducer from "@/redux/reducers/authSlice";
 import cartReducer from "@/redux/reducers/cartSlice";
 import wishlistReducer from "@/redux/reducers/wishlistSlice";
+import productsReducer from "@/redux/reducers/productsSlice"; 
 import { configureStore } from "@reduxjs/toolkit";
 import {
   FLUSH,
@@ -42,7 +43,7 @@ export const store = configureStore({
     auth: persistedAuthReducer,
     cart: persistedCartReducer,
     wishlist: persistedWishlistReducer,
-    // products: productsReducer
+    products: productsReducer
   },
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares({
@@ -52,9 +53,7 @@ export const store = configureStore({
     }).concat(baseApi.middleware),
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);

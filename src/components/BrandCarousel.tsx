@@ -7,30 +7,46 @@ import "slick-carousel/slick/slick-theme.css";
 // Carousel component
 const BrandCarousel = () => {
   const settings = {
-    dots: false, // No dots
-    infinite: true, // Infinite loop
-    speed: 500, // Transition speed
-    slidesToShow: 5, // Number of logos displayed at a time
-    slidesToScroll: 1, // Scroll one logo at a time
-    autoplay: true, // Enable auto-slide
-    autoplaySpeed: 1000, // Speed up the movement (1 second)
+    dots: false,
+    infinite: true,
+    speed: 4000, // Slow smooth transition duration
+    autoplay: true,
+    autoplaySpeed: 0, // No delay between slides
+    cssEase: "linear", // Linear easing for ticker-like effect
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    pauseOnHover: false,
     responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 4,
+          speed: 4000,
+          autoplaySpeed: 0,
+        },
+      },
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 4, // 4 logos at a time on medium screens
+          slidesToShow: 3,
+          speed: 4000,
+          autoplaySpeed: 0,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 3, // 3 logos at a time on small screens
+          slidesToShow: 2,
+          speed: 4000,
+          autoplaySpeed: 0,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2, // 2 logos at a time on very small screens
+          slidesToShow: 2,
+          speed: 4000,
+          autoplaySpeed: 0,
         },
       },
     ],
@@ -38,28 +54,26 @@ const BrandCarousel = () => {
 
   return (
     <div className="container mx-auto py-12 px-4">
-        <h2 className='font-bold text-2xl pb-4 text-[#7b1f4b]'>Our Brands</h2>
+      <h2 className="font-bold text-2xl pb-4 text-[#7b1f4b]">Our Brands</h2>
       <Slider {...settings}>
-        {/* Directly reference the images in the public folder */}
         {[
-          "/brizz bella.png",
-          "/images/shared/google_logo.png",
-          "/images/home/banner/banner3.jpg",
-          "/images/home/banner/banner3.jpg",
-          "/images/home/banner/banner3.jpg",
-          "/images/home/banner/banner3.jpg",
-          "/images/home/banner/banner3.jpg",
-          "/images/home/banner/banner3.jpg",
-          "/images/home/banner/banner3.jpg",
-          "/images/home/banner/banner3.jpg",
-          "/images/home/banner/banner3.jpg",
-          "/images/home/banner/banner3.jpg",
+          "/images/home/brand/b1.jpg",
+          "/images/home/brand/b2.jpg",
+          "/images/home/brand/b3.jpg",
+          "/images/home/brand/b4.jpg",
+          "/images/home/brand/b5.jpg",
+          "/images/home/brand/b6.jpg",
+          "/images/home/brand/b7.jpg",
+          "/images/home/brand/b8.jpg",
+          "/images/home/brand/b1.jpg",
+          "/images/home/brand/b2.jpg",
+          "/images/home/brand/b3.jpg",
         ].map((logo, index) => (
-          <div key={index} className="flex justify-center flex items-center bg-green-600">
+          <div key={index} className="flex justify-center items-center w-full">
             <img
               src={logo}
               alt={`Brand ${index + 1}`}
-              className="w-20 h-20 object-cover mx-2 " // Updated size, spacing, and object-fit
+              className="w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] md:w-[90px] md:h-[90px] object-cover mx-auto rounded-full"
             />
           </div>
         ))}

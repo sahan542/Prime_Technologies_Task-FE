@@ -24,7 +24,7 @@ const WishlistCard = ({
       <div className="col-span-3">
         <Image
           src={product.image || "/placeholder.svg"}
-          alt={product.name.slice(0, 6)}
+          alt={product.name?.slice(0, 6) || "product"}
           width={100}
           height={100}
           className="rounded-3xl object-cover"
