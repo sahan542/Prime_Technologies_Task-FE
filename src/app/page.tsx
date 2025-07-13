@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 
 import NewProducts from "@/components/NewProducts";
 import "slick-carousel/slick/slick.css";
