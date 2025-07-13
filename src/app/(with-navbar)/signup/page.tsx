@@ -30,7 +30,6 @@ const userSignUpSchema = z.object({
 
 type RegisterPayload = z.infer<typeof userSignUpSchema>;
 
-
 const SignUpPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,8 +41,7 @@ const SignUpPage = () => {
     setIsLoading(true);
     try {
       const res = await registerUser(values);
-      console.log("const res : ",res);
-
+      console.log("const res : ", res);
 
       if (res.success) {
         // auto login after user register
@@ -51,7 +49,7 @@ const SignUpPage = () => {
           email: values.email,
           password: values.password,
         });
-        console.log("User res : ",userRes);
+        console.log("User res : ", userRes);
 
         if (userRes.access_token) {
           const user = decodedToken(userRes.access_token);
@@ -108,7 +106,6 @@ const SignUpPage = () => {
           >
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-4">
-
                 <div className="grid gap-1 relative">
                   <span className="absolute inset-y-0 left-0 flex items-center pl-4">
                     <MdMail />

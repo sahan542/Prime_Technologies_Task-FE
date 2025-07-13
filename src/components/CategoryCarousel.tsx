@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import axios from "axios";
-import ProductCard from "./ProductCard"; // Make sure path is correct
+import ProductCard from "./ProductCard"; 
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -37,10 +37,10 @@ const CategoryCarousel: React.FC<Props> = ({ categoryName }) => {
 const settings = {
   dots: false,
   infinite: true,
-  speed: 3000, // higher = slower scroll (3000ms = 3s per slide)
+  speed: 3000, 
   autoplay: true,
-  autoplaySpeed: 0, // no delay between slides
-  cssEase: "linear", // smooth continuous motion
+  autoplaySpeed: 0, 
+  cssEase: "linear", 
   slidesToShow: 5,
   slidesToScroll: 1,
   responsive: [

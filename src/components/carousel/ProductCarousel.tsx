@@ -57,7 +57,6 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ title, products = [] 
     <div className="my-8 mx-4 relative">
       <h2 className="text-lg font-bold text-[#7b1f4b] mb-4">{title}</h2>
 
-      {/* Scroll Buttons */}
       <button
         onClick={() => scrollCarousel("left")}
         className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-[#d4749e] text-white p-2 rounded-full shadow-md"
@@ -72,7 +71,6 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ title, products = [] 
         <FaArrowRight />
       </button>
 
-      {/* Carousel */}
       <div
         ref={carouselRef}
         className="flex overflow-x-auto gap-4 no-scrollbar px-10"

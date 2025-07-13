@@ -5,7 +5,6 @@ import { FaFacebookF, FaInstagram, FaWhatsapp, FaTiktok } from "react-icons/fa";
 import PrivacyPolicyModal from "./modals/PrivacyPolicyModal";
 import TermsConditionsModal from "./modals/TermsConditionsModal";
 import ReturnPolicyModal from "./modals/ReturnPolicyModal";
-import { Button } from "@/components/ui/button";
 
 const Footer = () => {
     const [isPrivacyOpen, setIsPrivacyOpen] = React.useState(false);
@@ -16,7 +15,6 @@ const Footer = () => {
 
     <footer className=" text-black mt-16 border-t border-gray-200 bg-[#f4dce6]">
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-5 gap-8 ">
-        {/* Google Review Box */}
         <div className="md:col-span-2 bg-blue-50 p-6 rounded shadow-md">
           <div className="flex items-center space-x-1 mb-2 text-yellow-400 text-lg">
             {Array(5)
@@ -50,7 +48,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Resources */}
         <div>
           <h4 className="font-semibold mb-3 text-[#7b1f4b]">Resources</h4>
           <ul className="space-y-1 text-sm text-black">
@@ -72,7 +69,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* User Links & Contact */}
         <div>
           <h4 className="font-semibold mb-3 text-[#7b1f4b]">BrizzBella</h4>
           <ul className="space-y-1 text-sm text-black mb-6">
@@ -143,7 +139,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="bg-[#7b1f4b] text-white text-sm py-4 px-4 flex flex-col md:flex-row justify-between items-center">
         <p>© 2025 Briss_Bella. All Rights Reserved.</p>
         <div className="flex space-x-4 mt-2 md:mt-0">
@@ -171,7 +166,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Floating WhatsApp */}
       <a
         href="https://wa.me/94770462772"
         className="fixed bottom-6 right-6 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition"

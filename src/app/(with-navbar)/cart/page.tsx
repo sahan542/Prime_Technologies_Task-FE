@@ -3,9 +3,9 @@ import Container from "@/components/shared/Ui/Container";
 
 const CartPage = () => {
   return (
-        <Container>
-          <Cart />
-        </Container>
+    <Container>
+      <Cart />
+    </Container>
   );
 };
 

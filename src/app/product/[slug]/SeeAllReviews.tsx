@@ -10,7 +10,6 @@ const SeeAllReviews = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    // Simulate fetching reviews
     const fetchedReviews: Review[] = [
       { id: 1, content: 'Great product!', date: '2023-06-01' },
       { id: 2, content: 'Satisfactory performance.', date: '2023-06-05' },

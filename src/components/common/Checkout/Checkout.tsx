@@ -35,10 +35,10 @@ const userBillingAddressSchema = z.object({
   full_address: z.string().min(1, "Full address is required"),
   phone_no: z
     .string()
-    .min(11, "Number must be at least 11 digits")
+    .min(10, "Number must be at least 11 digits")
     .max(14, "Number can't exceed 14 digits"),
   email: z.string().email("Enter a valid email"),
-  country: z.string().default("Bangladesh"), 
+  country: z.string().default("Srilanka"), 
   order_notes: z.string().optional(), 
 });
 
@@ -62,17 +62,16 @@ export default function Checkout() {
   console.log("checkout token 60:", token);
 
   const cartItems = useAppSelector((state) => state.cart.items);
+  console.log("cart items : ",cartItems);
 
   const router = useRouter();
 
   const dispatch = useAppDispatch();
 
-  // redux rtk api
   const [addOrder] = useAddOrderMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   
-  // Close the modal manually
   const closeModal = () => {
     setIsModalVisible(false);
   };
@@ -88,11 +87,14 @@ export default function Checkout() {
   );
 
   const items = cartItems.map((item) => {
-  const rawId = item.product?.id;
-
+      const product = item.product;
+      console.log("product id : ",product.id);
+      const rawId = product?.id ?? (
+        typeof product?.id === "number" ? product.id : null
+      );
 
   return {
-    product_id: typeof rawId === "string" ? parseInt(rawId) : rawId,
+    product_id: rawId,
     quantity: item.quantity,
   };
 });
@@ -119,17 +121,16 @@ export default function Checkout() {
       user_id: 1
     };
 
-    // send to db
     try {
       if(token){
         console.log("hello inside the try if 124");
         const res = await addOrder(orderData).unwrap();
         toast.success(res.message || "Order placed successfully!");
         dispatch(clearCart());
-        router.push(`/`);
+        router.push(`/checkout/confirmation?orderId=${res.order_id}`);
+        console.log("inside try block 130: ",res);
         setIsLoading(false);
       }else{
-        console.log("hello inside the try 130");
         toast.error("Please login to checkout!");
         setIsLoading(false);
         setIsSignInModalOpen(true);
@@ -147,7 +148,6 @@ export default function Checkout() {
     <>
 
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <div className="border-b border-primary/10">
         <div className="w-full max-w-4xl mx-auto py-4 mt-6">
           <div className="flex items-center justify-center mb-8">
@@ -181,7 +181,6 @@ export default function Checkout() {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="max-w-6xl mx-auto py-8 lg:pb-16">
         <MTForm
           onSubmit={handleSubmit}
@@ -189,7 +188,6 @@ export default function Checkout() {
           schema={userBillingAddressSchema}
         >
           <div className="grid gap-8 lg:grid-cols-3">
-            {/* Billing & Shipping Form */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg p-6">
                 <h2 className="text-2xl font-bold mb-6 text-[#7b1f4b]">Billing & Shipping</h2>
@@ -269,7 +267,6 @@ export default function Checkout() {
               </div>
             </div>
 
-            {/* Order Summary */}
             <div className="mb-8 lg:mb-0">
               <Card>
                 <CardContent className="p-6">
@@ -317,7 +314,6 @@ export default function Checkout() {
 
                   <hr className="mb-4 border border-[#7b1f4b]/60" />
 
-                  {/* Pricing */}
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between">
                       <span className="font-medium text-black">Subtotal:</span>
@@ -377,11 +373,10 @@ export default function Checkout() {
                     </div>
                   </div>
 
-                  {/* Payment Method */}
                   <div className="mb-6 bg-[#d4749e]/10 ">
                       <div className="p-4 border border-1 border-[#7b1f4b] rounded-xl shadow-lg">
                         <div className="flex items-center space-x-2 mb-2 ">
-                        <div className="w-3 h-3 bg-primary rounded-full"></div>
+                        <div className="w-3 h-3 bg-[#7b1f4b] rounded-full"></div>
                         <span className="font-medium text-black"><b>Cash on delivery</b></span>
                       </div>
                       <p className="text-sm text-gray-600">
@@ -390,7 +385,6 @@ export default function Checkout() {
                     </div>
                   </div>
 
-                  {/* Privacy Policy */}
                   <div className="mb-6">
                     <p className="text-sm text-gray-600">
                       Your personal data will be used to process your order,
@@ -406,7 +400,6 @@ export default function Checkout() {
                     </p>
                   </div>
 
-                  {/* Place Order Button */}
                   <Button type="submit" className="w-full text-lg py-5 bg-[#7b1f4b] hover:bg-[#7b1f4b]/90">
                     {isLoading ? (
                       <span className="flex gap-2 items-center">

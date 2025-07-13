@@ -22,7 +22,6 @@ const MegaMenuPanel: React.FC<Props> = ({ data, isVisible }) => {
   w-[500px] max-w-[95vw] bg-white shadow-lg py-6 px-8 
   flex flex-col md:flex-row gap-6 border-t border-[#7b1f4b] rounded-[20px] overflow-visible"
 >
-      {/* Left: Categories */}
       <div className="flex flex-col min-w-[90px]">
         <h3 className="font-bold text-[#7b1f4b] mb-2">{data.title}</h3>
         {data.categories.map((cat, i) => (
@@ -36,7 +35,6 @@ const MegaMenuPanel: React.FC<Props> = ({ data, isVisible }) => {
         ))}
       </div>
 
-      {/* Right: Images */}
 <div className="flex-1 relative h-44 rounded-lg overflow-hidden">
   <Image
     src={data.images[0]}

@@ -20,7 +20,6 @@ const MyPagination = ({
   totalPages,
   currentPage,
 }: TMyPaginationProps) => {
-  // Get pagination items based on current page and total pages
   const pageNumbers = getPaginationPageItems(currentPage, totalPages);
 
   return (
@@ -28,14 +27,6 @@ const MyPagination = ({
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            {/* <PaginationPrevious
-                          onClick={() => onPageChange(currentPage - 1)}
-                          className={
-                            currentPage === 1
-                              ? "pointer-events-none opacity-50"
-                              : "cursor-pointer"
-                          }
-                        /> */}
             <Button
               variant="outline"
               size="sm"

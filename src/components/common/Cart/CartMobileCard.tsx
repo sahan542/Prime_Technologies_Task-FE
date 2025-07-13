@@ -32,7 +32,9 @@ const CartMobileCard = ({
 
       <div className="col-span-9 space-y-2">
         <div className="flex justify-between gap-2">
-          <h3 className="text-lg line-clamp-2 text-black"><b>{item.product.name}</b></h3>
+          <h3 className="text-lg line-clamp-2 text-black">
+            <b>{item.product.name}</b>
+          </h3>
           <Button
             variant="ghost"
             size="icon"
@@ -49,11 +51,12 @@ const CartMobileCard = ({
             <Button
               size="icon"
               className="h-8 w-8 hover:bg-[#d4749e] bg-[#7b1f4b]"
-              onClick={() => onCartQuantityUpdate(
-                              item.quantity,
-                              item.product.id,
-                              item.quantity - 1
-                            )
+              onClick={() =>
+                onCartQuantityUpdate(
+                  item.quantity,
+                  item.product.id,
+                  item.quantity - 1
+                )
               }
             >
               <Minus className="h-4 w-4 text-white hover:text-[#7b1f4b]" />

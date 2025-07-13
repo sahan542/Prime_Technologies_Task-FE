@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import storage from "redux-persist/lib/storage";
 
 export const createExpireStorage = (expiryTimeInMs: number) => {
@@ -19,12 +18,11 @@ export const createExpireStorage = (expiryTimeInMs: number) => {
       try {
         const item = JSON.parse(itemStr);
         if (new Date().getTime() > item.expiry) {
-          await storage.removeItem(key); // Expired, remove it
+          await storage.removeItem(key); 
           return null;
         }
         return item.value;
       } catch (e: any) {
-        // Fallback if JSON parsing fails
         return null;
       }
     },

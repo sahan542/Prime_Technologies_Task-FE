@@ -39,7 +39,7 @@ const AllReviews: React.FC<AllReviewsProps> = ({ product_id }) => {
         const reviews = await response.json();
         setReviews(reviews);
         console.log('Reviews fetched successfully:', reviews);
-        return reviews; // You can store this in your state or handle it accordingly
+        return reviews; 
       } else {
         console.error('Error fetching reviews:', response.statusText);
       }
@@ -54,7 +54,6 @@ const AllReviews: React.FC<AllReviewsProps> = ({ product_id }) => {
 
 return (
     <div className="text-black">
-      {/* header row */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">All Reviews</h2>
 
@@ -80,7 +79,6 @@ return (
 
       {showAdd && <AddReview product_id={product_id} />}
 
-      {/* reviews list */}
       <div className="space-y-4">
         {reviews.length === 0 ? (
           <p className="text-center text-gray-500">No reviews yet</p> 

@@ -41,7 +41,9 @@ const CartDesktopCard = ({
       </div>
 
       <div className="flex justify-between gap-2 col-span-6">
-        <h3 className=" lg:text-lg line-clamp-2 text-black">{item.product.name}</h3>
+        <h3 className=" lg:text-lg line-clamp-2 text-black">
+          {item.product.name}
+        </h3>
       </div>
 
       <div className="flex items-center col-span-2">
@@ -65,20 +67,19 @@ const CartDesktopCard = ({
         <span className="w-8 text-center font-medium block text-[#7b1f4b]">
           {item.quantity}
         </span>
-<Button
-  size="icon"
-  className="h-8 w-8 bg-[#7b1f4b] hover:bg-[#6a1a43] border border-[#7b1f4b] text-white"
-  onClick={() => {
-    onCartQuantityUpdate(
-      item.product.stock,
-      item.product.id,
-      item.quantity + 1
-    );
-  }}
->
-  <Plus className="h-4 w-4 text-white" />
-</Button>
-
+        <Button
+          size="icon"
+          className="h-8 w-8 bg-[#7b1f4b] hover:bg-[#6a1a43] border border-[#7b1f4b] text-white"
+          onClick={() => {
+            onCartQuantityUpdate(
+              item.product.stock,
+              item.product.id,
+              item.quantity + 1
+            );
+          }}
+        >
+          <Plus className="h-4 w-4 text-white" />
+        </Button>
       </div>
 
       <p className=" col-span-2 text-black">

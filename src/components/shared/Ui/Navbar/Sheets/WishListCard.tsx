@@ -19,7 +19,6 @@ const WishlistCard = ({
   return (
     <div
       className="grid grid-cols-12 gap-2 items-center cursor-pointer bg-white border border-gray-200 shadow-md rounded-md"
-      // onClick={() => onCardClick(product.slug)}
     >
       <div className="col-span-3">
         <Image

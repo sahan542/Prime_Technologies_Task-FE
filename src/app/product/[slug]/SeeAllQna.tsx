@@ -10,7 +10,6 @@ const SeeAllQna = () => {
   const [qnas, setQnas] = useState<Qna[]>([]);
 
   useEffect(() => {
-    // Simulate fetching Q&A
     const fetchedQnas: Qna[] = [
       { id: 1, question: 'What is the warranty period?', date: '2023-06-01' },
       { id: 2, question: 'Is this product compatible with XYZ?', date: '2023-06-05' },

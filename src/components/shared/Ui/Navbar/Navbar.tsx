@@ -15,19 +15,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { authKey } from "@/constants/authKey";
-import { cn } from "@/lib/utils";
-import { useGetCategoriesQuery } from "@/redux/api/categoryApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout, useCurrentUser } from "@/redux/reducers/authSlice";
 import { removeUser } from "@/services/auth.services";
-import { TCategory } from "@/types/category.type";
 import axios from "axios";
-import ActiveLink from "../ActiveLink";
-import { MobileMenu } from "./MobileMenu";
-// import SearchInput from "@/components/shared/Ui/Navbar/SearchInput";
 import CartSheet from "./Sheets/CartSheet";
 import WishlistSheet from "./Sheets/WishlistSheet";
-import { Input } from "antd";
 import SignInModal from "@/components/modals/SignInModal";
 import SignupModal from "@/components/modals/SignupModal";
 import { toast } from "react-toastify";

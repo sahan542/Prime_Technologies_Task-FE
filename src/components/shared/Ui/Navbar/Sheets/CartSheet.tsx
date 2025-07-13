@@ -179,7 +179,7 @@ export default function CartSheet() {
                               </>
                             ) : (
                               <div className="text-sm text-red-500 mb-2">
-                                ⚠️ Skipped invalid cart item at index {index}
+                                Skipped invalid cart item at index {index}
                               </div>
                             )}
                           </div>

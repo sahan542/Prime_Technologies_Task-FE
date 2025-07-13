@@ -56,7 +56,6 @@ export default function WishlistSheet() {
     }
   };
 
-  // handle card click to navigate product details page
   const handleCardClick = (productSlug: string) => {
     router.push(`/products/${productSlug}`);
     setIsOpen(false);

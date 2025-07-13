@@ -18,8 +18,8 @@ interface PropsType {
   rating: number;
   price: string;
   slug: string;
-  onAddToCart: () => void; // Function for adding to cart
-  onAddToWishlist: () => void; // Function for adding to wishlist
+  onAddToCart: () => void; 
+  onAddToWishlist: () => void; 
 }
 
 const ProductCard: React.FC<PropsType> = ({
@@ -69,12 +69,11 @@ const generateRating = (rating: number) => {
         const alreadyCart = cartItems.some(
           (item) => item.product && item.product.id === singleProduct.id
         );
-    
+        console.log("sahan new line 72 : ",singleProduct);
     
         if (alreadyCart) {
           toast.error("Already you have added in cart!");
         }
-        //replace sold_recently to stock sahan
         else if (singleProduct.sold_recently === 0) {
           toast.error("Out of stock!");
         } else {
@@ -106,11 +105,12 @@ const generateRating = (rating: number) => {
         }
       };
 
-        // Add to Wishlist
         const handleAddToWishlist = () => {
+          const productId = singleProduct.id || singleProduct._id;
+
           const wishlistItem = {
-            product_id: Number(slug),
-            id: slug,
+            product_id: Number(productId),
+            id: Number(productId),
             name: title,
             price: price,
             quantity: 1,
@@ -130,6 +130,7 @@ const generateRating = (rating: number) => {
             discount: singleProduct.discount ?? 0,
             __v: 0,
           };
+          console.log("wish list item : ",wishlistItem);
 
           dispatch(addToWishlist(wishlistItem)); 
           toast.success("Add to wishlist success");
@@ -141,7 +142,6 @@ const generateRating = (rating: number) => {
   return (
     <div className="w-full max-w-[400px]">
 <div className="relative px-2 py-1 border-[2px] border-[#7b1f4b] rounded-2xl shadow-sm hover:shadow-2xl transition group">
-        {/* Product Image */}
         <div className="">
           <Link href={`/product/${slug}`}>
             <Image
@@ -157,18 +157,14 @@ const generateRating = (rating: number) => {
         </div>
 
         <div className="flex flex-col items-center justify-center text-center mb-2">
-          {/* Product Title */}
           <h3 className="text-[#52002c] font-semibold text-sm sm:text-base md:text-lg mt-2 whitespace-nowrap overflow-hidden text-ellipsis">
             {title}
           </h3>
 
-          {/* Description */}
           <p className="text-gray-600 text-xs sm:text-sm">{desc}</p>
 
-          {/* Rating */}
           <div className="mt-1">{generateRating(singleProduct.average_ratings ?? 0)}</div>
 
-          {/* Price */}
           <div className="font-bold flex gap-2 sm:gap-4 text-black mt-1 text-sm sm:text-base">
             ${price}
             <del className="text-gray-500 font-normal text-xs sm:text-sm">
@@ -177,10 +173,8 @@ const generateRating = (rating: number) => {
           </div>
         </div>
 
-        {/* Cart and Wishlist Icons */}
         <div className="absolute top-2 right-2 sm:top-4 sm:right-4 sm:opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="flex flex-col gap-y-2 sm:gap-y-0">
-            {/* Cart Icon */}
             <div
               onClick={handleAddToCart}
               className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg cursor-pointer"
@@ -188,7 +182,6 @@ const generateRating = (rating: number) => {
               <HiShoppingBag className="text-xl sm:text-2xl text-[#7b1f4b]" />
             </div>
 
-            {/* Wishlist Icon */}
             <div
               onClick={handleAddToWishlist}
               className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg cursor-pointer"

@@ -31,7 +31,6 @@ const rotatingMessages = [
   <div className='container mx-auto py-3 px-[60px]'>
     <div className='flex flex-wrap justify-between items-center gap-2'>
 
-      {/* Social Media Icons */}
       <div className='hidden lg:flex gap-2'>
         <div className='header_top__icon_wrapper text-[#7b1f4b] text-2xl'><FaFacebook /></div>
         <div className='header_top__icon_wrapper text-[#7b1f4b] text-2xl'><AiFillTwitterCircle /></div>
@@ -39,14 +38,12 @@ const rotatingMessages = [
         <div className='header_top__icon_wrapper text-[#7b1f4b] text-2xl'><IoLogoWhatsapp /></div>
       </div>
 
-      {/* Animated Text Center */}
       <div className='w-full text-center sm:w-auto text-sm text-pink-600 font-medium transition-opacity duration-500 ease-in-out'>
         <div key={currentMsgIndex} className='text-[#52002c] font-[28px]'>
           <b>{rotatingMessages[currentMsgIndex]}</b>
         </div>
       </div>
 
-      {/* Currency + Language Selectors */}
       <div className='flex gap-3 items-center justify-center sm:justify-end w-full sm:w-auto'>
         <select className='text-gray-600 text-sm w-[80px] border border-gray-300 rounded px-2 py-1'>
           <option value="USD $">USD $</option>

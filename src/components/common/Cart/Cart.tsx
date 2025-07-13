@@ -57,11 +57,9 @@ export default function Cart() {
   };
 
   const removeItem = (productId: string) => {
-    // setCartItems((items) => items.filter((item) => item.id !== id));
     dispatch(removeFromCart(productId));
   };
 
-  // handle checkout
   const handleCheckout = () => {
     dispatch(updateShippingOption(shippingOption));
 
@@ -70,7 +68,6 @@ export default function Cart() {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
       <div className="border-b border-primary/10 ">
         <div className="w-full max-w-4xl mx-auto py-4 mt-6">
           <div className="flex items-center justify-center mb-8">
@@ -106,7 +103,6 @@ export default function Cart() {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="w-full py-12 lg:pb-20 ">
         <div className="grid grid-cols-12 lg:gap-12">
           <div className="col-span-12 lg:col-span-8">

@@ -23,7 +23,6 @@ export default function PriceRangeFilter({
         step={100}
         value={value}
         onChange={onChange}
-        // tooltip removed to avoid type error
       />
       <div className="flex justify-between text-sm mt-1">
         <span>Rs. {value[0]}</span>

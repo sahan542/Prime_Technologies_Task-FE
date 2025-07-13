@@ -13,9 +13,8 @@ import { loginUser } from "@/services/actions/loginUser";
 import { decodedToken } from "@/utils/jwt";
 import { setUser } from "@/redux/reducers/authSlice";
 import { storeUserInfo } from "@/services/auth.services";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -47,50 +46,50 @@ export default function SignInModal({
     setMounted(true);
   }, []);
 
-const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault(); 
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const values: LoginPayload = {
-    email: username,  
-    password: password,  
-  };
+    const values: LoginPayload = {
+      email: username,
+      password: password,
+    };
 
-  console.log(values);
-  setIsLoading(true);
+    console.log(values);
+    setIsLoading(true);
 
-  try {
-    const res = await loginUser(values);
-    console.log("const res before if : ", res);
+    try {
+      const res = await loginUser(values);
+      console.log("const res before if : ", res);
 
-    if (res.access_token) {
-      const user = decodedToken(res.access_token);
-      console.log("const user inside if : ", user);
+      if (res.access_token) {
+        const user = decodedToken(res.access_token);
+        console.log("const user inside if : ", user);
 
-      dispatch(setUser({ user, token: res.access_token }));
+        dispatch(setUser({ user, token: res.access_token }));
 
-      storeUserInfo({ accessToken: res.access_token });
-      await axios.post("/api/auth/set-cookies", {
-        accessToken: res.access_token,
-      });
+        storeUserInfo({ accessToken: res.access_token });
+        await axios.post("/api/auth/set-cookies", {
+          accessToken: res.access_token,
+        });
 
-      toast.success("Login Successful!");
+        toast.success("Login Successful!");
 
-      setIsLoading(false);
-      router.push("/");
-      closeModal();
-    } else {
-      toast.error("Something went wrong!");
+        setIsLoading(false);
+        router.push("/");
+        closeModal();
+      } else {
+        toast.error("Something went wrong!");
+        setIsLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error.message);
+      toast.error(
+        error?.data?.errorSources[0].message || "Something went wrong!"
+      );
+
       setIsLoading(false);
     }
-  } catch (error: any) {
-    console.log(error.message);
-    toast.error(
-      error?.data?.errorSources[0].message || "Something went wrong!"
-    );
-
-    setIsLoading(false);
-  }
-};
+  };
 
   if (!isOpen || !mounted) return null;
 
@@ -98,7 +97,9 @@ const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     <div className="fixed inset-0 bg-transparent flex items-center justify-center z-[9999] border-1 border-[#7b1f4b]">
       <div className="bg-white bg-opacity-90 p-6 rounded-lg max-w-md w-full shadow-2xl shadow-[#7b1f4b] mx-4 sm:mx-6 ">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl text-[#7b1f4b]"><b>Sign In</b></h2>
+          <h2 className="text-2xl text-[#7b1f4b]">
+            <b>Sign In</b>
+          </h2>
           <button
             onClick={closeModal}
             className="text-[#7b1f4b] text-2xl hover:text-[#a03c6b]"

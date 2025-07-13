@@ -1,5 +1,3 @@
-// ? NO NEED In THIS PROJECT
-
 import { baseApi } from "./baseApi";
 
 const wishlistApi = baseApi.injectEndpoints({

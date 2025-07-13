@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
-// import AddReview from "./AddReview";
 import { IoClose } from "react-icons/io5";
 import AddQna from "./AddQna";
 import { useSelector } from "react-redux";
@@ -10,12 +9,12 @@ import { RootState } from "@/redux/store";
 interface Qna {
   id: number;
   username: string;
-  user_email: string;  // Add this property if it's part of your API response
+  user_email: string; 
   rating: number;
   comment: string;
   date: string;
-  question: string;  // Add this property if it's part of the API response
-  answer: string;    // Add this property if it's part of the API response
+  question: string; 
+  answer: string;   
 }
 
 interface AllqnaProps {
@@ -58,7 +57,6 @@ const AllQna: React.FC<AllqnaProps> = ({ product_id }) => {
 
   return (
     <div className="text-black">
-      {/* header row */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">All Qna</h2>
 
@@ -84,7 +82,6 @@ const AllQna: React.FC<AllqnaProps> = ({ product_id }) => {
 
       {showAdd && <AddQna product_id={product_id} />}
 
-      {/* reviews list */}
 <div className="space-y-4">
   {qnaSets.map((qna) => (
     <div
@@ -95,9 +92,7 @@ const AllQna: React.FC<AllqnaProps> = ({ product_id }) => {
         <h3 className="font-semibold">{qna.user_email}</h3>
       </div>
 
-      {/* Question */}
       <div className="flex items-center mt-3">
-        {/* ques Circle */}
         <div className="w-6 h-6 rounded-full bg-gray-400 text-white flex items-center justify-center mr-3">
           Q
         </div>
@@ -107,7 +102,6 @@ const AllQna: React.FC<AllqnaProps> = ({ product_id }) => {
       </div>
 
       <div className="flex items-center mt-3">
-        {/* Answer Circle */}
         <div className="w-6 h-6 rounded-full bg-gray-400 text-white flex items-center justify-center mr-3">
           A
         </div>

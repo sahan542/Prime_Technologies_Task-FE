@@ -40,12 +40,10 @@ const ReviewQASection: React.FC<ReviewQASectionProps> = ({ product_id }) => {
     }
   };
 
-  // Close the modal manually
   const closeModal = () => {
     setIsModalVisible(false);
   };
 
-  // Open sign-up modal (as needed)
   const openSignUpModal = () => {
     openSignup();
   };
@@ -67,7 +65,6 @@ const ReviewQASection: React.FC<ReviewQASectionProps> = ({ product_id }) => {
         </button>
       </div>
 
-      {/* Panel for Review and Q&A */}
       {isPanelOpen && (
         <div className="border-t-2 border-gray-300 mt-4 p-4 bg-white rounded-lg shadow-lg">
           {activeTab === 'review' && isReviewPanelOpen && (
@@ -76,14 +73,13 @@ const ReviewQASection: React.FC<ReviewQASectionProps> = ({ product_id }) => {
             </div>
           )}
           {activeTab === 'qna' && isQnaPanelOpen && (
-            <div className="w-full"> {/* Full width container for Q&A */}
-              <AddQna product_id={product_id} />  {/* Display Add Q&A component */}
+            <div className="w-full">
+              <AddQna product_id={product_id} />  
             </div>
           )}
         </div>
       )}
 
-      {/* SignIn Modal: Only show if the user is not authenticated */}
       {isModalVisible && (
         <SigninModal
           isOpen={isModalVisible}

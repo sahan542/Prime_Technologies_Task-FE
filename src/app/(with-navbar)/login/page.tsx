@@ -34,15 +34,15 @@ export default function LoginPage() {
   const router = useRouter();
 
   const handleLogin = async (values: LoginPayload) => {
-    console.log("values: ",values);
+    console.log("values: ", values);
     setIsLoading(true);
     try {
       const res = await loginUser(values);
-      console.log("const res before if : ",res );
+      console.log("const res before if : ", res);
 
       if (res.access_token) {
         const user = decodedToken(res.access_token);
-        console.log("const user inside if : ",user);
+        console.log("const user inside if : ", user);
 
         dispatch(setUser({ user, token: res.access_token }));
 
@@ -142,7 +142,6 @@ export default function LoginPage() {
             <h4>OR</h4>
             <hr className="w-full border-gray-300" />
           </div>
-
 
           <p className="text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}

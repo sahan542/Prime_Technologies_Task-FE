@@ -19,12 +19,14 @@ export interface Product {
 
 interface ProductState {
   items: Product[];
+  total: number;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
 const initialState: ProductState = {
   items: [],
+  total: 0,
   status: 'idle',
   error: null,
 };
@@ -36,10 +38,8 @@ interface ProductFilters {
   max_price?: number;
 }
 
-// ✅ Set correct base URL for FastAPI backend
 const BASE_URL = 'http://localhost:8000/api';
 
-// 🔄 Fetch products with filters
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async (filters: {
@@ -48,6 +48,8 @@ export const fetchProducts = createAsyncThunk(
     min_price?: number;
     max_price?: number;
     search?: string;
+    page?: number;
+    limit?: number;
   }) => {
     const params = new URLSearchParams();
 
@@ -66,11 +68,18 @@ export const fetchProducts = createAsyncThunk(
     if (filters.search) {
       params.append('search', filters.search);
     }
+    if (filters.page !== undefined) {
+      params.append('page', filters.page.toString());
+    }
+    if (filters.limit !== undefined) {
+      params.append('limit', filters.limit.toString());
+    }
 
     const res = await axios.get(`http://localhost:8000/api/products?${params.toString()}`);
     return res.data;
   }
 );
+
 
 
 
@@ -86,7 +95,8 @@ const productsSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.items = action.payload;
+        state.items = action.payload.items;
+        state.total = action.payload.total;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'failed';

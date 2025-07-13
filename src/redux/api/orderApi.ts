@@ -12,7 +12,7 @@ const orderApi = baseApi.injectEndpoints({
     }),
     getSingleOrder: builder.query({
       query: (orderId: string) => ({
-        url: `/orders/${orderId}`,
+        url: `api/admin/orders/${orderId}`,
         method: "GET",
       }),
       providesTags: ["order"],

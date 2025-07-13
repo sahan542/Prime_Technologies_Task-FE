@@ -29,7 +29,6 @@ export function LoaderSpinner({
           ease: "linear",
         }}
       >
-        {/* Background circle */}
         <circle
           cx="12"
           cy="12"
@@ -37,7 +36,6 @@ export function LoaderSpinner({
           className="fill-none stroke-gray-300"
           strokeWidth={strokeWidth}
         />
-        {/* Spinner arc - showing only 25% of the circle */}
         <circle
           cx="12"
           cy="12"

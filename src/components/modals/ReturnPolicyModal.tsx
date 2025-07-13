@@ -34,18 +34,19 @@ export default function ReturnPolicyModal({ isOpen, closeModal }: Props) {
         </div>
         <p className="bg-[#f4dce6]/30">
           <p className="text-black text-justify px-2 py-2">
-              Welcome to <b className="text-[#7b1f4b]">BrissBella</b>, your trusted skincare e-commerce destination. 
-              By accessing or purchasing from our website, you agree to our terms. 
-              All product descriptions, pricing, and availability are subject to change without notice. 
-              Orders are subject to confirmation and stock availability. 
-              We reserve the right to refuse service to anyone.
-
-              <b className="text-[#7b1f4b]">Return Policy:</b> We accept returns within 7 days of delivery for unused, unopened products in original packaging. 
-              Return shipping costs are the customer's responsibility unless the item is defective or incorrect. Refunds will be processed once the product is received and inspected. 
-              Please contact our support team before initiating a return.
-
+            Welcome to <b className="text-[#7b1f4b]">BrissBella</b>, your
+            trusted skincare e-commerce destination. By accessing or purchasing
+            from our website, you agree to our terms. All product descriptions,
+            pricing, and availability are subject to change without notice.
+            Orders are subject to confirmation and stock availability. We
+            reserve the right to refuse service to anyone.
+            <b className="text-[#7b1f4b]">Return Policy:</b> We accept returns
+            within 7 days of delivery for unused, unopened products in original
+            packaging. Return shipping costs are the customer's responsibility
+            unless the item is defective or incorrect. Refunds will be processed
+            once the product is received and inspected. Please contact our
+            support team before initiating a return.
           </p>
-
         </p>
       </div>
     </div>,

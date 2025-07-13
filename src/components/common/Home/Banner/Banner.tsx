@@ -42,7 +42,6 @@ export function Banner() {
 
   const totalSlides = banners.length;
 
-  // Create a circular array of slides for smooth infinite scrolling
   const slidesArray = [...banners];
 
   const nextSlide = useCallback(() => {
@@ -51,7 +50,6 @@ export function Banner() {
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
 
-    // Reset animation flag after transition completes
     setTimeout(() => {
       setIsAnimating(false);
     }, 500);
@@ -63,7 +61,6 @@ export function Banner() {
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
 
-    // Reset animation flag after transition completes
     setTimeout(() => {
       setIsAnimating(false);
     }, 500);
@@ -75,19 +72,16 @@ export function Banner() {
     setIsAnimating(true);
     setCurrentSlide(index);
 
-    // Reset animation flag after transition completes
     setTimeout(() => {
       setIsAnimating(false);
     }, 500);
 
-    // Reset the auto-play timer when manually changing slides
     if (isAutoPlaying) {
       setIsAutoPlaying(false);
       setTimeout(() => setIsAutoPlaying(true), 100);
     }
   };
 
-  // Handle touch events for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
@@ -100,24 +94,21 @@ export function Banner() {
     if (isAnimating) return;
 
     if (touchStart - touchEnd > 50) {
-      // Swipe left
       nextSlide();
     }
 
     if (touchStart - touchEnd < -50) {
-      // Swipe right
       previousSlide();
     }
   };
 
-  // Auto-play functionality
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
     if (isAutoPlaying && !isAnimating) {
       interval = setInterval(() => {
         nextSlide();
-      }, 4000); // 4 seconds interval
+      }, 4000);
     }
 
     return () => {
@@ -125,24 +116,20 @@ export function Banner() {
     };
   }, [isAutoPlaying, nextSlide, isAnimating]);
 
-  // Pause auto-play when user interacts with controls
   const handleControlInteraction = (callback: () => void) => {
     setIsAutoPlaying(false);
     callback();
-    // Resume auto-play after a short delay
     setTimeout(() => setIsAutoPlaying(true), 8000);
   };
 
   return (
     <div className="relative w-full overflow-hidden">
-      {/* Main slider container */}
       <div
         className="relative h-full w-full"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Slides */}
         <div className="flex w-full h-full relative">
           {slidesArray.map((banner, index) => (
             <div
@@ -160,14 +147,10 @@ export function Banner() {
                   className="object-cover"
                 />
 
-                {/* Dark overlay for better text readability */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/50 to-transparent" />
               </div>
             </div>
           ))}
-
-          {/* Content Overlay */}
-
           <div className="absolute inset-0">
             <div className="flex flex-col justify-center items-center gap-4 md:gap-8 lg:gap-10 w-full h-full text-white text-center">
               <div className="flex flex-col gap-1 md:gap-4">
@@ -187,14 +170,12 @@ export function Banner() {
           </div>
         </div>
 
-        {/* Navigation Arrows with Preview */}
         <button
           onClick={() => handleControlInteraction(previousSlide)}
           className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/80 p-2 text-gray-800 shadow-md transition-all hover:bg-white hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:p-3 group overflow-hidden cursor-pointer hidden md:block"
           aria-label="Previous slide"
           disabled={isAnimating}
         >
-          {/* Preview of previous slide */}
           <div className="absolute inset-0 opacity-40 transition-opacity">
             <Image
               src={
@@ -216,7 +197,6 @@ export function Banner() {
           aria-label="Next slide"
           disabled={isAnimating}
         >
-          {/* Preview of next slide */}
           <div className="absolute inset-0 opacity-40 transition-opacity">
             <Image
               src={
@@ -233,7 +213,6 @@ export function Banner() {
         </button>
       </div>
 
-      {/* Indicator Dots */}
       <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 space-x-2">
         {slidesArray.map((_, index) => (
           <button
@@ -251,7 +230,6 @@ export function Banner() {
         ))}
       </div>
 
-      {/* Thumbnail Preview */}
       <div className="absolute -bottom-1 left-1/2 z-10 flex -translate-x-1/2 transform translate-y-full transition-transform duration-300 ease-in-out hover:translate-y-0 bg-white/90 p-2 rounded-t-lg shadow-md">
         <div className="flex space-x-2">
           {slidesArray.map((banner, index) => (

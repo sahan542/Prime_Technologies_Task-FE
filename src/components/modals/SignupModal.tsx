@@ -20,7 +20,6 @@ interface SignUpModalProps {
 }
 
 const userSignUpSchema = z.object({
-  // name: z.string().min(1, "Enter name"),
   email: z.string().email("Enter email"),
   password: z.string().min(1, "Enter password"),
 });
@@ -44,7 +43,6 @@ export default function SignupModal({ isOpen, closeModal, openSignInModal }: Sig
 
 
       if (res.success) {
-        // auto login after user register
         const userRes = await loginUser({
           email: values.email,
           password: values.password,
@@ -56,7 +54,6 @@ export default function SignupModal({ isOpen, closeModal, openSignInModal }: Sig
 
           dispatch(setUser({ user, token: userRes.access_token }));
           storeUserInfo({ accessToken: userRes.access_token });
-          // 🎯 Set HttpOnly cookie from client via API
           await axios.post("/api/auth/set-cookies", {
             accessToken: userRes.access_token,
           });
@@ -86,10 +83,8 @@ export default function SignupModal({ isOpen, closeModal, openSignInModal }: Sig
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      {/* Transparent Background */}
-      <div className="fixed inset-0 bg-transparent" /> {/* Remove black background */}
+      <div className="fixed inset-0 bg-transparent" /> 
 
-      {/* Modal Content */}
       <div className="bg-white p-6 rounded-lg z-50 w-full max-w-sm shadow-xl backdrop-blur-md shadow-2xl shadow-[#7b1f4b]">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl text-[#7b1f4b] mb-4"><b>Register</b></h2>
@@ -103,7 +98,6 @@ export default function SignupModal({ isOpen, closeModal, openSignInModal }: Sig
 
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
-        {/* Email input */}
         <label className="block text-sm font-medium text-black">
           User Email <span className="text-red-500 text-lg">*</span>
         </label>
@@ -115,7 +109,6 @@ export default function SignupModal({ isOpen, closeModal, openSignInModal }: Sig
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        {/* Password input */}
         <label className="block text-sm font-medium mt-2 text-black">
           Password <span className="text-red-500 text-lg">*</span>
         </label>
@@ -127,7 +120,6 @@ export default function SignupModal({ isOpen, closeModal, openSignInModal }: Sig
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        {/* Submit button */}
         <button
           onClick={() => handleSignUp({ email, password })}
           className="btn-primary mt-2"
@@ -136,13 +128,12 @@ export default function SignupModal({ isOpen, closeModal, openSignInModal }: Sig
           {isLoading ? 'Signing up...' : 'Sign Up'}
         </button>
 
-        {/* Sign In link */}
         <p className="text-black mt-4">
           Already have an account?{" "}
           <button
             onClick={() => {
-              closeModal(); // Close the SignUp modal
-              openSignInModal(); // Open the SignIn modal
+              closeModal(); 
+              openSignInModal(); 
             }}
             className="text-[#7b1f4b] font-semibold hover:underline"
           >

@@ -90,9 +90,7 @@ export default function ProductPage({
 
     if (alreadyCart) {
       toast.error("Already you have added in cart!");
-    }
-    //replace sold_recently to stock sahan
-    else if (singleProduct.sold_recently === 0) {
+    } else if (singleProduct.sold_recently === 0) {
       toast.error("Out of stock!");
     } else {
       const mappedProduct = {
@@ -122,40 +120,36 @@ export default function ProductPage({
     }
   };
 
-  // Add to Wishlist
-const handleAddToWishlist = () => {
-  const mappedProduct = {
-    id: singleProduct.id ?? `fallback-id-${singleProduct.slug}`,
-    name: singleProduct.title,
-    slug: singleProduct.slug,
-    description: singleProduct.description,
-    image: singleProduct.img,
-    images: singleProduct.images ?? [],
-    category: singleProduct.category,
-    price: singleProduct.price,
-    stock: singleProduct.stock ?? 0,
-    tags: singleProduct.tags ?? [],
-    totalReviews: singleProduct.totalReviews ?? 0,
-    averageRatings: singleProduct.averageRatings ?? 0,
-    salesCount: singleProduct.soldRecently ?? 0,
-    isDeleted: false,
-    createdAt: singleProduct.createdAt ?? new Date().toISOString(),
-    updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
-    discount: singleProduct.discount ?? 0,
-    __v: 0,
+  const handleAddToWishlist = () => {
+    const mappedProduct = {
+      id: singleProduct.id ?? `fallback-id-${singleProduct.slug}`,
+      name: singleProduct.title,
+      slug: singleProduct.slug,
+      description: singleProduct.description,
+      image: singleProduct.img,
+      images: singleProduct.images ?? [],
+      category: singleProduct.category,
+      price: singleProduct.price,
+      stock: singleProduct.stock ?? 0,
+      tags: singleProduct.tags ?? [],
+      totalReviews: singleProduct.totalReviews ?? 0,
+      averageRatings: singleProduct.averageRatings ?? 0,
+      salesCount: singleProduct.soldRecently ?? 0,
+      isDeleted: false,
+      createdAt: singleProduct.createdAt ?? new Date().toISOString(),
+      updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
+      discount: singleProduct.discount ?? 0,
+      __v: 0,
+    };
+
+    dispatch(addToWishlist(mappedProduct)); // ✅ remove wrapping with { product: ... }
+    toast.success("Add to wishlist success");
   };
-
-  dispatch(addToWishlist(mappedProduct)); // ✅ remove wrapping with { product: ... }
-  toast.success("Add to wishlist success");
-};
-
-
 
   return (
     <>
       <div className="p-16 bg-white text-black max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Product Image */}
           <div className="relative border-[2px] border-[#7b1f4b] rounded-lg overflow-hidden group shadow-lg shadow-[#7b1f4b]/40">
             <img
               src={product.img}
@@ -184,7 +178,6 @@ const handleAddToWishlist = () => {
               </span>
             </div>
 
-            {/* Quantity Controls */}
             <div className="flex items-center gap-4 mb-6">
               <button onClick={decreaseQuantity} className="border px-3 py-1">
                 –
@@ -196,7 +189,6 @@ const handleAddToWishlist = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row sm:space-x-3">
-              {/* Add to Cart Button */}
               <button
                 onClick={handleAddToCart}
                 className="bg-[#7b1f4b] text-white px-6 py-2 rounded hover:bg-[#d4749e] mb-3 sm:mb-0"
@@ -204,7 +196,6 @@ const handleAddToWishlist = () => {
                 ADD TO CART
               </button>
 
-              {/* Add to Wishlist Button */}
               <button
                 onClick={handleAddToWishlist}
                 className="border border-[#7b1f4b] px-6 py-2 rounded hover:bg-gray-100"
@@ -213,7 +204,6 @@ const handleAddToWishlist = () => {
               </button>
             </div>
 
-            {/* Benefits */}
             <div className="bg-gray-100 border border-gray-300 p-4 rounded mt-2">
               <h3 className="font-semibold text-lg mb-2">
                 Benefits of {product.title}:

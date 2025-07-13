@@ -1,5 +1,3 @@
-// src/components/filters/BrandFilter.tsx
-
 interface BrandFilterProps {
   brands: string[];
   selected: string[];

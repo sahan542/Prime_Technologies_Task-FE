@@ -14,7 +14,6 @@ const wishlistSlice = createSlice({
   initialState,
   reducers: {
     addToWishlist: (state, action: PayloadAction<TProduct>) => {
-      // Check if already exists to prevent duplicates
       const exists = state.items.find(
         (item) => item.id === action.payload.id
       );

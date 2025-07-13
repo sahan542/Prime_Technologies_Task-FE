@@ -1,18 +1,17 @@
-"use client"; // This tells Next.js that this is a client component
+"use client"; 
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Carousel component
 const BrandCarousel = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 4000, // Slow smooth transition duration
+    speed: 4000,
     autoplay: true,
-    autoplaySpeed: 0, // No delay between slides
-    cssEase: "linear", // Linear easing for ticker-like effect
+    autoplaySpeed: 0, 
+    cssEase: "linear", 
     slidesToShow: 5,
     slidesToScroll: 1,
     pauseOnHover: false,
@@ -53,8 +52,8 @@ const BrandCarousel = () => {
   };
 
   return (
-    <div className="container mx-auto py-12 px-4">
-      <h2 className="font-bold text-2xl pb-4 text-[#7b1f4b]">Our Brands</h2>
+    <div className="container mx-auto py-4 px-4">
+      <h2 className="font-bold text-2xl pb-4 text-[#7b1f4b] mb-2">Our Brands</h2>
       <Slider {...settings}>
         {[
           "/images/home/brand/b1.jpg",

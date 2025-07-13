@@ -34,16 +34,17 @@ export default function PrivacyPolicyModal({ isOpen, closeModal }: Props) {
         </div>
         <p className="bg-[#f4dce6]/30">
           <p className="text-black text-justify px-2 py-2">
-Welcome to <b className="text-[#7b1f4b]">BrissBella</b>, your trusted skincare e-commerce destination. 
-By accessing or purchasing from our website, you agree to our terms. 
-All product descriptions, pricing, and availability are subject to change without notice. 
-Orders are subject to confirmation and stock availability.<br></br>
-<b className="text-[#7b1f4b]">Privacy & Policy:</b> At BrissBella, we respect your privacy. 
-We collect personal data such as name, email, address, and payment details solely to process orders, improve our services, and provide customer support. 
-By using our site, you agree to the practices outlined in this privacy policy.
-
+            Welcome to <b className="text-[#7b1f4b]">BrissBella</b>, your
+            trusted skincare e-commerce destination. By accessing or purchasing
+            from our website, you agree to our terms. All product descriptions,
+            pricing, and availability are subject to change without notice.
+            Orders are subject to confirmation and stock availability.<br></br>
+            <b className="text-[#7b1f4b]">Privacy & Policy:</b> At BrissBella,
+            we respect your privacy. We collect personal data such as name,
+            email, address, and payment details solely to process orders,
+            improve our services, and provide customer support. By using our
+            site, you agree to the practices outlined in this privacy policy.
           </p>
-
         </p>
       </div>
     </div>,

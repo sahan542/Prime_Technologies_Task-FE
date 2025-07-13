@@ -23,11 +23,11 @@ const persistConfig = {
 };
 const cartPersistConfig = {
   key: "moTeCart",
-  storage: createExpireStorage(2 * 24 * 60 * 60 * 1000), // use custom storage with iteration of custom time expiry. (here -> 2 days)
+  storage: createExpireStorage(2 * 24 * 60 * 60 * 1000), 
 };
 const wishlistPersistConfig = {
   key: "moTeWishlist",
-  storage: createExpireStorage(7 * 24 * 60 * 60 * 1000), // use custom storage with iteration of custom time expiry. (here -> 7 days)
+  storage: createExpireStorage(7 * 24 * 60 * 60 * 1000),
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);

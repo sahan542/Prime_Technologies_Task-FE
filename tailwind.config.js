@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: '#F97316' // OR change it to your desired accent color
+        accent: '#F97316' 
       }
     },
   },

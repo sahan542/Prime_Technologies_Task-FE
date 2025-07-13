@@ -5,18 +5,17 @@ import { toast } from "react-toastify";
 
 
 interface AddReviewProps {
-  product_id: number;  // Accept product_id as a prop
+  product_id: number;  
 }
 
 const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
   const [review, setReview] = useState('');
-  const [rating, setRating] = useState(0);  // Rating state to store selected stars
+  const [rating, setRating] = useState(0); 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const token = useSelector((state: RootState) => state.auth.token);
   console.log("add review from Redux:", token);
 
-  // Function to handle the submission of the review
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -34,7 +33,7 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,  // Pass the token in the headers
+          'Authorization': `Bearer ${token}`, 
         },
         body: JSON.stringify(payload),
       });
@@ -43,7 +42,7 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
         toast.success("review added successful!");
         console.log('Review submitted successfully');
         setReview('');
-        setRating(0);  // Reset the rating
+        setRating(0); 
       } else {
         toast.error("Error submitting review!");
         console.error('Error submitting review:', response.statusText);
@@ -61,13 +60,12 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
     <div className="add-review mb-5">
       <h3>Add a Review</h3>
 
-      {/* Star Rating */}
       <div className="stars mt-4">
         {[1, 2, 3, 4, 5].map((star) => (
           <span
             key={star}
             className={`cursor-pointer text-3xl gap-2 ${star <= rating ? 'text-yellow-500' : 'text-gray-300'}`}
-            onClick={() => setRating(star)} // Set the rating when a star is clicked
+            onClick={() => setRating(star)} 
           >
             ★
           </span>
@@ -75,7 +73,6 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="mt-4">
-        {/* Review Input */}
         <textarea
           value={review}
           onChange={(e) => setReview(e.target.value)}

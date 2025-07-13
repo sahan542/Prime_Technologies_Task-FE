@@ -9,7 +9,6 @@ import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ActiveLink from "../ActiveLink";
-import SearchInput from "./SearchInput";
 
 export function MobileMenu({
   categories,
@@ -37,24 +36,20 @@ export function MobileMenu({
   return (
     <div className="flex flex-col h-full overflow-auto px-4 -mt-8 bg-secondary text-white">
       <div className="mb-4">
-        <SearchInput />
       </div>
       <nav className="flex-1 space-y-1">
-        {/* Home Link */}
         <div className="">
           <ActiveLink href="/" exact className="py-2 rounded-md">
             Home
           </ActiveLink>
         </div>
 
-        {/* Products Link */}
         <div className="">
           <ActiveLink href="/products" className="py-2 rounded-md">
             Products
           </ActiveLink>
         </div>
 
-        {/* Categories */}
         {categories.map((category) => (
           <div key={category._id} className="py-1">
             <div className="flex w-full items-center justify-between rounded-md py-2">
@@ -114,7 +109,6 @@ export function MobileMenu({
           </div>
         ))}
 
-        {/* About Us Link */}
         <div className="py-1">
           <div className="flex w-full items-center justify-between rounded-md py-2">
             <ActiveLink href={`/about`}>
@@ -125,7 +119,6 @@ export function MobileMenu({
           </div>
         </div>
 
-        {/* Contact Us Link */}
         <div className="py-1">
           <div className="flex w-full items-center justify-between rounded-md py-2">
             <ActiveLink href={`/contact`}>

@@ -7,12 +7,10 @@ import {
 } from "@/utils/local-storage";
 import { JwtPayload } from "jwt-decode";
 
-// store user info into local storage
 export const storeUserInfo = ({ accessToken }: { accessToken: string }) => {
   return setToLocalStorage(authKey, accessToken);
 };
 
-// get user info from local storage
 export const getUserInfo = () => {
   const authToken = getFromLocalStorage(authKey);
 
@@ -22,7 +20,6 @@ export const getUserInfo = () => {
   }
 };
 
-// remove user info from local storage
 export const removeUser = () => {
   return removeFromLocalStorage(authKey);
 };
