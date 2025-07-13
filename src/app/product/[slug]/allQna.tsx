@@ -30,7 +30,7 @@ const AllQna: React.FC<AllqnaProps> = ({ product_id }) => {
     
       const fetchQuestions = async (productId: number) => {
         try {
-          const response = await fetch(`http://localhost:8000/api/qna/product/${productId}`, {
+          const response = await fetch(`http://64.227.146.100:8000/api/qna/product/${productId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

@@ -25,7 +25,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ title, products = [] 
   const fetchProductsByCategory = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/products/category/${title}`
+        `http://64.227.146.100:8000/api/products/category/${title}`
       );
       setFetchedProducts(response.data);
     } catch (error) {

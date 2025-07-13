@@ -14,7 +14,7 @@ const NewProducts = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:8000/api/products?page=${page}&limit=${pagination.limit}`
+        `http://64.227.146.100:8000/api/products?page=${page}&limit=${pagination.limit}`
       );
       if (!res.ok) throw new Error('Failed to fetch products');
       const data = await res.json();

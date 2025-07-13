@@ -27,7 +27,7 @@ const AllReviews: React.FC<AllReviewsProps> = ({ product_id }) => {
 
   const fetchReviews = async (productId: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/reviews/product/${productId}`, {
+      const response = await fetch(`http://64.227.146.100:8000/api/reviews/product/${productId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
