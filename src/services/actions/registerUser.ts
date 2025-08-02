@@ -4,7 +4,7 @@ type RegisterPayload = {
 };
 
 export const registerUser = async (userData: RegisterPayload): Promise<any> => {
-  const res = await fetch("http://64.227.146.100:8000/auth/signup", {
+  const res = await fetch("http://localhost:8000/auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

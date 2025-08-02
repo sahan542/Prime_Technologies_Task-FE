@@ -25,7 +25,7 @@ const AddQna: React.FC<AddQnaProps> = ({ product_id }) => {
 
     try {
       console.log("inside try block");
-      const response = await fetch('http://64.227.146.100:8000/api/qna/ask', {
+      const response = await fetch('http://localhost:8000/api/qna/ask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

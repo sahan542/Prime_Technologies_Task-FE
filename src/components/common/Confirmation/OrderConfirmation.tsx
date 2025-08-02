@@ -47,7 +47,7 @@ export default function OrderConfirmation({ orderId }: { orderId: string }) {
         order.items.map(async (item) => {
           try {
             const res = await fetch(
-              `http://64.227.146.100:8000/api/admin/products/${item.product_id}`,
+              `http://localhost:8000/api/admin/products/${item.product_id}`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,

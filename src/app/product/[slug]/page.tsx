@@ -44,7 +44,7 @@ export default function ProductPage({
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await fetch(`http://64.227.146.100:8000/api/products/${slug}`);
+      const res = await fetch(`http://localhost:8000/api/products/${slug}`);
       console.log("hello : ", res);
       if (res.ok) {
         const data: Product = await res.json();

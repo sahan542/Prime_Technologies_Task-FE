@@ -77,7 +77,7 @@ const settings = {
       try {
         const encodedCategory = encodeURIComponent(categoryName);
         const res = await axios.get<Product[]>(
-          `http://64.227.146.100:8000/api/products/category/${encodedCategory}`
+          `http://localhost:8000/api/products/category/${encodedCategory}`
         );
         setProducts(res.data);
       } catch (error) {

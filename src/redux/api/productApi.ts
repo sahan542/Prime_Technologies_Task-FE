@@ -12,7 +12,7 @@ const productApi = baseApi.injectEndpoints({
     }),
     getSingleProduct: builder.query({
       query: (slug: string) => ({
-        url: `http://64.227.146.100:8000/api/products/${slug}`,
+        url: `http://localhost:8000/api/products/${slug}`,
         method: "GET",
       }),
       providesTags: ["product"],

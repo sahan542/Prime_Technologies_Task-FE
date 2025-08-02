@@ -29,7 +29,7 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
     };
 
     try {
-      const response = await fetch('http://64.227.146.100:8000/api/reviews/add-new', {
+      const response = await fetch('http://localhost:8000/api/reviews/add-new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -38,7 +38,7 @@ interface ProductFilters {
   max_price?: number;
 }
 
-const BASE_URL = 'http://64.227.146.100:8000/api';
+const BASE_URL = 'http://localhost:8000/api';
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
@@ -75,7 +75,7 @@ export const fetchProducts = createAsyncThunk(
       params.append('limit', filters.limit.toString());
     }
 
-    const res = await axios.get(`http://64.227.146.100:8000/api/products?${params.toString()}`);
+    const res = await axios.get(`http://localhost:8000/api/products?${params.toString()}`);
     return res.data;
   }
 );
