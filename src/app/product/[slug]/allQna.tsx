@@ -5,6 +5,8 @@ import { IoClose } from "react-icons/io5";
 import AddQna from "./AddQna";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import axiosInstance from "@/app/api/axiosInstance";
+import { API_ENDPOINTS } from "@/app/api/endpoints";
 
 interface Qna {
   id: number;
@@ -30,16 +32,20 @@ const AllQna: React.FC<AllqnaProps> = ({ product_id }) => {
     
       const fetchQuestions = async (productId: number) => {
         try {
-          const response = await fetch(`http://localhost:8000/api/qna/product/${productId}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-          console.log("response sahan : ",response);
+          // const response = await fetch(`http://localhost:8000/api/qna/product/${productId}`, {
+          //   method: 'GET',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          // });
+          // console.log("response sahan : ",response);
 
-          if (response.ok) {
-            const qnas = await response.json();
+          const response = await axiosInstance.get<Qna[]>(
+            API_ENDPOINTS.GET_QUESTIONS_BY_ID(productId)
+          )
+
+          if (response.status === 200) {
+            const qnas = response.data;
             setQnaSets(qnas);
             console.log('Reviews fetched successfully:', qnas);
             return qnas; 

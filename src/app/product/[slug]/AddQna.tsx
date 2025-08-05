@@ -1,3 +1,5 @@
+import axiosInstance from '@/app/api/axiosInstance';
+import { API_ENDPOINTS } from '@/app/api/endpoints';
 import { RootState } from '@/redux/store';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -24,19 +26,24 @@ const AddQna: React.FC<AddQnaProps> = ({ product_id }) => {
     };
 
     try {
-      console.log("inside try block");
-      const response = await fetch('http://localhost:8000/api/qna/ask', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,  
-        },
-        body: JSON.stringify(payload),
-      });
-      console.log("response inside try: ",response);
+      // const response = await fetch('http://localhost:8000/api/qna/ask', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Bearer ${token}`,  
+      //   },
+      //   body: JSON.stringify(payload),
+      // });
+      // console.log("response inside try: ",response);
+      // console.log("inside try block");
+
+      const response = await axiosInstance.post(
+        API_ENDPOINTS.ASK_QUESTIONS,
+        payload
+      );
 
 
-      if (response.ok) {
+      if (response.status === 200) {
         toast.success("Added question successfully!");
         console.log('Question submitted successfully');
         setQuestion('');

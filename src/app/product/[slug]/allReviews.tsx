@@ -5,6 +5,8 @@ import AddReview from "./AddReview";
 import { IoClose } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import axiosInstance from "@/app/api/axiosInstance";
+import { API_ENDPOINTS } from "@/app/api/endpoints";
 
 interface Review {
   id: number;
@@ -27,16 +29,20 @@ const AllReviews: React.FC<AllReviewsProps> = ({ product_id }) => {
 
   const fetchReviews = async (productId: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/reviews/product/${productId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log("response sahan : ",response);
+      // const response = await fetch(`http://localhost:8000/api/reviews/product/${productId}`, {
+      //   method: 'GET',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // });
+      // console.log("response sahan : ",response);
 
-      if (response.ok) {
-        const reviews = await response.json();
+      const response = await axiosInstance.get<Review[]>(
+        API_ENDPOINTS.GET_REVIEWS_BY_ID(productId)
+      );
+
+      if (response.status === 200) {
+        const reviews = response.data;
         setReviews(reviews);
         console.log('Reviews fetched successfully:', reviews);
         return reviews; 

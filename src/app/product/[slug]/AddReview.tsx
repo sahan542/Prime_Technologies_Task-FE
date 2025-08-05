@@ -1,3 +1,5 @@
+import axiosInstance from '@/app/api/axiosInstance';
+import { API_ENDPOINTS } from '@/app/api/endpoints';
 import { RootState } from '@/redux/store';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -29,16 +31,21 @@ const AddReview: React.FC<AddReviewProps> = ({ product_id }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/api/reviews/add-new', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, 
-        },
-        body: JSON.stringify(payload),
-      });
+      // const response = await fetch('http://localhost:8000/api/reviews/add-new', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Bearer ${token}`, 
+      //   },
+      //   body: JSON.stringify(payload),
+      // });
 
-      if (response.ok) {
+      const response = await axiosInstance.post(
+        API_ENDPOINTS.ADD_REVIEW,
+        payload
+      )
+
+      if (response.status === 200) {
         toast.success("review added successful!");
         console.log('Review submitted successfully');
         setReview('');

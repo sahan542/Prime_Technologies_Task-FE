@@ -7,6 +7,8 @@ import ProductCard from "./ProductCard";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import axiosInstance from "@/app/api/axiosInstance";
+import { API_ENDPOINTS } from "@/app/api/endpoints";
 
 interface Product {
   id: number;
@@ -75,11 +77,18 @@ const settings = {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const encodedCategory = encodeURIComponent(categoryName);
-        const res = await axios.get<Product[]>(
-          `http://localhost:8000/api/products/category/${encodedCategory}`
+        // const encodedCategory = encodeURIComponent(categoryName);
+        // const res = await axios.get<Product[]>(
+        //   `http://localhost:8000/api/products/category/${encodedCategory}`
+        // );
+        // setProducts(res.data);
+        const response = await axiosInstance.get<Product[]>(
+          API_ENDPOINTS.GET_PRODUCTS_BY_CATEGORY(categoryName)
         );
-        setProducts(res.data);
+        console.log("response in 88 line of Category cour: ",response);
+        setProducts(response.data);
+
+
       } catch (error) {
         console.error("Failed to fetch products", error);
       } finally {

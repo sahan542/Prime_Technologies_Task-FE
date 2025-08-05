@@ -11,14 +11,13 @@ export const API_ENDPOINTS = {
   GET_CLIENT_ORDERS: "lead/get-all-client-orders-paginated",
   GET_ADMIN_ORDERS: "admin/orders?page=${currentPage}&limit=8",
 
-  GET_ALL_PRODUCTS: "admin/products/products?page=${currentPage}&limit=8",
-  DELETE_PRODUCT_BYID: "admin/products/${productIdToDelete}",
-  EDIT_PRODUCT_BYID: "admin/products/${id}/edit",
-  GET_PRODUCT_BYID: "admin/products/${id}",
-  ADD_NEW_PRODUCT: "admin/products/",
+  GET_PRODUCT_BY_SLUG: (slug: string) => `products/${slug}`,
+  GET_PRODUCTS_BY_CATEGORY: (categoryName: string) => `products/category/${encodeURIComponent(categoryName)}`,
 
-
-
+  ASK_QUESTIONS: "qna/ask",
+  GET_QUESTIONS_BY_ID: (productId: number) => `qna/product/${productId}`,
+  ADD_REVIEW: "reviews/add-new",
+  GET_REVIEWS_BY_ID: (productId: number) => `reviews/product/${productId}`,
 
 
   GET_ALL_USERS: "admin/users?page=${currentPage}&limit=8",

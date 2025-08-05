@@ -12,7 +12,7 @@ import CategoryCarousel from "@/components/CategoryCarousel";
 
 
 export default function Home() {
-const targetDate = new Date('2025-07-30T23:59:59');
+const targetDate = new Date('2026-08-30T23:59:59');
 
   return (
     <main className="flex flex-col items-center justify-start  overflow-x-hidden">

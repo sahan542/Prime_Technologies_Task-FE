@@ -13,6 +13,8 @@ import { useGetSingleProductQuery } from "@/redux/api/productApi";
 import { RootState } from "@/redux/store";
 import ReviewQAPublic from "./ReviewQAPublic";
 import NewProducts from "@/components/NewProducts";
+import axiosInstance from "@/app/api/axiosInstance";
+import { API_ENDPOINTS } from "@/app/api/endpoints";
 
 interface Product {
   id: number;
@@ -40,14 +42,17 @@ export default function ProductPage({
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const token = useSelector((state: RootState) => state.auth.token);
-  console.log("Access Token from Redux 203:", token);
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await fetch(`http://localhost:8000/api/products/${slug}`);
-      console.log("hello : ", res);
-      if (res.ok) {
-        const data: Product = await res.json();
+      // const res = await fetch(`http://localhost:8000/api/products/${slug}`);
+      // console.log("hello : ", res);
+      const response = await axiosInstance.get<Product>(
+          API_ENDPOINTS.GET_PRODUCT_BY_SLUG(slug)
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
         setProduct(data);
       } else {
         setProduct(null);
@@ -142,7 +147,7 @@ export default function ProductPage({
       __v: 0,
     };
 
-    dispatch(addToWishlist(mappedProduct)); // ✅ remove wrapping with { product: ... }
+    dispatch(addToWishlist(mappedProduct));
     toast.success("Add to wishlist success");
   };
 
