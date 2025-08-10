@@ -29,6 +29,11 @@ export const API_ENDPOINTS = {
   UPDATE_REVIEW_PUBLIC_STATUS: "admin/reviews/${reviewId}?is_public=${updatedIsPublic}",
   DELETE_REVIEW_BYID: "admin/reviews/${reviewId}",
 
+  PRODUCTS: "/api/products",
+  PRODUCTS_SET: "/products",
+
+
+
 
 
   STATUS_CHANGE: "lead/update-order-status",

@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
+import axiosInstance from '@/app/api/axiosInstance';
+import { API_ENDPOINTS } from '@/app/api/endpoints';
 
 const NewProducts = () => {
   const [productsData, setProductsData] = useState<any[]>([]);
@@ -13,11 +15,14 @@ const NewProducts = () => {
   const fetchProducts = async (page = 1) => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `http://localhost:8000/api/products?page=${page}&limit=${pagination.limit}`
-      );
-      if (!res.ok) throw new Error('Failed to fetch products');
-      const data = await res.json();
+      const response = await axiosInstance.get(API_ENDPOINTS.PRODUCTS_SET, {
+        params: {
+          page,
+          limit: pagination.limit,
+        },
+      });
+      const data = response.data;
+      console.log("new products : ",data);
 
       if (Array.isArray(data.items)) {
         setProductsData(data.items);

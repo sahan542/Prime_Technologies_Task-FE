@@ -19,7 +19,7 @@ const isTokenExpired = (token: string | null): boolean => {
 };
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000/api/", 
+  baseURL: "http://localhost:8000/api/",  // Default base URL
   timeout: 10000, 
   headers: {
     "Content-Type": "application/json",
@@ -30,6 +30,11 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const state = store.getState();  
     const token = state.auth.token;  
+
+    // Check if the URL contains 'auth/login' or 'auth/register' to bypass /api prefix
+    if (config.url && (config.url.includes("/auth/login") || config.url.includes("/auth/register"))) {
+      config.baseURL = "http://localhost:8000";  // Remove '/api' for login and register endpoints
+    }
 
     if (token && isTokenExpired(token)) {
       console.log("Token has expired. Redirecting to login.");

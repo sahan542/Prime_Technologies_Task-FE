@@ -24,6 +24,8 @@ import NoOrderFound from "./NoOrdersFound";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import axiosInstance from "@/app/api/axiosInstance";
+import { API_ENDPOINTS } from "@/app/api/endpoints";
 
 type TOrderItem = {
   _id: string;
@@ -39,31 +41,33 @@ export default function OrderConfirmation({ orderId }: { orderId: string }) {
 
   useEffect(() => {
     const fetchProductsForOrder = async () => {
-      if (!order?.items?.length) return;
+      if (!order?.items?.length || !token) return;
 
       const fetchedProducts: Record<number, any> = {};
 
-      await Promise.all(
-        order.items.map(async (item) => {
-          try {
-            const res = await fetch(
-              `http://localhost:8000/api/admin/products/${item.product_id}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-            const data = await res.json();
-            fetchedProducts[item.product_id] = data;
-          } catch (err) {
-            console.error(`Failed to fetch product ${item.product_id}`, err);
-          }
-        })
-      );
+      try {
+        await Promise.all(
+          order.items.map(async (item) => {
+            try {
+              const response = await axiosInstance.get(
+                `${API_ENDPOINTS.PRODUCTS_SET}/${item.product_id}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+              fetchedProducts[item.product_id] = response.data;
+            } catch (err) {
+              console.error(`Failed to fetch product ${item.product_id}`, err);
+            }
+          })
+        );
 
-      setProductMap(fetchedProducts);
+        setProductMap(fetchedProducts);
+      } catch (err) {
+        console.error("Error fetching products for order:", err);
+      }
     };
 
     fetchProductsForOrder();

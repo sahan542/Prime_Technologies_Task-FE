@@ -1,22 +1,18 @@
+import axiosInstance from "@/app/api/axiosInstance";
+import { API_ENDPOINTS } from "@/app/api/endpoints";
+
 type LoginPayload = {
   email: string;
   password: string;
 };
 
 export const loginUser = async (userData: LoginPayload): Promise<any> => {
-  const res = await fetch("http://localhost:8000/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to login. Check credentials.");
+  try {
+    const response = await axiosInstance.post(API_ENDPOINTS.LOGING, userData);
+    return response.data;
+  } catch (error) {
+    console.error('Login failed:', error);
+    throw new Error('Failed to login. Check credentials.');
   }
 
-  const userInfo = await res.json();
-  return userInfo;
-};
+}

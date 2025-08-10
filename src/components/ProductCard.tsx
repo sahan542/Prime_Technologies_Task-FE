@@ -18,8 +18,8 @@ interface PropsType {
   rating: number;
   price: string;
   slug: string;
-  onAddToCart: () => void; 
-  onAddToWishlist: () => void; 
+  onAddToCart: () => void;
+  onAddToWishlist: () => void;
 }
 
 const ProductCard: React.FC<PropsType> = ({
@@ -32,125 +32,116 @@ const ProductCard: React.FC<PropsType> = ({
   onAddToCart,
   onAddToWishlist,
 }) => {
-const generateRating = (rating: number) => {
-  const stars = [];
+  const generateRating = (rating: number) => {
+    const stars = [];
 
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
-  const totalFilled = hasHalfStar ? fullStars + 1 : fullStars;
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+    const totalFilled = hasHalfStar ? fullStars + 1 : fullStars;
 
-  for (let i = 1; i <= 5; i++) {
-    if (i <= fullStars) {
-      stars.push(<FaStar key={i} />);
-    } else if (i === fullStars + 1 && hasHalfStar) {
-      stars.push(<FaStarHalfAlt key={i} />);
-    } else {
-      stars.push(<FaRegStar key={i} />);
+    for (let i = 1; i <= 5; i++) {
+      if (i <= fullStars) {
+        stars.push(<FaStar key={i} />);
+      } else if (i === fullStars + 1 && hasHalfStar) {
+        stars.push(<FaStarHalfAlt key={i} />);
+      } else {
+        stars.push(<FaRegStar key={i} />);
+      }
     }
+
+    return <div className="flex gap-1 text-[20px] text-[#FF9529]">{stars}</div>;
+  };
+
+  const dispatch = useAppDispatch();
+  const { data: singleProduct, isLoading: isSingleProductLoading, isError: isSingleProductError } =
+    useGetSingleProductQuery(slug);
+
+  const cartItems = useAppSelector((state) =>
+    state.cart.items.filter((item) => item?.product?.id)
+  );
+  const wishlistItems = useAppSelector((state) => state.wishlist.items);
+
+  if (isSingleProductLoading) {
+    return <MyLoader />;
   }
 
-  return <div className="flex gap-1 text-[20px] text-[#FF9529]">{stars}</div>;
-};
+  if (isSingleProductError || !singleProduct) {
+    return <div>Failed to load product details.</div>;
+  }
 
-        const dispatch = useAppDispatch();
-        const { data: singleProduct, isLoading: isSingleProductLoading } =
-          useGetSingleProductQuery(slug);
-      
-        const cartItems = useAppSelector((state) =>
-          state.cart.items.filter(item => item?.product?.id)
-        );
-        const wishlistItems = useAppSelector((state) => state.wishlist.items);
-      
-        if (isSingleProductLoading) {
-          return <MyLoader />;
-        }
+  const handleAddToCart = () => {
+    const alreadyCart = cartItems.some(
+      (item) => item.product && item.product.id === singleProduct.id
+    );
 
-      const handleAddToCart = () => {
-        const alreadyCart = cartItems.some(
-          (item) => item.product && item.product.id === singleProduct.id
-        );
-        console.log("sahan new line 72 : ",singleProduct);
-    
-        if (alreadyCart) {
-          toast.error("Already you have added in cart!");
-        }
-        else if (singleProduct.sold_recently === 0) {
-          toast.error("Out of stock!");
-        } else {
-        const mappedProduct = {
-          id: singleProduct.id ?? `fallback-id-${singleProduct.slug}`,
-          name: singleProduct.title,
-          slug: singleProduct.slug,
-          description: singleProduct.description,
-          image: singleProduct.img,
-          images: singleProduct.images ?? [],
-          category: singleProduct.category,
-          price: singleProduct.price,
-          stock: singleProduct.stock ?? 0,
-          tags: singleProduct.tags ?? [],
-          totalReviews: singleProduct.totalReviews ?? 0,
-          averageRatings: singleProduct.averageRatings ?? 0,
-          salesCount: singleProduct.soldRecently ?? 0,
-          isDeleted: false,
-          createdAt: singleProduct.createdAt ?? new Date().toISOString(),
-          updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
-          discount: singleProduct.discount ?? 0,
-          __v: 0,
-        };
-    
-        dispatch(addToCart({ product: mappedProduct, quantity: 1 }));
-    
-    
-          toast.success("Add to cart success");
-        }
+    if (alreadyCart) {
+      toast.error("Already you have added in cart!");
+    } else if (singleProduct.sold_recently === 0) {
+      toast.error("Out of stock!");
+    } else {
+      const mappedProduct = {
+        id: singleProduct.id ?? `fallback-id-${singleProduct.slug}`,
+        name: singleProduct.title,
+        slug: singleProduct.slug,
+        description: singleProduct.description,
+        image: singleProduct.img,
+        images: singleProduct.images ?? [],
+        category: singleProduct.category,
+        price: singleProduct.price,
+        stock: singleProduct.stock ?? 0,
+        tags: singleProduct.tags ?? [],
+        totalReviews: singleProduct.totalReviews ?? 0,
+        averageRatings: singleProduct.averageRatings ?? 0,
+        salesCount: singleProduct.soldRecently ?? 0,
+        isDeleted: false,
+        createdAt: singleProduct.createdAt ?? new Date().toISOString(),
+        updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
+        discount: singleProduct.discount ?? 0,
+        __v: 0,
       };
 
-        const handleAddToWishlist = () => {
-          const productId = singleProduct.id || singleProduct._id;
+      dispatch(addToCart({ product: mappedProduct, quantity: 1 }));
 
-          const wishlistItem = {
-            product_id: Number(productId),
-            id: Number(productId),
-            name: title,
-            price: price,
-            quantity: 1,
-            slug: slug,
-            description: singleProduct.description,
-            image: singleProduct.img,
-            images: singleProduct.images ?? [],
-            category: singleProduct.category,
-            stock: singleProduct.stock ?? 0,
-            tags: singleProduct.tags ?? [],
-            totalReviews: singleProduct.totalReviews ?? 0,
-            averageRatings: singleProduct.averageRatings ?? 0,
-            salesCount: singleProduct.soldRecently ?? 0,
-            isDeleted: false,
-            createdAt: singleProduct.createdAt ?? new Date().toISOString(),
-            updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
-            discount: singleProduct.discount ?? 0,
-            __v: 0,
-          };
-          console.log("wish list item : ",wishlistItem);
+      toast.success("Add to cart success");
+    }
+  };
 
-          dispatch(addToWishlist(wishlistItem)); 
-          toast.success("Add to wishlist success");
+  const handleAddToWishlist = () => {
+    const productId = singleProduct.id || singleProduct._id;
 
-        };
+    const wishlistItem = {
+      product_id: Number(productId),
+      id: Number(productId),
+      name: title,
+      price: price,
+      quantity: 1,
+      slug: slug,
+      description: singleProduct.description,
+      image: singleProduct.img,
+      images: singleProduct.images ?? [],
+      category: singleProduct.category,
+      stock: singleProduct.stock ?? 0,
+      tags: singleProduct.tags ?? [],
+      totalReviews: singleProduct.totalReviews ?? 0,
+      averageRatings: singleProduct.averageRatings ?? 0,
+      salesCount: singleProduct.soldRecently ?? 0,
+      isDeleted: false,
+      createdAt: singleProduct.createdAt ?? new Date().toISOString(),
+      updatedAt: singleProduct.updatedAt ?? new Date().toISOString(),
+      discount: singleProduct.discount ?? 0,
+      __v: 0,
+    };
 
-  
+    dispatch(addToWishlist(wishlistItem));
+    toast.success("Add to wishlist success");
+  };
 
   return (
     <div className="w-full max-w-[400px]">
-<div className="relative px-2 py-1 border-[2px] border-[#7b1f4b] rounded-2xl shadow-sm hover:shadow-2xl transition group">
+      <div className="relative px-2 py-1 border-[2px] border-[#7b1f4b] rounded-2xl shadow-sm hover:shadow-2xl transition group">
         <div className="">
           <Link href={`/product/${slug}`}>
-            <Image
-              className="w-full h-auto"
-              src={img}
-              width={200}
-              height={200}
-              alt={title}
-            />
+            <Image className="w-full h-auto" src={img} width={200} height={200} alt={title} />
           </Link>
 
           <hr className="border-t border-[#52002c] sm:border-t-2 w-full my-2" />
@@ -163,7 +154,7 @@ const generateRating = (rating: number) => {
 
           <p className="text-gray-600 text-xs sm:text-sm">{desc}</p>
 
-          <div className="mt-1">{generateRating(singleProduct.average_ratings ?? 0)}</div>
+          <div className="mt-1">{generateRating(singleProduct.averageRatings ?? 0)}</div>
 
           <div className="font-bold flex gap-2 sm:gap-4 text-black mt-1 text-sm sm:text-base">
             ${price}

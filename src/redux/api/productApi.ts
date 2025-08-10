@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from "@/app/api/endpoints";
 import { baseApi } from "./baseApi";
 
 const productApi = baseApi.injectEndpoints({
@@ -12,7 +13,7 @@ const productApi = baseApi.injectEndpoints({
     }),
     getSingleProduct: builder.query({
       query: (slug: string) => ({
-        url: `http://localhost:8000/api/products/${slug}`,
+        url: `${API_ENDPOINTS.PRODUCTS}/${slug}`,
         method: "GET",
       }),
       providesTags: ["product"],
