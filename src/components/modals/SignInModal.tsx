@@ -94,8 +94,8 @@ export default function SignInModal({
   if (!isOpen || !mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 bg-transparent flex items-center justify-center z-[9999] border-1 border-[#7b1f4b]">
-      <div className="bg-white bg-opacity-90 p-6 rounded-lg max-w-md w-full shadow-2xl shadow-[#7b1f4b] mx-4 sm:mx-6 ">
+<div className="fixed inset-0 bg-[#7b1f4b]/10 backdrop-blur-xs flex items-center justify-center z-[9999] border border-[#7b1f4b]">
+      <div className="bg-white p-6 rounded-[8px] max-w-md w-full shadow-2xl shadow-[#7b1f4b] mx-4 sm:mx-6 ">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl text-[#7b1f4b]">
             <b>Sign In</b>
